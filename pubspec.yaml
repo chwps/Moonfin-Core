@@ -46,6 +46,7 @@ dependencies:
 
   # Image Loading
   cached_network_image: ^3.4.1
+  flutter_svg: ^2.2.1
 
   # Crypto
   crypto: ^3.0.6

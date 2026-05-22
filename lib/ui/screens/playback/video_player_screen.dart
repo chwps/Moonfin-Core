@@ -44,6 +44,7 @@ import '../../navigation/destinations.dart';
 import '../../widgets/subtitle_preview.dart';
 import '../../widgets/remote_play_to_session_dialog.dart';
 import '../../widgets/track_selector_dialog.dart';
+import '../../widgets/playback/player_loading_overlay.dart';
 import '../../widgets/playback/skip_segment_overlay.dart';
 import '../../widgets/playback/next_up_overlay.dart';
 import '../../widgets/playback/still_watching_dialog.dart';
@@ -62,6 +63,7 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen>
     with WidgetsBindingObserver, WindowListener {
   static final _camelCaseSpaceRe = RegExp(r'(?<=[a-z])(?=[A-Z])');
+  static const _streamLoadingLabel = 'Loading Stream...';
   static const _tvTemporarySpeed = 2.0;
   static const _tvTemporarySpeedHoldDelay = Duration(milliseconds: 420);
   static const _seekPromptSuppressionDuration = Duration(milliseconds: 1200);
@@ -82,8 +84,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
   final _themeMusicService = GetIt.instance<ThemeMusicService>();
   final SyncPlayManager? _syncPlayManager =
       GetIt.instance.isRegistered<SyncPlayManager>()
-          ? GetIt.instance<SyncPlayManager>()
-          : null;
+      ? GetIt.instance<SyncPlayManager>()
+      : null;
   late MediaSegmentService _segmentService;
 
   PlayerBackend? get _activeBackend => _manager.backend;
@@ -641,7 +643,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
       }
 
       final rangeType =
-          (stream['VideoRangeType']?.toString() ?? stream['VideoRange']?.toString() ?? '')
+          (stream['VideoRangeType']?.toString() ??
+                  stream['VideoRange']?.toString() ??
+                  '')
               .toUpperCase();
       if (rangeType.isEmpty || rangeType == 'SDR') {
         continue;
@@ -1840,7 +1844,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
   }
 
   void _syncMediaQueuingPreference() {
-    _manager.autoAdvanceEnabled = _prefs.get(UserPreferences.mediaQueuingEnabled);
+    _manager.autoAdvanceEnabled = _prefs.get(
+      UserPreferences.mediaQueuingEnabled,
+    );
   }
 
   void _suppressSeekPrompts({
@@ -2861,15 +2867,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
                 ? _onVerticalDragUpdate
                 : null,
             onVerticalDragEnd: PlatformDetection.isTV
-              ? null
-              : PlatformDetection.useMobileUi && !_isOsdLocked
-              ? _onVerticalDragEnd
-              : null,
+                ? null
+                : PlatformDetection.useMobileUi && !_isOsdLocked
+                ? _onVerticalDragEnd
+                : null,
             onVerticalDragCancel: PlatformDetection.isTV
-              ? null
-              : PlatformDetection.useMobileUi && !_isOsdLocked
-              ? _onVerticalDragCancel
-              : null,
+                ? null
+                : PlatformDetection.useMobileUi && !_isOsdLocked
+                ? _onVerticalDragCancel
+                : null,
             onPanDown: PlatformDetection.useDesktopUi
                 ? (_) => _showControls()
                 : null,
@@ -3065,20 +3071,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
         phase == PlaybackBringupPhase.seekingResume;
   }
 
-  String _bringupLabel(BuildContext context) {
+  String _bringupLabel() {
     switch (_bringupState.phase) {
       case PlaybackBringupPhase.stoppingPrevious:
         return 'Stopping previous playback...';
       case PlaybackBringupPhase.resolving:
-        return 'Resolving stream...';
       case PlaybackBringupPhase.opening:
-        return 'Opening playback...';
       case PlaybackBringupPhase.waitingForReady:
-        return 'Buffering...';
+        return _streamLoadingLabel;
       case PlaybackBringupPhase.seekingResume:
         return 'Restoring position...';
       default:
-        return 'Starting playback...';
+        return _streamLoadingLabel;
     }
   }
 
@@ -3093,47 +3097,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.45),
           ),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 340),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: const Color(0xCC101010),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.14),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.spaceLg,
-                    vertical: AppSpacing.spaceMd,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        width: 18,
-                        height: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2.2),
-                      ),
-                      const SizedBox(width: AppSpacing.spaceMd),
-                      Expanded(
-                        child: Text(
-                          _bringupLabel(context),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: AppTypography.fontSizeMd,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          child: Center(child: PlayerLoadingOverlay(label: _bringupLabel())),
         ),
       ),
     );
@@ -3144,9 +3108,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
       stream: _state.bufferingStream,
       initialData: _state.isBuffering,
       builder: (context, snap) {
-        if (snap.data != true) return const SizedBox.shrink();
-        return Center(
-          child: CircularProgressIndicator(color: AppColorScheme.accent),
+        if (snap.data != true || _isBringupInProgress(_bringupState.phase)) {
+          return const SizedBox.shrink();
+        }
+        return const Center(
+          child: PlayerLoadingOverlay(
+            label: _streamLoadingLabel,
+            logoSize: 160,
+            labelSpacing: 40,
+          ),
         );
       },
     );
@@ -3377,7 +3347,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
       episodeInfo = null;
     }
 
-    final titleText = [?episodeInfo, title].where((s) => s.isNotEmpty).join(' - ');
+    final titleText = [
+      ?episodeInfo,
+      title,
+    ].where((s) => s.isNotEmpty).join(' - ');
     final logoUrl = _logoUrlForQueueItem(item);
 
     return Column(
@@ -3464,8 +3437,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
     final type = (raw['Type'] as String?)?.trim();
 
     if (type == 'Episode') {
-      logoItemId = (raw['ParentLogoItemId'] as String?) ??
-          (raw['SeriesId'] as String?);
+      logoItemId =
+          (raw['ParentLogoItemId'] as String?) ?? (raw['SeriesId'] as String?);
       logoTag = raw['ParentLogoImageTag'] as String?;
     } else {
       final imageTags = raw['ImageTags'];
@@ -5115,8 +5088,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
                 final subtitleType =
                     ((codec == null || codec.isEmpty) ? 'Unknown' : codec)
                         .toUpperCase();
-                final deliveryMethod =
-                    (s['DeliveryMethod'] as String?)?.trim().toLowerCase();
+                final deliveryMethod = (s['DeliveryMethod'] as String?)
+                    ?.trim()
+                    .toLowerCase();
                 final location = s['IsExternal'] == true
                     ? 'External'
                     : (deliveryMethod == 'embed' ? 'Embedded' : 'Internal');
