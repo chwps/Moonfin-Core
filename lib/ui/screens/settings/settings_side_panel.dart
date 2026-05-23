@@ -1777,6 +1777,13 @@ class _VideoPlaybackScreen extends StatelessWidget {
             },
           ),
           SwitchPreferenceTile(
+            preference: UserPreferences.replaceSkipOutroWithNextUp,
+            title: 'Replace skip outro with Next Up',
+            subtitle:
+                'Show the Next Up overlay instead of skipping outros immediately.',
+            icon: Icons.skip_next,
+          ),
+          SwitchPreferenceTile(
             preference: UserPreferences.showDescriptionOnPause,
             title: l10n.showDescriptionOnPause,
             subtitle: l10n.dimVideoShowOverview,

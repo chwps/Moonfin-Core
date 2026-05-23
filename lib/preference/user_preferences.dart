@@ -447,6 +447,12 @@ class UserPreferences extends ChangeNotifier {
     key: 'media_segment_actions',
     defaultValue: 'intro:askToSkip,outro:askToSkip',
   );
+
+  static final replaceSkipOutroWithNextUp = Preference(
+    key: 'replace_skip_outro_with_next_up',
+    defaultValue: false,
+  );
+
   static final skipBackLength = Preference(
     key: 'skipBackLength',
     defaultValue: 10000,

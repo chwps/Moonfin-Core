@@ -1888,12 +1888,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
 
   void _checkSegments(Duration position) {
     final result = _segmentService.checkPosition(position);
+    final replaceSkipOutroWithNextUp = _prefs.get(
+      UserPreferences.replaceSkipOutroWithNextUp,
+    );
     if (result.shouldSkip && result.skipTo != null) {
       final isOutro = result.segment?.type == MediaSegmentType.outro;
-      if (isOutro && _showNextUp) {
+      if (replaceSkipOutroWithNextUp && isOutro && _showNextUp) {
         return;
       }
-      if (isOutro && _shouldShowNextUpOverlay()) {
+      if (replaceSkipOutroWithNextUp && isOutro && _shouldShowNextUpOverlay()) {
         unawaited(_manager.seekTo(result.skipTo!));
         _presentNextUpOverlay();
         return;
@@ -2099,10 +2102,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
   }
 
   void _skipCurrentSegment() {
+    final replaceSkipOutroWithNextUp = _prefs.get(
+      UserPreferences.replaceSkipOutroWithNextUp,
+    );
     final isOutro =
         _skipSegment?.type == MediaSegmentType.outro ||
         _segmentService.activeSegment?.type == MediaSegmentType.outro;
-    if (isOutro && _shouldShowNextUpOverlay()) {
+    if (replaceSkipOutroWithNextUp && isOutro && _shouldShowNextUpOverlay()) {
       final skipTo = _skipTo;
       if (skipTo != null) {
         unawaited(_manager.seekTo(skipTo));
