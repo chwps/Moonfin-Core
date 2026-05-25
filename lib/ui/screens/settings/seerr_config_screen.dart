@@ -732,9 +732,13 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
               borderColor: colorScheme.outline,
               focusedBorderColor: colorScheme.primary,
               hintStyle: TextStyle(
+                fontFamily: kCleanSettingsFontFamily,
                 color: colorScheme.onSurface.withValues(alpha: 0.65),
               ),
-              textStyle: TextStyle(color: colorScheme.onSurface),
+              textStyle: TextStyle(
+                fontFamily: kCleanSettingsFontFamily,
+                color: colorScheme.onSurface,
+              ),
               popParentOnKeyboardClose: false,
               onFieldSubmitted: (_) => onSubmitted(),
               onVisibilityChanged: (visible) =>
@@ -834,6 +838,7 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
                     softWrap: true,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: kCleanSettingsFontFamily,
                       color: selected
                           ? colorScheme.onPrimaryContainer
                           : colorScheme.onSurface,
@@ -915,6 +920,7 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
     AppLocalizations l10n,
     MoonfinStatusResponse status,
   ) {
+    final colorScheme = Theme.of(context).colorScheme;
     final displayName = status.displayName?.trim();
     final username = (displayName != null && displayName.isNotEmpty)
         ? displayName
@@ -930,6 +936,14 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Text(
+                  l10n.seerrAccountType,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.82),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     const Icon(Icons.account_circle_outlined),
@@ -937,7 +951,12 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
                     Expanded(
                       child: Text(
                         l10n.loggedInAs(username),
-                        style: Theme.of(context).textTheme.titleMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
@@ -956,6 +975,10 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
                         }
                       },
                       child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          foregroundColor: colorScheme.onPrimary,
+                          backgroundColor: colorScheme.primary,
+                        ),
                         onPressed: _submitting ? null : _submitSignOut,
                         child: _submitting
                             ? const SizedBox(
@@ -975,6 +998,7 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
                   Text(
                     _errorMessage!,
                     style: TextStyle(
+                      fontFamily: kCleanSettingsFontFamily,
                       color: Theme.of(context).colorScheme.error,
                     ),
                   ),
@@ -1051,6 +1075,7 @@ class _SeerrLoginCardState extends State<_SeerrLoginCard> {
                   Text(
                     _errorMessage!,
                     style: TextStyle(
+                      fontFamily: kCleanSettingsFontFamily,
                       color: Theme.of(context).colorScheme.error,
                     ),
                   ),

@@ -166,14 +166,26 @@ class _MediaBarSettingsScreenState extends State<MediaBarSettingsScreen> {
       final items = (response['Items'] as List? ?? [])
           .cast<Map<String, dynamic>>();
 
+      final names = items
+          .map((item) => (item['Name'] as String? ?? '').trim())
+          .where((name) => name.isNotEmpty)
+          .toSet()
+          .toList()
+        ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+
+      final available = names.toSet();
+      final pruned = selected.intersection(available);
+      if (pruned.length != selected.length) {
+        _saveCsv(UserPreferences.mediaBarExcludedGenres, pruned.toList());
+      }
+
       if (!mounted) return;
       final result = await _showMultiSelectDialog(
         title: l10n.excludedGenres,
         items: {
-          for (final item in items)
-            item['Name'] as String: item['Name'] as String? ?? l10n.unknown,
+          for (final name in names) name: name,
         },
-        selected: selected,
+        selected: pruned,
       );
       if (result != null) {
         _saveCsv(UserPreferences.mediaBarExcludedGenres, result.toList());
@@ -190,6 +202,8 @@ class _MediaBarSettingsScreenState extends State<MediaBarSettingsScreen> {
     required Set<String> selected,
   }) {
     final l10n = AppLocalizations.of(context);
+    final orderedEntries = items.entries.toList()
+      ..sort((a, b) => a.value.toLowerCase().compareTo(b.value.toLowerCase()));
     final working = Set<String>.from(selected);
     return showFocusRestoringDialog<Set<String>>(
       context: context,
@@ -210,63 +224,70 @@ class _MediaBarSettingsScreenState extends State<MediaBarSettingsScreen> {
           child: FocusScope(
             autofocus: true,
             child: StatefulBuilder(
-              builder: (ctx, setDialogState) => AlertDialog(
-                title: Text(title),
-                content: SizedBox(
-                  width: double.maxFinite,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              setDialogState(() => working.addAll(items.keys));
-                            },
-                            child: Text(l10n.selectAll),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              setDialogState(() => working.clear());
-                            },
-                            child: Text(l10n.clear),
-                          ),
-                        ],
-                      ),
-                      Flexible(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: items.entries.map((e) {
-                            return CheckboxListTile(
-                              title: Text(e.value),
-                              value: working.contains(e.key),
-                              onChanged: (checked) {
-                                setDialogState(() {
-                                  if (checked == true) {
-                                    working.add(e.key);
-                                  } else {
-                                    working.remove(e.key);
-                                  }
-                                });
+              builder: (ctx, setDialogState) => withCleanSettingsTypography(
+                ctx,
+                AlertDialog(
+                  title: Text(title),
+                  content: SizedBox(
+                    width: double.maxFinite,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                setDialogState(() => working.addAll(items.keys));
                               },
-                            );
-                          }).toList(),
+                              child: Text(l10n.selectAll),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setDialogState(() => working.clear());
+                              },
+                              child: Text(l10n.clear),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: orderedEntries.map((e) {
+                              return CheckboxListTile(
+                                dense: true,
+                                visualDensity: VisualDensity.compact,
+                                contentPadding: EdgeInsets.zero,
+                                controlAffinity: ListTileControlAffinity.leading,
+                                title: Text(e.value),
+                                value: working.contains(e.key),
+                                onChanged: (checked) {
+                                  setDialogState(() {
+                                    if (checked == true) {
+                                      working.add(e.key);
+                                    } else {
+                                      working.remove(e.key);
+                                    }
+                                  });
+                                },
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: Text(l10n.cancel),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.pop(ctx, working),
+                      child: Text(l10n.save),
+                    ),
+                  ],
                 ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(ctx),
-                    child: Text(l10n.cancel),
-                  ),
-                  FilledButton(
-                    onPressed: () => Navigator.pop(ctx, working),
-                    child: Text(l10n.save),
-                  ),
-                ],
               ),
             ),
           ),

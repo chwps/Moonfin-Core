@@ -696,9 +696,12 @@ class _HomeSectionsScreenState extends State<HomeSectionsScreen> {
   Future<void> _showPosterSizeDialog() async {
     await showFocusRestoringDialog<void>(
       context: context,
-      builder: (_) => PosterSizeSettingsDialog(
-        prefs: _prefs,
-        onChanged: () => setState(() {}),
+      builder: (ctx) => withCleanSettingsTypography(
+        ctx,
+        PosterSizeSettingsDialog(
+          prefs: _prefs,
+          onChanged: () => setState(() {}),
+        ),
       ),
     );
   }
@@ -842,6 +845,7 @@ class _HomeSectionsScreenState extends State<HomeSectionsScreen> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
+                  fontFamily: kCleanSettingsFontFamily,
                 ),
               ),
               subtitle: section.isPluginDynamic
@@ -849,6 +853,7 @@ class _HomeSectionsScreenState extends State<HomeSectionsScreen> {
                       _pluginSubtitle(section),
                       style: TextStyle(
                         fontSize: 12,
+                        fontFamily: kCleanSettingsFontFamily,
                         color: AppColorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                     )
@@ -1053,6 +1058,7 @@ class _HomeSectionTileState extends State<_HomeSectionTile> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
+                fontFamily: kCleanSettingsFontFamily,
                 color: _focused
                     ? AppColors.black.withValues(alpha: 0.87)
                     : AppColorScheme.onSurface,
@@ -1063,6 +1069,7 @@ class _HomeSectionTileState extends State<_HomeSectionTile> {
                     widget.subtitle!,
                     style: TextStyle(
                       fontSize: 12,
+                      fontFamily: kCleanSettingsFontFamily,
                       color: _focused
                           ? AppColors.black.withValues(alpha: 0.54)
                           : AppColorScheme.onSurface.withValues(alpha: 0.7),
