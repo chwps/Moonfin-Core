@@ -46,6 +46,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   final _backgroundService = GetIt.instance<BackgroundService>();
   StreamSubscription<String?>? _backgroundSub;
   String? _backdropUrl;
+  bool _topSnapScheduled = false;
 
   @override
   void initState() {
@@ -81,6 +82,21 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   void _onItemFocused(AggregatedItem item) {
     _vm.setFocusedItem(item);
     _backgroundService.setBackground(item, context: BlurContext.browsing);
+  }
+
+  void _snapRowsToTop() {
+    if (_topSnapScheduled) return;
+    _topSnapScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _topSnapScheduled = false;
+      if (!mounted || !_scrollController.hasClients) return;
+      if (_scrollController.offset <= 1) return;
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 160),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   double _imageHeight(double aspectRatio) {
@@ -187,6 +203,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final navbarIsLeft = _prefs.get(UserPreferences.navbarPosition) == NavbarPosition.left;
     final rowLeftInset = (!isMobile && navbarIsLeft) ? 56.0 : 0.0;
     final focusColor = Color(_prefs.get(UserPreferences.focusColor).colorValue);
+    final isNeon = ThemeRegistry.active.id == ThemeRegistry.neonPulseId;
     final cardFocusExpansion = _prefs.get(UserPreferences.cardFocusExpansion);
     final watchedBehavior = _prefs.get(UserPreferences.watchedIndicatorBehavior);
 
@@ -194,6 +211,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     for (final type in FavoritesViewModel.rowTypes) {
       final items = _vm.rowItems[type];
       if (items == null || items.isEmpty) continue;
+      final isTopRow = rows.isEmpty;
 
       final ar = MediaCard.aspectRatioForType(type.itemTypes?.first);
       final imageH = _imageHeight(ar);
@@ -201,7 +219,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
       rows.add(
         Padding(
-          padding: EdgeInsets.only(left: rowLeftInset, top: 4),
+          padding: EdgeInsets.only(
+            left: rowLeftInset,
+            top: 4,
+          ),
           child: LibraryRow(
             title: type.displayName,
             rowHeight: rowHeight,
@@ -221,7 +242,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 itemType: item.type,
                 focusColor: focusColor,
                 cardFocusExpansion: cardFocusExpansion,
-                onFocus: isMobile ? null : () => _onItemFocused(item),
+                suppressImageFocusBorder: isNeon,
+                suppressFocusGlow: isNeon,
+                onFocus: isMobile
+                    ? null
+                    : () {
+                        _onItemFocused(item);
+                        if (isTopRow && PlatformDetection.isTV) {
+                          _snapRowsToTop();
+                        }
+                      },
                 onHoverStart: isMobile ? null : () => _onItemFocused(item),
                 onHoverEnd: isMobile ? null : () => _vm.setFocusedItem(null),
                 onLongPress: () => showContextMenu(
@@ -245,7 +275,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
     return ListView(
       controller: _scrollController,
-      padding: const EdgeInsets.only(bottom: 32),
+      padding: EdgeInsets.only(
+        top: isMobile ? 10 : 28,
+        bottom: 32,
+      ),
       children: rows,
     );
   }

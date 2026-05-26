@@ -2759,7 +2759,6 @@ class _PosterImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = !_useDesktopDetailLayout(context);
     final desktopScale = _desktopUiScale();
-    final isNeon = ThemeRegistry.active.id == ThemeRegistry.neonPulseId;
     final w = isMobile ? 120.0 : 165.0 * desktopScale;
     final h = isMobile ? 180.0 : 248.0 * desktopScale;
 
@@ -2829,19 +2828,6 @@ class _PosterImage extends StatelessWidget {
                   backgroundColor: Colors.black54,
                   valueColor: AlwaysStoppedAnimation<Color>(
                     AppColorScheme.accent,
-                  ),
-                ),
-              ),
-            ),
-          if (isNeon)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.fromBorderSide(
-                      BorderSide(color: AppColorScheme.accent, width: 1.5),
-                    ),
                   ),
                 ),
               ),
