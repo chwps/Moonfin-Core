@@ -16,6 +16,7 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/server_screen.dart';
 import '../screens/auth/server_select_screen.dart';
 import '../screens/auth/startup_screen.dart';
+import '../screens/web_diagnostics_screen.dart';
 import '../screens/browse/all_genres_screen.dart';
 import '../screens/browse/collection_screen.dart';
 import '../screens/browse/favorites_screen.dart';
@@ -94,6 +95,7 @@ const _authRoutes = {
   Destinations.startup,
   Destinations.serverSelect,
   Destinations.embyConnect,
+  Destinations.webDiagnostics,
   Destinations.server,
   Destinations.login,
 };
@@ -155,10 +157,7 @@ CustomTransitionPage<T> _opaqueFullScreenPage<T>({
 
 final appRouter = GoRouter(
   initialLocation: Destinations.startup,
-  observers: [
-    FocusRouteObserver(),
-    routeLifecycleObserver,
-  ],
+  observers: [FocusRouteObserver(), routeLifecycleObserver],
   redirect: (context, state) {
     final path = state.uri.path;
     if (_authRoutes.contains(path)) return null;
@@ -204,6 +203,14 @@ final appRouter = GoRouter(
     GoRoute(
       path: Destinations.embyConnect,
       builder: (context, state) => const EmbyConnectScreen(),
+    ),
+    GoRoute(
+      path: Destinations.webDiagnostics,
+      builder: (context, state) => WebDiagnosticsScreen(
+        reason: state.uri.queryParameters['reason'],
+        targetUrl: state.uri.queryParameters['url'],
+        detail: state.uri.queryParameters['detail'],
+      ),
     ),
     GoRoute(
       path: Destinations.server,

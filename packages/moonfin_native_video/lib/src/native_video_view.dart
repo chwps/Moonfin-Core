@@ -82,13 +82,19 @@ class _NativeVideoViewState extends State<NativeVideoView> {
 
   Future<void> _setProperty(String key, String value) async {
     try {
-      await _native.setProperty(key, value, waitForInitialization: false);
+      final dynamic native = _native;
+      await Future.value(
+        native.setProperty(key, value, waitForInitialization: false),
+      );
     } catch (_) {}
   }
 
   Future<void> _setPropertyReady(String key, String value) async {
     try {
-      await _native.setProperty(key, value, waitForInitialization: true);
+      final dynamic native = _native;
+      await Future.value(
+        native.setProperty(key, value, waitForInitialization: true),
+      );
     } catch (_) {}
   }
 

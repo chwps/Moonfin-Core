@@ -23,7 +23,10 @@ class VersionNotSupported extends LoginState {
 
 class ApiClientError extends LoginState {
   final String error;
-  const ApiClientError({required this.error});
+  final String? errorType;
+  final int? statusCode;
+
+  const ApiClientError({required this.error, this.errorType, this.statusCode});
 }
 
 class Authenticated extends LoginState {

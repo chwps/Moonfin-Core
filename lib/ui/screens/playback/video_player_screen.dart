@@ -18,6 +18,7 @@ import 'package:window_manager/window_manager.dart';
 import '../../../util/fullscreen_helper.dart';
 import '../../widgets/playback/seek_icons.dart';
 
+import '../../../playback/html_video_backend.dart';
 import '../../../playback/media_kit_player_backend.dart';
 import '../../../playback/playback_lifecycle_handler.dart';
 import '../../../playback/playback_profile_diagnostics.dart';
@@ -101,6 +102,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
   Media3PlayerBackend? get _activeMedia3Backend {
     final backend = _activeBackend;
     return backend is Media3PlayerBackend ? backend : null;
+  }
+
+  HtmlVideoBackend? get _activeHtmlVideoBackend {
+    final backend = _activeBackend;
+    return backend is HtmlVideoBackend ? backend : null;
   }
 
   bool _controlsVisible = true;
@@ -1528,6 +1534,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
         ),
       row(l10n.player, switch (_activeBackend) {
         Media3PlayerBackend _ => 'Media3 (ExoPlayer)',
+        HtmlVideoBackend _ => 'HTML5 (browser)',
         MediaKitPlayerBackend _ => 'media_kit (libmpv)',
         _ => l10n.unknown,
       }),
@@ -1607,8 +1614,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
     final diagnostics = PlaybackProfileDiagnostics.instance.lastDecision;
     if (diagnostics != null) {
       final diagnosticsMediaSourceId = diagnostics['mediaSourceId']?.toString();
-      final currentMediaSourceId = resolution?.mediaSourceId ??
-          mediaSource?['Id']?.toString();
+      final currentMediaSourceId =
+          resolution?.mediaSourceId ?? mediaSource?['Id']?.toString();
       final matchesCurrentMediaSource =
           diagnosticsMediaSourceId == null ||
           currentMediaSourceId == null ||
@@ -1633,11 +1640,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
           return text.isEmpty ? l10n.unknown : text;
         }
 
-        final maxStreamingBitrate = switch (diagnostics['maxStreamingBitrate']) {
-          int value => value,
-          num value => value.toInt(),
-          _ => null,
-        };
+        final maxStreamingBitrate =
+            switch (diagnostics['maxStreamingBitrate']) {
+              int value => value,
+              num value => value.toInt(),
+              _ => null,
+            };
 
         final diagnosticsRows = <Map<String, dynamic>>[
           row(l10n.player, scalarValue('backend')),
@@ -1646,12 +1654,21 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
           row(l10n.container, scalarValue('container')),
           row(l10n.videoCodec, scalarValue('videoCodec')),
           row(l10n.profile, scalarValue('videoProfile')),
-          row(l10n.settingsAudioDiagnosticsVideoLevel, scalarValue('videoLevel')),
-          row(l10n.settingsAudioDiagnosticsVideoRange, scalarValue('videoRange')),
+          row(
+            l10n.settingsAudioDiagnosticsVideoLevel,
+            scalarValue('videoLevel'),
+          ),
+          row(
+            l10n.settingsAudioDiagnosticsVideoRange,
+            scalarValue('videoRange'),
+          ),
           row(l10n.audioCodec, scalarValue('audioCodec')),
           row(l10n.profile, scalarValue('audioProfile')),
           row(l10n.channels, scalarValue('audioChannels')),
-          row(l10n.settingsAudioDiagnosticsSubtitleCodec, scalarValue('subtitleCodec')),
+          row(
+            l10n.settingsAudioDiagnosticsSubtitleCodec,
+            scalarValue('subtitleCodec'),
+          ),
           row(
             l10n.settingsAudioDiagnosticsAllowedAudioCodecs,
             listValue('allowedAudioCodecs'),
@@ -3199,6 +3216,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
       return const Positioned.fill(child: Media3VideoView(fill: Colors.black));
     }
 
+    final htmlBackend = _activeHtmlVideoBackend;
+    if (htmlBackend != null) {
+      return Positioned.fill(
+        child: htmlBackend.buildView(fit: _zoomToFit(_zoomMode)),
+      );
+    }
+
     final mediaKitBackend = _activeMediaKitBackend ?? _backend;
     final selectedVo = _subtitleActive ? 'gpu' : 'mediacodec_embed';
     if (PlatformDetection.useNativeVideoSurface) {
@@ -4255,7 +4279,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
       builder: (context, _, _) {
         final l10n = AppLocalizations.of(context);
         final item = _queue.currentItem;
-        final canFavorite = !_isPrerollQueueItem(item) &&
+        final canFavorite =
+            !_isPrerollQueueItem(item) &&
             ((_itemIdForQueueItem(item)?.isNotEmpty) ?? false);
         final isFavorite = canFavorite && _queueItemIsFavorite(item);
         final hasChapters = item is AggregatedItem && item.chapters.isNotEmpty;
@@ -5255,11 +5280,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
         const <Map<String, dynamic>>[];
     final streams = allStreams.where((s) => s['Type'] == streamType).toList();
     final displaySubtitleStreams = audio
-      ? const <Map<String, dynamic>>[]
-      : [
-        ...streams.where((s) => !_isExternalSubtitleStream(s)),
-        ...streams.where(_isExternalSubtitleStream),
-        ];
+        ? const <Map<String, dynamic>>[]
+        : [
+            ...streams.where((s) => !_isExternalSubtitleStream(s)),
+            ...streams.where(_isExternalSubtitleStream),
+          ];
     final optionStreams = audio ? streams : displaySubtitleStreams;
     final audioStreams = allStreams.where((s) => s['Type'] == 'Audio').toList();
     final canDownloadRemote =
@@ -5402,8 +5427,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
     if (stream['IsExternal'] == true) {
       return true;
     }
-    final deliveryMethod =
-        (stream['DeliveryMethod'] as String?)?.trim().toLowerCase();
+    final deliveryMethod = (stream['DeliveryMethod'] as String?)
+        ?.trim()
+        .toLowerCase();
     return deliveryMethod == 'external';
   }
 

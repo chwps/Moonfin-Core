@@ -36,6 +36,20 @@ jobs:
           flutter pub get
           flutter build web --wasm --release --base-href "/${{ github.event.repository.name }}/"
 
+      - name: Write Pages runtime config
+        run: |
+          cat > build/web/config.json <<'EOF'
+          {
+            "schemaVersion": 1,
+            "defaultServerUrl": null,
+            "discoveryProxyUrl": null,
+            "enableWebRtcScan": true,
+            "brandingName": "Moonfin",
+            "pluginMode": false,
+            "forcedServerUrl": null
+          }
+          EOF
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

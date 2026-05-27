@@ -12,8 +12,7 @@ extension NavigationX on BuildContext {
       try {
         router.pop();
         return;
-      } catch (_) {
-      }
+      } catch (_) {}
     }
     router.go(Destinations.home);
   }
@@ -37,6 +36,29 @@ class Destinations {
   static const startup = '/';
   static const serverSelect = '/server-select';
   static const embyConnect = '/emby-connect';
+  static const webDiagnostics = '/_diag';
+
+  static String webDiagnosticsRoute({
+    String? reason,
+    String? targetUrl,
+    String? detail,
+  }) {
+    final trimmedDetail = (detail ?? '').trim();
+    final safeDetail = trimmedDetail.length > 220
+        ? '${trimmedDetail.substring(0, 220)}...'
+        : trimmedDetail;
+
+    final params = <String, String>{
+      if (reason != null && reason.isNotEmpty) 'reason': reason,
+      if (targetUrl != null && targetUrl.isNotEmpty) 'url': targetUrl,
+      if (safeDetail.isNotEmpty) 'detail': safeDetail,
+    };
+    if (params.isEmpty) {
+      return webDiagnostics;
+    }
+    return Uri(path: webDiagnostics, queryParameters: params).toString();
+  }
+
   static const server = '/server';
   static const login = '/login';
 
@@ -185,6 +207,7 @@ class Destinations {
     };
     return Uri(path: trailerPlayer, queryParameters: params).toString();
   }
+
   static String book(String itemId, {String? serverId}) {
     final base = '/player/book/$itemId';
     return serverId != null
@@ -206,6 +229,7 @@ class Destinations {
     }
     return Uri(path: search, queryParameters: params).toString();
   }
+
   static String seerrMedia(String itemId) => '/seerr/media/$itemId';
   static String seerrPerson(String personId) => '/seerr/person/$personId';
 

@@ -21,6 +21,7 @@ import '../../../preference/user_preferences.dart';
 import '../../../util/focus/dpad_keys.dart';
 import '../../../util/pin_code_util.dart';
 import '../../../util/platform_detection.dart';
+import '../../../util/web_diagnostics_failure.dart';
 import '../../navigation/destinations.dart';
 import '../../widgets/login_scaffold.dart';
 import '../../widgets/pin_entry_dialog.dart';
@@ -312,6 +313,14 @@ class _LoginScreenState extends State<LoginScreen> {
           e.error?.toString() ??
           e.message ??
           'unknown error';
+      if (_maybeOpenWebDiagnosticsForFailure(
+        targetUrl: _server?.address,
+        errorType: e.type.name,
+        statusCode: status,
+        message: detail,
+      )) {
+        return;
+      }
       final l10n = AppLocalizations.of(context);
       setState(() {
         _errorMessage = status == null
@@ -411,6 +420,37 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  bool _maybeOpenWebDiagnosticsForFailure({
+    required String? targetUrl,
+    String? errorType,
+    int? statusCode,
+    String? message,
+  }) {
+    if (!PlatformDetection.isWeb || !mounted) {
+      return false;
+    }
+
+    final reason = inferWebDiagnosticsFailureReason(
+      pageUri: Uri.base,
+      targetUrl: targetUrl,
+      errorType: errorType,
+      statusCode: statusCode,
+      message: message,
+    );
+    if (reason == null) {
+      return false;
+    }
+
+    context.go(
+      Destinations.webDiagnosticsRoute(
+        reason: webDiagnosticsFailureReasonToQuery(reason),
+        targetUrl: targetUrl,
+        detail: message,
+      ),
+    );
+    return true;
+  }
+
   Future<void> _login() async {
     final username = _usernameController.text.trim();
     if (username.isEmpty || _client == null || _server == null) return;
@@ -464,7 +504,15 @@ class _LoginScreenState extends State<LoginScreen> {
             return;
           }
           _finishLoginWithError(l10n.loginFailed);
-        case ApiClientError(:final error):
+        case ApiClientError(:final error, :final errorType, :final statusCode):
+          if (_maybeOpenWebDiagnosticsForFailure(
+            targetUrl: _server?.address,
+            errorType: errorType,
+            statusCode: statusCode,
+            message: error,
+          )) {
+            return;
+          }
           _finishLoginWithError(error);
         case ServerUnavailable():
           _finishLoginWithError(l10n.serverUnavailable);

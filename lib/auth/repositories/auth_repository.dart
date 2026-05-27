@@ -51,7 +51,7 @@ class AuthRepository {
       return _handleDioError(e);
     } catch (e) {
       _logger.e('Authentication failed', error: e);
-      final state = ApiClientError(error: e.toString());
+      final state = ApiClientError(error: e.toString(), errorType: 'exception');
       _stateController.add(state);
       return state;
     }
@@ -75,7 +75,7 @@ class AuthRepository {
       return _handleDioError(e);
     } catch (e) {
       _logger.e('QuickConnect auth failed', error: e);
-      final state = ApiClientError(error: e.toString());
+      final state = ApiClientError(error: e.toString(), errorType: 'exception');
       _stateController.add(state);
       return state;
     }
@@ -133,13 +133,19 @@ class AuthRepository {
   LoginState _handleDioError(DioException e) {
     final statusCode = e.response?.statusCode;
     if (statusCode == 401) {
-      final state = ApiClientError(error: 'Invalid username or password');
+      final state = ApiClientError(
+        error: 'Invalid username or password',
+        errorType: e.type.name,
+        statusCode: statusCode,
+      );
       _stateController.add(state);
       return state;
     }
     if (statusCode == 500) {
-      const state = ApiClientError(
+      final state = ApiClientError(
         error: 'Server error (500) - authentication failed',
+        errorType: DioExceptionType.badResponse.name,
+        statusCode: statusCode,
       );
       _stateController.add(state);
       return state;
@@ -153,6 +159,8 @@ class AuthRepository {
     final detail = statusCode != null ? 'HTTP $statusCode' : e.type.name;
     final state = ApiClientError(
       error: 'Connection failed (${e.type.name}): $detail',
+      errorType: e.type.name,
+      statusCode: statusCode,
     );
     _stateController.add(state);
     return state;

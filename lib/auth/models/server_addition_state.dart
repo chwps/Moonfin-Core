@@ -9,7 +9,18 @@ class ServerConnecting extends ServerAdditionState {
 
 class ServerUnableToConnect extends ServerAdditionState {
   final List<String> candidatesTried;
-  const ServerUnableToConnect({required this.candidatesTried});
+  final String? lastCandidate;
+  final String? lastErrorType;
+  final int? lastStatusCode;
+  final String? lastErrorMessage;
+
+  const ServerUnableToConnect({
+    required this.candidatesTried,
+    this.lastCandidate,
+    this.lastErrorType,
+    this.lastStatusCode,
+    this.lastErrorMessage,
+  });
 }
 
 class ServerConnected extends ServerAdditionState {

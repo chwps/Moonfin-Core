@@ -2,6 +2,31 @@ import 'audio_capability_profile.dart';
 import '../preference/preference_constants.dart';
 import '../util/platform_detection.dart';
 import 'known_defects.dart';
+import 'web_playback_capabilities.dart';
+
+class _WebCodecSets {
+  const _WebCodecSets({
+    required this.mp4VideoCodecs,
+    required this.webmVideoCodecs,
+    required this.webmAudioCodecs,
+    required this.videoAudioCodecs,
+    required this.hlsInTsVideoCodecs,
+    required this.hlsInTsAudioCodecs,
+    required this.hlsInFmp4VideoCodecs,
+    required this.hlsInFmp4AudioCodecs,
+    required this.enableFmp4Hls,
+  });
+
+  final List<String> mp4VideoCodecs;
+  final List<String> webmVideoCodecs;
+  final List<String> webmAudioCodecs;
+  final List<String> videoAudioCodecs;
+  final List<String> hlsInTsVideoCodecs;
+  final List<String> hlsInTsAudioCodecs;
+  final List<String> hlsInFmp4VideoCodecs;
+  final List<String> hlsInFmp4AudioCodecs;
+  final bool enableFmp4Hls;
+}
 
 class DeviceProfileBuilder {
   const DeviceProfileBuilder._();
@@ -121,9 +146,67 @@ class DeviceProfileBuilder {
     bool knownHevcDoviHdr10PlusBug = false,
     bool allowDolbyVisionProfile7ElDirectPlay = false,
   }) {
+    final webCapabilities = PlatformDetection.isWeb
+        ? detectWebPlaybackCapabilities()
+        : null;
+
+    final effectiveSupportsAvc = webCapabilities?.supportsAvc ?? supportsAvc;
+    final effectiveSupportsAvcHigh10 =
+        webCapabilities?.supportsAvcHigh10 ?? supportsAvcHigh10;
+    final effectiveAvcMainLevel = webCapabilities?.avcMainLevel ?? avcMainLevel;
+    final effectiveAvcHigh10Level =
+        webCapabilities?.avcHigh10Level ?? avcHigh10Level;
+    final effectiveSupportsHevc = webCapabilities?.supportsHevc ?? supportsHevc;
+    final effectiveSupportsHevcMain10 =
+        webCapabilities?.supportsHevcMain10 ?? supportsHevcMain10;
+    final effectiveHevcMainLevel =
+        webCapabilities?.hevcMainLevel ?? hevcMainLevel;
+    final effectiveSupportsHevcDolbyVision =
+        webCapabilities?.supportsHevcDolbyVision ?? supportsHevcDolbyVision;
+    final effectiveSupportsHevcDolbyVisionEl =
+        webCapabilities?.supportsHevcDolbyVisionEl ?? supportsHevcDolbyVisionEl;
+    final effectiveSupportsHevcHdr10 =
+        webCapabilities?.supportsHevcHdr10 ?? supportsHevcHdr10;
+    final effectiveSupportsHevcHdr10Plus =
+        webCapabilities?.supportsHevcHdr10Plus ?? supportsHevcHdr10Plus;
+    final effectiveSupportsAv1 = webCapabilities?.supportsAv1 ?? supportsAv1;
+    final effectiveSupportsAv1Main10 =
+        webCapabilities?.supportsAv1Main10 ?? supportsAv1Main10;
+    final effectiveSupportsAv1DolbyVision =
+        webCapabilities?.supportsAv1DolbyVision ?? supportsAv1DolbyVision;
+    final effectiveSupportsAv1Hdr10 =
+        webCapabilities?.supportsAv1Hdr10 ?? supportsAv1Hdr10;
+    final effectiveSupportsAv1Hdr10Plus =
+        webCapabilities?.supportsAv1Hdr10Plus ?? supportsAv1Hdr10Plus;
+    final effectiveSupportsVc1 = webCapabilities?.supportsVc1 ?? supportsVc1;
+    final effectiveMaxResolutionAvcWidth =
+        webCapabilities?.maxResolutionAvcWidth ?? maxResolutionAvcWidth;
+    final effectiveMaxResolutionAvcHeight =
+        webCapabilities?.maxResolutionAvcHeight ?? maxResolutionAvcHeight;
+    final effectiveMaxResolutionHevcWidth =
+        webCapabilities?.maxResolutionHevcWidth ?? maxResolutionHevcWidth;
+    final effectiveMaxResolutionHevcHeight =
+        webCapabilities?.maxResolutionHevcHeight ?? maxResolutionHevcHeight;
+    final effectiveMaxResolutionAv1Width =
+        webCapabilities?.maxResolutionAv1Width ?? maxResolutionAv1Width;
+    final effectiveMaxResolutionAv1Height =
+        webCapabilities?.maxResolutionAv1Height ?? maxResolutionAv1Height;
+    final effectiveMaxResolutionVc1Width =
+        webCapabilities?.maxResolutionVc1Width ?? maxResolutionVc1Width;
+    final effectiveMaxResolutionVc1Height =
+        webCapabilities?.maxResolutionVc1Height ?? maxResolutionVc1Height;
+    final effectiveSupportsDvProfile5 =
+        webCapabilities?.supportsDvProfile5 ?? supportsDvProfile5;
+    final effectiveSupportsDvProfile7 =
+        webCapabilities?.supportsDvProfile7 ?? supportsDvProfile7;
+    final effectiveSupportsDvProfile8 =
+        webCapabilities?.supportsDvProfile8 ?? supportsDvProfile8;
+
     final bitrateBps = maxBitrateMbps == null ? null : maxBitrateMbps * 1000000;
-    final capabilityProfile =
-        audioCapabilityProfile ?? const AudioCapabilityProfile.optimistic();
+    final capabilityProfile = _resolveEffectiveAudioCapabilityProfile(
+      requestedProfile: audioCapabilityProfile,
+      webCapabilities: webCapabilities,
+    );
     final forceStereo = _isForceStereo(
       audioOutputMode: audioOutputMode,
       legacyDownMixAudio: downMixAudio,
@@ -135,7 +218,7 @@ class DeviceProfileBuilder {
       forceStereo: forceStereo,
     );
 
-    final allowedAudioCodecs = forceStereo
+    final baseAllowedAudioCodecs = forceStereo
         ? _downmixSupportedAudioCodecs
         : _supportedAudioCodecs
               .where(
@@ -154,107 +237,143 @@ class DeviceProfileBuilder {
               )
               .toList(growable: false);
 
+    final effectiveAllowedAudioCodecs = webCapabilities == null
+        ? baseAllowedAudioCodecs
+        : _buildWebAllowedAudioCodecs(
+            capabilities: webCapabilities,
+            forceStereo: forceStereo,
+          );
+
     final mpegTsAudioCodecs = _mpegTsAudioCodecsForFallback(
       effectiveAudioFallbackCodec: effectiveAudioFallbackCodec,
-      allowedAudioCodecs: allowedAudioCodecs,
+      allowedAudioCodecs: effectiveAllowedAudioCodecs,
     );
 
     final hlsVideoCodecs = <String>[
-      if (supportsHevc) 'hevc',
+      if (effectiveSupportsHevc) 'hevc',
       'h264',
     ].join(',');
 
     final hasKnownHevcDoviHdr10PlusBug =
-        knownHevcDoviHdr10PlusBug || KnownDefects.hevcDoviHdr10PlusBug;
+        (webCapabilities?.knownHevcDoviHdr10PlusBug ??
+            knownHevcDoviHdr10PlusBug) ||
+        KnownDefects.hevcDoviHdr10PlusBug;
+
+    final effectiveBitrateBps =
+        bitrateBps ?? webCapabilities?.maxStreamingBitrate;
+
+    final webCodecSets = webCapabilities == null
+        ? null
+        : _buildWebCodecSets(
+            capabilities: webCapabilities,
+            audioCodecs: effectiveAllowedAudioCodecs,
+            forceStereo: forceStereo,
+          );
+
+    final directPlayProfiles = webCapabilities == null
+        ? <Map<String, dynamic>>[
+            <String, dynamic>{
+              'Type': 'Video',
+              'Container':
+                  'asf,dash,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid',
+              'VideoCodec': 'av1,h264,hevc,mpeg,mpeg2video,vc1,vp8,vp9',
+              'AudioCodec': effectiveAllowedAudioCodecs.join(','),
+            },
+            <String, dynamic>{
+              'Type': 'Audio',
+              'Container': _audioDirectPlayContainers.join(','),
+              'AudioCodec': effectiveAllowedAudioCodecs.join(','),
+            },
+          ]
+        : _buildWebDirectPlayProfiles(
+            capabilities: webCapabilities,
+            codecSets: webCodecSets!,
+          );
+
+    final transcodingProfiles = webCapabilities == null
+        ? <Map<String, dynamic>>[
+            <String, dynamic>{
+              'Type': 'Video',
+              'Context': 'Streaming',
+              'Container': 'ts',
+              'Protocol': 'hls',
+              'VideoCodec': hlsVideoCodecs,
+              'AudioCodec': mpegTsAudioCodecs.join(','),
+              'CopyTimestamps': false,
+              'EnableSubtitlesInManifest': true,
+            },
+            <String, dynamic>{
+              'Type': 'Video',
+              'Context': 'Streaming',
+              'Container': 'mp4',
+              'Protocol': 'hls',
+              'VideoCodec': hlsVideoCodecs,
+              'AudioCodec': _hlsFmp4AudioCodecs
+                  .where(effectiveAllowedAudioCodecs.contains)
+                  .join(','),
+              'CopyTimestamps': false,
+              'EnableSubtitlesInManifest': true,
+            },
+            <String, dynamic>{
+              'Type': 'Audio',
+              'Context': 'Streaming',
+              'Container': 'ts',
+              'Protocol': 'hls',
+              'AudioCodec': 'aac',
+            },
+          ]
+        : _buildWebTranscodingProfiles(
+            capabilities: webCapabilities,
+            audioCodecs: effectiveAllowedAudioCodecs,
+            codecSets: webCodecSets!,
+          );
 
     final codecProfiles = _codecProfiles(
       downMixAudio: forceStereo,
       audioFallbackToStereoAac:
           effectiveAudioFallbackCodec == AudioFallbackCodec.aacStereo,
       maxResolution: maxResolution,
-      supportsAvc: supportsAvc,
-      supportsAvcHigh10: supportsAvcHigh10,
-      avcMainLevel: avcMainLevel,
-      avcHigh10Level: avcHigh10Level,
-      supportsHevc: supportsHevc,
-      supportsHevcMain10: supportsHevcMain10,
-      hevcMainLevel: hevcMainLevel,
-      supportsHevcDolbyVision: supportsHevcDolbyVision,
-      supportsHevcDolbyVisionEl: supportsHevcDolbyVisionEl,
-      supportsHevcHdr10: supportsHevcHdr10,
-      supportsHevcHdr10Plus: supportsHevcHdr10Plus,
-      supportsAv1: supportsAv1,
-      supportsAv1Main10: supportsAv1Main10,
-      supportsAv1DolbyVision: supportsAv1DolbyVision,
-      supportsAv1Hdr10: supportsAv1Hdr10,
-      supportsAv1Hdr10Plus: supportsAv1Hdr10Plus,
-      supportsVc1: supportsVc1,
-      maxResolutionAvcWidth: maxResolutionAvcWidth,
-      maxResolutionAvcHeight: maxResolutionAvcHeight,
-      maxResolutionHevcWidth: maxResolutionHevcWidth,
-      maxResolutionHevcHeight: maxResolutionHevcHeight,
-      maxResolutionAv1Width: maxResolutionAv1Width,
-      maxResolutionAv1Height: maxResolutionAv1Height,
-      maxResolutionVc1Width: maxResolutionVc1Width,
-      maxResolutionVc1Height: maxResolutionVc1Height,
-      supportsDvProfile5: supportsDvProfile5,
-      supportsDvProfile7: supportsDvProfile7,
-      supportsDvProfile8: supportsDvProfile8,
+      supportsAvc: effectiveSupportsAvc,
+      supportsAvcHigh10: effectiveSupportsAvcHigh10,
+      avcMainLevel: effectiveAvcMainLevel,
+      avcHigh10Level: effectiveAvcHigh10Level,
+      supportsHevc: effectiveSupportsHevc,
+      supportsHevcMain10: effectiveSupportsHevcMain10,
+      hevcMainLevel: effectiveHevcMainLevel,
+      supportsHevcDolbyVision: effectiveSupportsHevcDolbyVision,
+      supportsHevcDolbyVisionEl: effectiveSupportsHevcDolbyVisionEl,
+      supportsHevcHdr10: effectiveSupportsHevcHdr10,
+      supportsHevcHdr10Plus: effectiveSupportsHevcHdr10Plus,
+      supportsAv1: effectiveSupportsAv1,
+      supportsAv1Main10: effectiveSupportsAv1Main10,
+      supportsAv1DolbyVision: effectiveSupportsAv1DolbyVision,
+      supportsAv1Hdr10: effectiveSupportsAv1Hdr10,
+      supportsAv1Hdr10Plus: effectiveSupportsAv1Hdr10Plus,
+      supportsVc1: effectiveSupportsVc1,
+      maxResolutionAvcWidth: effectiveMaxResolutionAvcWidth,
+      maxResolutionAvcHeight: effectiveMaxResolutionAvcHeight,
+      maxResolutionHevcWidth: effectiveMaxResolutionHevcWidth,
+      maxResolutionHevcHeight: effectiveMaxResolutionHevcHeight,
+      maxResolutionAv1Width: effectiveMaxResolutionAv1Width,
+      maxResolutionAv1Height: effectiveMaxResolutionAv1Height,
+      maxResolutionVc1Width: effectiveMaxResolutionVc1Width,
+      maxResolutionVc1Height: effectiveMaxResolutionVc1Height,
+      supportsDvProfile5: effectiveSupportsDvProfile5,
+      supportsDvProfile7: effectiveSupportsDvProfile7,
+      supportsDvProfile8: effectiveSupportsDvProfile8,
       knownHevcDoviHdr10PlusBug: hasKnownHevcDoviHdr10PlusBug,
       allowDolbyVisionProfile7ElDirectPlay:
           allowDolbyVisionProfile7ElDirectPlay,
+      webCapabilities: webCapabilities,
     );
 
     return <String, dynamic>{
       'Name': _profileName(),
-      'MaxStaticBitrate': bitrateBps,
-      'MaxStreamingBitrate': bitrateBps,
+      'MaxStaticBitrate': effectiveBitrateBps,
+      'MaxStreamingBitrate': effectiveBitrateBps,
       'MusicStreamingTranscodingBitrate': 384000,
-      'DirectPlayProfiles': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'Type': 'Video',
-          'Container':
-              'asf,dash,hls,m4v,mkv,mov,mp4,ogm,ogv,ts,vob,webm,wmv,xvid',
-          'VideoCodec': 'av1,h264,hevc,mpeg,mpeg2video,vc1,vp8,vp9',
-          'AudioCodec': allowedAudioCodecs.join(','),
-        },
-        <String, dynamic>{
-          'Type': 'Audio',
-          'Container': _audioDirectPlayContainers.join(','),
-          'AudioCodec': allowedAudioCodecs.join(','),
-        },
-      ],
-      'TranscodingProfiles': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'Type': 'Video',
-          'Context': 'Streaming',
-          'Container': 'ts',
-          'Protocol': 'hls',
-          'VideoCodec': hlsVideoCodecs,
-          'AudioCodec': mpegTsAudioCodecs.join(','),
-          'CopyTimestamps': false,
-          'EnableSubtitlesInManifest': true,
-        },
-        <String, dynamic>{
-          'Type': 'Video',
-          'Context': 'Streaming',
-          'Container': 'mp4',
-          'Protocol': 'hls',
-          'VideoCodec': hlsVideoCodecs,
-          'AudioCodec': _hlsFmp4AudioCodecs
-              .where(allowedAudioCodecs.contains)
-              .join(','),
-          'CopyTimestamps': false,
-          'EnableSubtitlesInManifest': true,
-        },
-        <String, dynamic>{
-          'Type': 'Audio',
-          'Context': 'Streaming',
-          'Container': 'ts',
-          'Protocol': 'hls',
-          'AudioCodec': 'aac',
-        },
-      ],
+      'DirectPlayProfiles': directPlayProfiles,
+      'TranscodingProfiles': transcodingProfiles,
       'ContainerProfiles': <Map<String, dynamic>>[],
       'CodecProfiles': codecProfiles,
       'SubtitleProfiles': _subtitleProfiles(
@@ -262,6 +381,355 @@ class DeviceProfileBuilder {
         assDirectPlay: assDirectPlay,
       ),
     };
+  }
+
+  static List<String> _buildWebAllowedAudioCodecs({
+    required WebPlaybackCapabilities capabilities,
+    required bool forceStereo,
+  }) {
+    final codecs = <String>[];
+
+    void add(String codec) {
+      if (!codecs.contains(codec)) {
+        codecs.add(codec);
+      }
+    }
+
+    add('aac');
+    add('mp3');
+
+    if ((capabilities.isChrome ||
+            capabilities.isEdgeChromium ||
+            capabilities.isFirefox) &&
+        !capabilities.isAndroid) {
+      add('mp2');
+    }
+
+    if (!forceStereo) {
+      if (capabilities.canDecodeAc3) {
+        add('ac3');
+      }
+      if (capabilities.canDecodeEac3) {
+        add('eac3');
+      }
+      if (capabilities.canDecodeOpus) {
+        add('opus');
+      }
+      if (capabilities.canDecodeFlac) {
+        add('flac');
+      }
+      if (capabilities.canDecodeAlac) {
+        add('alac');
+      }
+    }
+
+    if (!capabilities.isSafari &&
+        (capabilities.supportsVp8 || capabilities.supportsVp9)) {
+      add('vorbis');
+    }
+
+    return codecs;
+  }
+
+  static List<Map<String, dynamic>> _buildWebDirectPlayProfiles({
+    required WebPlaybackCapabilities capabilities,
+    required _WebCodecSets codecSets,
+  }) {
+    final profiles = <Map<String, dynamic>>[];
+
+    if (codecSets.webmVideoCodecs.isNotEmpty &&
+        codecSets.webmAudioCodecs.isNotEmpty) {
+      profiles.add(<String, dynamic>{
+        'Container': 'webm',
+        'Type': 'Video',
+        'VideoCodec': codecSets.webmVideoCodecs.join(','),
+        'AudioCodec': codecSets.webmAudioCodecs.join(','),
+      });
+    }
+
+    if (codecSets.mp4VideoCodecs.isNotEmpty) {
+      profiles.add(<String, dynamic>{
+        'Container': 'mp4,m4v',
+        'Type': 'Video',
+        'VideoCodec': codecSets.mp4VideoCodecs.join(','),
+        'AudioCodec': codecSets.videoAudioCodecs.join(','),
+      });
+    }
+
+    if (capabilities.canPlayMkv && codecSets.mp4VideoCodecs.isNotEmpty) {
+      profiles.add(<String, dynamic>{
+        'Container': 'mkv',
+        'Type': 'Video',
+        'VideoCodec': codecSets.mp4VideoCodecs.join(','),
+        'AudioCodec': codecSets.videoAudioCodecs.join(','),
+      });
+    }
+
+    if ((capabilities.isSafari ||
+            capabilities.isChrome ||
+            capabilities.isEdgeChromium) &&
+        capabilities.supportsAvc) {
+      profiles.add(<String, dynamic>{
+        'Container': 'mov',
+        'Type': 'Video',
+        'VideoCodec': 'h264',
+        'AudioCodec': codecSets.videoAudioCodecs.join(','),
+      });
+    }
+
+    profiles.addAll(
+      _buildWebAudioDirectPlayProfiles(
+        capabilities: capabilities,
+        audioCodecs: codecSets.videoAudioCodecs,
+      ),
+    );
+
+    if (capabilities.canPlayHls) {
+      if (codecSets.enableFmp4Hls &&
+          codecSets.hlsInFmp4VideoCodecs.isNotEmpty &&
+          codecSets.hlsInFmp4AudioCodecs.isNotEmpty) {
+        profiles.add(<String, dynamic>{
+          'Container': 'hls',
+          'Type': 'Video',
+          'VideoCodec': codecSets.hlsInFmp4VideoCodecs.join(','),
+          'AudioCodec': codecSets.hlsInFmp4AudioCodecs.join(','),
+        });
+      }
+
+      if (codecSets.hlsInTsVideoCodecs.isNotEmpty &&
+          codecSets.hlsInTsAudioCodecs.isNotEmpty) {
+        profiles.add(<String, dynamic>{
+          'Container': 'hls',
+          'Type': 'Video',
+          'VideoCodec': codecSets.hlsInTsVideoCodecs.join(','),
+          'AudioCodec': codecSets.hlsInTsAudioCodecs.join(','),
+        });
+      }
+    }
+
+    return profiles;
+  }
+
+  static List<Map<String, dynamic>> _buildWebTranscodingProfiles({
+    required WebPlaybackCapabilities capabilities,
+    required List<String> audioCodecs,
+    required _WebCodecSets codecSets,
+  }) {
+    final profiles = <Map<String, dynamic>>[];
+
+    if (capabilities.canPlayHls) {
+      if (codecSets.enableFmp4Hls &&
+          codecSets.hlsInFmp4VideoCodecs.isNotEmpty &&
+          codecSets.hlsInFmp4AudioCodecs.isNotEmpty) {
+        profiles.add(<String, dynamic>{
+          'Type': 'Video',
+          'Context': 'Streaming',
+          'Container': 'mp4',
+          'Protocol': 'hls',
+          'VideoCodec': codecSets.hlsInFmp4VideoCodecs.join(','),
+          'AudioCodec': codecSets.hlsInFmp4AudioCodecs.join(','),
+          'CopyTimestamps': false,
+          'EnableSubtitlesInManifest': true,
+        });
+      }
+
+      if (codecSets.hlsInTsVideoCodecs.isNotEmpty &&
+          codecSets.hlsInTsAudioCodecs.isNotEmpty) {
+        profiles.add(<String, dynamic>{
+          'Type': 'Video',
+          'Context': 'Streaming',
+          'Container': 'ts',
+          'Protocol': 'hls',
+          'VideoCodec': codecSets.hlsInTsVideoCodecs.join(','),
+          'AudioCodec': codecSets.hlsInTsAudioCodecs.join(','),
+          'CopyTimestamps': false,
+          'EnableSubtitlesInManifest': true,
+        });
+      }
+
+      profiles.add(<String, dynamic>{
+        'Type': 'Audio',
+        'Context': 'Streaming',
+        'Container': 'ts',
+        'Protocol': 'hls',
+        'AudioCodec': 'aac',
+      });
+    }
+
+    for (final audioFormat in const <String>['aac', 'mp3', 'opus', 'wav']) {
+      if (audioFormat != 'wav' && !audioCodecs.contains(audioFormat)) {
+        continue;
+      }
+
+      profiles.add(<String, dynamic>{
+        'Container': audioFormat,
+        'Type': 'Audio',
+        'AudioCodec': audioFormat,
+        'Context': 'Streaming',
+        'Protocol': 'http',
+      });
+    }
+
+    return profiles;
+  }
+
+  static _WebCodecSets _buildWebCodecSets({
+    required WebPlaybackCapabilities capabilities,
+    required List<String> audioCodecs,
+    required bool forceStereo,
+  }) {
+    final videoAudioCodecs = List<String>.from(audioCodecs);
+    final webmAudioCodecs = <String>[];
+
+    final shouldAllowWebmOnSafari =
+        !capabilities.isSafari ||
+        (capabilities.browserMajorVersion >= 15 &&
+            capabilities.browserMajorVersion < 17);
+
+    final canUseVp9InMp4 =
+        capabilities.supportsVp9 &&
+        !capabilities.isIOS &&
+        !(capabilities.isFirefox && capabilities.isMacOS);
+
+    final mp4VideoCodecs = <String>[
+      if (capabilities.supportsAvc) 'h264',
+      if (capabilities.supportsHevc) 'hevc',
+      if (capabilities.supportsAv1) 'av1',
+      if (canUseVp9InMp4) 'vp9',
+      if (capabilities.supportsVc1) 'vc1',
+    ];
+
+    final webmVideoCodecs = <String>[
+      if (capabilities.supportsVp8) 'vp8',
+      if (capabilities.supportsVp9 && shouldAllowWebmOnSafari) 'vp9',
+      if (capabilities.supportsAv1 && shouldAllowWebmOnSafari) 'av1',
+    ];
+
+    if (videoAudioCodecs.contains('vorbis')) {
+      webmAudioCodecs.add('vorbis');
+    }
+    if (videoAudioCodecs.contains('opus')) {
+      webmAudioCodecs.add('opus');
+    }
+
+    final hlsInTsVideoCodecs = <String>[if (capabilities.supportsAvc) 'h264'];
+
+    final hlsInFmp4VideoCodecs = <String>[
+      if (capabilities.supportsAvc) 'h264',
+      if (capabilities.supportsHevc) 'hevc',
+      if (capabilities.supportsAv1) 'av1',
+      if (capabilities.supportsVp9) 'vp9',
+    ];
+
+    final hlsInTsAudioCodecs = <String>['aac'];
+    final hlsInFmp4AudioCodecs = <String>['aac'];
+
+    if (!forceStereo) {
+      if (videoAudioCodecs.contains('mp3') || capabilities.isSafari) {
+        if (!hlsInTsAudioCodecs.contains('mp3')) {
+          hlsInTsAudioCodecs.add('mp3');
+        }
+      }
+      if (videoAudioCodecs.contains('mp3') && capabilities.canDecodeMp3InHls) {
+        hlsInFmp4AudioCodecs.add('mp3');
+      }
+      final canAdvertiseAc3InHls = capabilities.canDecodeAc3InHls;
+      if (videoAudioCodecs.contains('ac3') && canAdvertiseAc3InHls) {
+        hlsInTsAudioCodecs.add('ac3');
+        hlsInFmp4AudioCodecs.add('ac3');
+      }
+      if (videoAudioCodecs.contains('eac3') && canAdvertiseAc3InHls) {
+        hlsInTsAudioCodecs.add('eac3');
+        hlsInFmp4AudioCodecs.add('eac3');
+      }
+      if (videoAudioCodecs.contains('opus')) {
+        hlsInFmp4AudioCodecs.add('opus');
+      }
+      if (videoAudioCodecs.contains('flac')) {
+        hlsInFmp4AudioCodecs.add('flac');
+      }
+      if (videoAudioCodecs.contains('alac')) {
+        hlsInFmp4AudioCodecs.add('alac');
+      }
+    }
+
+    final enableFmp4Hls =
+        !capabilities.canPlayNativeHls || capabilities.canPlayNativeHlsInFmp4;
+
+    return _WebCodecSets(
+      mp4VideoCodecs: mp4VideoCodecs,
+      webmVideoCodecs: webmVideoCodecs,
+      webmAudioCodecs: webmAudioCodecs,
+      videoAudioCodecs: videoAudioCodecs,
+      hlsInTsVideoCodecs: hlsInTsVideoCodecs,
+      hlsInTsAudioCodecs: hlsInTsAudioCodecs,
+      hlsInFmp4VideoCodecs: hlsInFmp4VideoCodecs,
+      hlsInFmp4AudioCodecs: hlsInFmp4AudioCodecs,
+      enableFmp4Hls: enableFmp4Hls,
+    );
+  }
+
+  static List<Map<String, dynamic>> _buildWebAudioDirectPlayProfiles({
+    required WebPlaybackCapabilities capabilities,
+    required List<String> audioCodecs,
+  }) {
+    final profiles = <Map<String, dynamic>>[];
+    final added = <String>{};
+
+    void add(String container, String codec) {
+      final key = '$container|$codec';
+      if (added.contains(key)) {
+        return;
+      }
+      added.add(key);
+      profiles.add(<String, dynamic>{
+        'Container': container,
+        'Type': 'Audio',
+        'AudioCodec': codec,
+      });
+    }
+
+    if (audioCodecs.contains('aac')) {
+      add('aac', 'aac');
+      add('m4a', 'aac');
+      add('m4b', 'aac');
+    }
+    if (audioCodecs.contains('mp3')) {
+      add('mp3', 'mp3');
+      if (!capabilities.canDecodeMp3InHls) {
+        add('ts', 'mp3');
+      }
+    }
+    if (audioCodecs.contains('ac3')) {
+      add('ac3', 'ac3');
+    }
+    if (audioCodecs.contains('eac3')) {
+      add('eac3', 'eac3');
+    }
+    if (audioCodecs.contains('flac')) {
+      add('flac', 'flac');
+    }
+    if (audioCodecs.contains('alac')) {
+      add('alac', 'alac');
+      add('m4a', 'alac');
+      add('m4b', 'alac');
+    }
+    if (audioCodecs.contains('opus')) {
+      add('opus', 'opus');
+      add('webm', 'opus');
+      if (capabilities.isSafari) {
+        add('mp4', 'opus');
+      }
+    }
+    if (audioCodecs.contains('vorbis')) {
+      add('ogg', 'vorbis');
+      add('oga', 'vorbis');
+      add('webm', 'vorbis');
+    }
+
+    add('wav', 'wav');
+
+    return profiles;
   }
 
   static bool _isForceStereo({
@@ -278,6 +746,35 @@ class DeviceProfileBuilder {
     }
   }
 
+  static AudioCapabilityProfile _resolveEffectiveAudioCapabilityProfile({
+    required AudioCapabilityProfile? requestedProfile,
+    required WebPlaybackCapabilities? webCapabilities,
+  }) {
+    if (!PlatformDetection.isWeb) {
+      return requestedProfile ?? const AudioCapabilityProfile.optimistic();
+    }
+
+    final capabilities =
+        webCapabilities ?? WebPlaybackCapabilities.conservative;
+    return AudioCapabilityProfile(
+      canDecodeAc3: capabilities.canDecodeAc3,
+      canDecodeEac3: capabilities.canDecodeEac3,
+      canDecodeDts: capabilities.canDecodeDts,
+      canDecodeDtsHd: capabilities.canDecodeDtsHd,
+      canDecodeTrueHd: capabilities.canDecodeTrueHd,
+      canDecodeFlac: capabilities.canDecodeFlac,
+      canPassthroughAc3: false,
+      canPassthroughEac3: false,
+      canPassthroughEac3Joc: false,
+      canPassthroughDts: false,
+      canPassthroughDtsHd: false,
+      canPassthroughTrueHd: false,
+      maxPcmChannels: capabilities.maxPcmChannels,
+      activeRouteType: AudioRouteType.other,
+      routeSupportsHdAudio: false,
+    );
+  }
+
   static AudioFallbackCodec _resolveAudioFallbackCodec({
     required AudioFallbackCodec requested,
     required bool legacyStereoAacFallback,
@@ -290,7 +787,8 @@ class DeviceProfileBuilder {
     if (requested != AudioFallbackCodec.auto) {
       return requested;
     }
-    if (legacyStereoAacFallback || !capabilityProfile.hasMultichannelCapability) {
+    if (legacyStereoAacFallback ||
+        !capabilityProfile.hasMultichannelCapability) {
       return AudioFallbackCodec.aacStereo;
     }
     return AudioFallbackCodec.auto;
@@ -355,9 +853,12 @@ class DeviceProfileBuilder {
         return capabilityProfile.canDecodeAc3;
       case 'eac3':
         return capabilityProfile.canDecodeEac3;
+      case 'flac':
+        return capabilityProfile.canDecodeFlac;
       case 'dts':
       case 'dca':
-        return capabilityProfile.canDecodeDts || capabilityProfile.canDecodeDtsHd;
+        return capabilityProfile.canDecodeDts ||
+            capabilityProfile.canDecodeDtsHd;
       case 'truehd':
       case 'mlp':
         return capabilityProfile.canDecodeTrueHd;
@@ -399,6 +900,7 @@ class DeviceProfileBuilder {
   }
 
   static String _profileName() {
+    if (PlatformDetection.isWeb) return 'Moonfin for Web';
     if (PlatformDetection.isAndroid) return 'Moonfin for Android';
     if (PlatformDetection.isIOS) return 'Moonfin iOS';
     if (PlatformDetection.isMacOS) return 'Moonfin macOS';
@@ -441,8 +943,13 @@ class DeviceProfileBuilder {
     required bool supportsDvProfile8,
     required bool knownHevcDoviHdr10PlusBug,
     required bool allowDolbyVisionProfile7ElDirectPlay,
+    required WebPlaybackCapabilities? webCapabilities,
   }) {
     final profiles = <Map<String, dynamic>>[];
+    final isWebProfile = webCapabilities != null;
+    final isSafariWeb = webCapabilities?.isSafari ?? false;
+    final isIOSWeb = webCapabilities?.isIOS ?? false;
+    final iOSMajorVersion = webCapabilities?.iOSMajorVersion ?? 0;
 
     profiles.add(
       _codecProfile(
@@ -599,6 +1106,27 @@ class DeviceProfileBuilder {
       );
     }
 
+    if (isSafariWeb && supportsHevc) {
+      profiles.add(
+        _codecProfile(
+          type: 'Video',
+          codec: 'hevc',
+          conditions: <Map<String, dynamic>>[
+            _condition(
+              condition: 'EqualsAny',
+              property: 'VideoCodecTag',
+              value: 'hvc1|dvh1',
+            ),
+            _condition(
+              condition: 'LessThanEqual',
+              property: 'VideoFramerate',
+              value: '60',
+            ),
+          ],
+        ),
+      );
+    }
+
     profiles.add(
       _codecProfile(
         type: 'Video',
@@ -669,11 +1197,11 @@ class DeviceProfileBuilder {
       detectedHeight: maxResolutionVc1Height,
     );
 
-    final unsupportedRangeTypesAv1 = <String>{
-      'DOVI_INVALID',
-    };
+    final unsupportedRangeTypesAv1 = <String>{'DOVI_INVALID'};
     if (!supportsAv1DolbyVision) {
       unsupportedRangeTypesAv1.add('DOVI');
+      unsupportedRangeTypesAv1.add('DOVI_WITH_SDR');
+      unsupportedRangeTypesAv1.add('DOVI_WITH_HLG');
       if (!supportsAv1Hdr10) {
         unsupportedRangeTypesAv1.add('DOVI_WITH_HDR10');
       }
@@ -683,14 +1211,13 @@ class DeviceProfileBuilder {
     }
     if (!supportsAv1Hdr10) {
       unsupportedRangeTypesAv1.add('HDR10');
+      unsupportedRangeTypesAv1.add('HLG');
       if (!supportsAv1Hdr10Plus) {
         unsupportedRangeTypesAv1.add('HDR10_PLUS');
       }
     }
 
-    final unsupportedRangeTypesHevc = <String>{
-      'DOVI_INVALID',
-    };
+    final unsupportedRangeTypesHevc = <String>{'DOVI_INVALID'};
     if (!supportsHevcDolbyVisionEl) {
       if (!allowDolbyVisionProfile7ElDirectPlay) {
         unsupportedRangeTypesHevc.add('DOVI_WITH_EL');
@@ -699,6 +1226,8 @@ class DeviceProfileBuilder {
 
       if (!supportsHevcDolbyVision) {
         unsupportedRangeTypesHevc.add('DOVI');
+        unsupportedRangeTypesHevc.add('DOVI_WITH_SDR');
+        unsupportedRangeTypesHevc.add('DOVI_WITH_HLG');
         if (!supportsHevcHdr10) {
           unsupportedRangeTypesHevc.add('DOVI_WITH_HDR10');
         }
@@ -707,6 +1236,7 @@ class DeviceProfileBuilder {
 
     if (!supportsHevcHdr10) {
       unsupportedRangeTypesHevc.add('HDR10');
+      unsupportedRangeTypesHevc.add('HLG');
       if (!supportsHevcHdr10Plus) {
         unsupportedRangeTypesHevc.add('HDR10_PLUS');
       }
@@ -740,6 +1270,45 @@ class DeviceProfileBuilder {
       codec: 'hevc',
       rangeTypes: unsupportedRangeTypesHevc,
     );
+
+    if (isWebProfile) {
+      for (final codec in const <String>['h264', 'hevc', 'av1']) {
+        profiles.add(
+          _codecProfile(
+            type: 'Video',
+            codec: codec,
+            conditions: <Map<String, dynamic>>[
+              _condition(
+                condition: 'NotEquals',
+                property: 'IsInterlaced',
+                value: 'true',
+                isRequired: false,
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    if (isIOSWeb && iOSMajorVersion > 0 && iOSMajorVersion < 13) {
+      for (final container in const <String>['ts', 'mp4']) {
+        profiles.add(
+          _codecProfile(
+            type: 'Video',
+            container: container,
+            codec: 'h264',
+            conditions: <Map<String, dynamic>>[
+              _condition(
+                condition: 'LessThanEqual',
+                property: 'VideoLevel',
+                value: '42',
+                isRequired: false,
+              ),
+            ],
+          ),
+        );
+      }
+    }
 
     profiles.add(
       _codecProfile(
@@ -826,10 +1395,12 @@ class DeviceProfileBuilder {
       <String, List<String>>{
         'DOVI_INVALID': <String>['DOVI_INVALID', 'DOVIInvalid'],
         'DOVI_WITH_EL': <String>['DOVI_WITH_EL', 'DOVIWithEL'],
+        'DOVI_WITH_HLG': <String>['DOVI_WITH_HLG', 'DOVIWithHLG'],
         'DOVI_WITH_ELHDR10_PLUS': <String>[
           'DOVI_WITH_ELHDR10_PLUS',
           'DOVIWithELHDR10Plus',
         ],
+        'DOVI_WITH_SDR': <String>['DOVI_WITH_SDR', 'DOVIWithSDR'],
         'DOVI_WITH_HDR10': <String>['DOVI_WITH_HDR10', 'DOVIWithHDR10'],
         'DOVI_WITH_HDR10_PLUS': <String>[
           'DOVI_WITH_HDR10_PLUS',
@@ -845,10 +1416,12 @@ class DeviceProfileBuilder {
     required int detectedWidth,
     required int detectedHeight,
   }) {
-    final userWidth =
-        maxResolution == MaxVideoResolution.auto ? 0 : maxResolution.width;
-    final userHeight =
-        maxResolution == MaxVideoResolution.auto ? 0 : maxResolution.height;
+    final userWidth = maxResolution == MaxVideoResolution.auto
+        ? 0
+        : maxResolution.width;
+    final userHeight = maxResolution == MaxVideoResolution.auto
+        ? 0
+        : maxResolution.height;
 
     var width = detectedWidth > 0 ? detectedWidth : userWidth;
     var height = detectedHeight > 0 ? detectedHeight : userHeight;
@@ -857,8 +1430,7 @@ class DeviceProfileBuilder {
       width = width <= 0 ? userWidth : width.clamp(0, userWidth).toInt();
     }
     if (userHeight > 0) {
-      height =
-          height <= 0 ? userHeight : height.clamp(0, userHeight).toInt();
+      height = height <= 0 ? userHeight : height.clamp(0, userHeight).toInt();
     }
 
     if (width <= 0 || height <= 0) {
@@ -887,19 +1459,18 @@ class DeviceProfileBuilder {
 
   static Map<String, dynamic> _codecProfile({
     required String type,
+    String? container,
     String? codec,
     List<Map<String, dynamic>> conditions = const <Map<String, dynamic>>[],
     List<Map<String, dynamic>> applyConditions = const <Map<String, dynamic>>[],
   }) {
     final profile = <String, dynamic>{
       'Type': type,
+      ...?container == null ? null : <String, dynamic>{'Container': container},
+      ...?codec == null ? null : <String, dynamic>{'Codec': codec},
       'Conditions': conditions,
       if (applyConditions.isNotEmpty) 'ApplyConditions': applyConditions,
     };
-
-    if (codec != null) {
-      profile['Codec'] = codec;
-    }
 
     return profile;
   }

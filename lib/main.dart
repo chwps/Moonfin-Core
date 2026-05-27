@@ -16,6 +16,7 @@ import 'di/injection.dart';
 import 'playback/audio_capability_profile.dart';
 import 'playback/audio_handler.dart';
 import 'playback/playback_lifecycle_handler.dart';
+import 'platform/web_runtime_config.dart';
 import 'preference/preference_constants.dart';
 import 'preference/user_preferences.dart';
 import 'util/platform_detection.dart';
@@ -247,6 +248,10 @@ class _PreferenceWriteFlushObserver with WidgetsBindingObserver {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (PlatformDetection.isWeb) {
+    await loadWebRuntimeConfig();
+  }
 
   if (PlatformDetection.isDesktop) {
     await windowManager.ensureInitialized();

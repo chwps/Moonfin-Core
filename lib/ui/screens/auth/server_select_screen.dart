@@ -10,12 +10,21 @@ import 'package:server_core/server_core.dart';
 
 import '../../../auth/models/server.dart';
 import '../../../auth/models/server_addition_state.dart';
+import '../../../auth/models/user.dart';
 import '../../../auth/repositories/server_repository.dart';
+import '../../../auth/repositories/session_repository.dart';
+import '../../../auth/services/jellyfin_credentials_bridge.dart';
+import '../../../auth/store/authentication_preferences.dart';
+import '../../../auth/store/authentication_store.dart';
+import '../../../data/services/media_server_client_factory.dart';
 import '../../../auth/services/server_discovery_service.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../platform/web_runtime_config.dart';
 import '../../../preference/user_preferences.dart';
 import '../../../util/focus/dpad_keys.dart';
 import '../../../util/platform_detection.dart';
+import '../../../util/server_url.dart';
+import '../../../util/web_diagnostics_failure.dart';
 import '../../navigation/destinations.dart';
 import '../../widgets/login_scaffold.dart';
 import '../../widgets/overlay_sheet.dart';
@@ -33,6 +42,10 @@ class ServerSelectScreen extends StatefulWidget {
 class _ServerSelectScreenState extends State<ServerSelectScreen> {
   final _addressController = TextEditingController();
   final _serverRepo = GetIt.instance<ServerRepository>();
+  final _sessionRepo = GetIt.instance<SessionRepository>();
+  final _clientFactory = GetIt.instance<MediaServerClientFactory>();
+  final _authStore = GetIt.instance<AuthenticationStore>();
+  final _authPrefs = GetIt.instance<AuthenticationPreferences>();
   final _deviceInfo = GetIt.instance<DeviceInfo>();
   final _discoveryService = ServerDiscoveryService();
   StreamSubscription<ServerAdditionState>? _additionSub;
@@ -40,10 +53,39 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
 
   bool _isConnecting = false;
   String? _errorMessage;
+  bool _attemptedAutoConnect = false;
+  bool _suppressAutoNavigationOnServerConnected = false;
 
   final List<DiscoveredServer> _discoveredServers = [];
   bool _isDiscovering = false;
   bool get _isMoonfin => ThemeRegistry.active.id == ThemeRegistry.moonfinId;
+
+  bool get _isWebPluginMode =>
+      PlatformDetection.isWeb && webRuntimeConfig.pluginMode;
+
+  String? get _webDefaultServerUrl {
+    if (!PlatformDetection.isWeb) return null;
+    final normalized = normalizeServerBaseUrl(
+      webRuntimeConfig.defaultServerUrl?.trim() ?? '',
+    );
+    return normalized.isEmpty ? null : normalized;
+  }
+
+  String? get _webAutoConnectServerUrl {
+    if (!PlatformDetection.isWeb) return null;
+
+    final forced = normalizeServerBaseUrl(
+      webRuntimeConfig.forcedServerUrl?.trim() ?? '',
+    );
+    if (forced.isNotEmpty) return forced;
+
+    if (_isWebPluginMode) {
+      final origin = normalizeServerBaseUrl(Uri.base.origin);
+      if (origin.isNotEmpty) return origin;
+    }
+
+    return null;
+  }
 
   Color _loginForeground(double alpha) {
     return (_isMoonfin ? Colors.white : AppColorScheme.onSurface).withValues(
@@ -57,11 +99,42 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
         : AppColorScheme.statusRequested;
   }
 
+  bool _maybeOpenWebDiagnosticsForFailure({
+    required String? targetUrl,
+    String? errorType,
+    int? statusCode,
+    String? message,
+  }) {
+    if (!PlatformDetection.isWeb || !mounted) {
+      return false;
+    }
+
+    final reason = inferWebDiagnosticsFailureReason(
+      pageUri: Uri.base,
+      targetUrl: targetUrl,
+      errorType: errorType,
+      statusCode: statusCode,
+      message: message,
+    );
+    if (reason == null) {
+      return false;
+    }
+
+    context.go(
+      Destinations.webDiagnosticsRoute(
+        reason: webDiagnosticsFailureReasonToQuery(reason),
+        targetUrl: targetUrl,
+        detail: message,
+      ),
+    );
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
-    _loadServers();
     _additionSub = _serverRepo.additionState.listen(_onAdditionState);
+    _loadServers();
     _startDiscovery();
   }
 
@@ -75,7 +148,163 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
 
   Future<void> _loadServers() async {
     await _serverRepo.loadStoredServers();
-    if (mounted) setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
+    await _autoConnectConfiguredServer();
+  }
+
+  Future<void> _autoConnectConfiguredServer() async {
+    if (!mounted || _attemptedAutoConnect) return;
+
+    final configuredAddress = _webAutoConnectServerUrl;
+    if (configuredAddress == null) return;
+
+    _attemptedAutoConnect = true;
+
+    if (_isWebPluginMode) {
+      final autoLoggedIn = await _tryAutoLoginFromJellyfinCredentials(
+        preferredAddress: configuredAddress,
+      );
+      if (autoLoggedIn) {
+        return;
+      }
+    }
+
+    for (final server in _serverRepo.servers) {
+      final normalized = normalizeServerBaseUrl(server.address).toLowerCase();
+      if (normalized == configuredAddress.toLowerCase()) {
+        if (mounted) {
+          context.go('${Destinations.server}?serverId=${server.id}');
+        }
+        return;
+      }
+    }
+
+    try {
+      await _addServerWithoutAutoNavigation(configuredAddress);
+    } catch (_) {
+      if (!mounted) return;
+      _maybeOpenWebDiagnosticsForFailure(targetUrl: configuredAddress);
+      setState(() {
+        _isConnecting = false;
+        _errorMessage = AppLocalizations.of(context).unableToConnectToServer;
+      });
+    }
+  }
+
+  Future<bool> _tryAutoLoginFromJellyfinCredentials({
+    required String preferredAddress,
+  }) async {
+    final credentials = await loadJellyfinBootstrapCredentials(
+      preferredServerAddress: preferredAddress,
+    );
+    if (credentials == null) {
+      return false;
+    }
+
+    final candidateAddress = normalizeServerBaseUrl(
+      credentials.serverAddress.isNotEmpty
+          ? credentials.serverAddress
+          : preferredAddress,
+    );
+    if (candidateAddress.isEmpty) {
+      return false;
+    }
+
+    final server = await _ensureServer(candidateAddress);
+    if (server == null) {
+      return false;
+    }
+
+    final client = _clientFactory.getClient(
+      serverId: server.id,
+      serverType: server.serverType,
+      baseUrl: server.address,
+    );
+    client.accessToken = credentials.accessToken;
+    client.userId = credentials.userId;
+
+    try {
+      final currentUser = await client.usersApi.getCurrentUser();
+      final resolvedUserId =
+          currentUser.id.trim().isNotEmpty ? currentUser.id : credentials.userId;
+      if (resolvedUserId.trim().isEmpty) {
+        return false;
+      }
+
+      final resolvedUserName = (currentUser.name ?? '').trim();
+      final user = PrivateUser(
+        id: resolvedUserId,
+        name: resolvedUserName.isNotEmpty ? resolvedUserName : 'Moonfin User',
+        serverId: server.id,
+        accessToken: credentials.accessToken,
+        lastUsed: DateTime.now(),
+        imageTag: currentUser.primaryImageTag,
+        isAdministrator: currentUser.policy?.isAdministrator ?? false,
+        canDownload: currentUser.policy?.enableContentDownloading ?? false,
+        canManageSubtitles: currentUser.policy?.enableSubtitleManagement ??
+            false,
+      );
+
+      await _authStore.putUser(user);
+      await _authPrefs.setLastServerId(server.id);
+      await _authPrefs.setLastUserId(user.id);
+
+      final switched = await _sessionRepo.switchCurrentSession(
+        serverId: server.id,
+        userId: user.id,
+      );
+      if (!switched) {
+        return false;
+      }
+
+      if (mounted) {
+        context.go(Destinations.home);
+      }
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<Server?> _ensureServer(String address) async {
+    final existing = _findServerByAddress(address);
+    if (existing != null) {
+      return existing;
+    }
+
+    final added = await _addServerWithoutAutoNavigation(address);
+    if (added != null) {
+      return added;
+    }
+
+    return _findServerByAddress(address);
+  }
+
+  Server? _findServerByAddress(String address) {
+    final normalizedAddress = normalizeServerBaseUrl(address).toLowerCase();
+    if (normalizedAddress.isEmpty) {
+      return null;
+    }
+
+    for (final server in _serverRepo.servers) {
+      final normalized = normalizeServerBaseUrl(server.address).toLowerCase();
+      if (normalized == normalizedAddress) {
+        return server;
+      }
+    }
+
+    return null;
+  }
+
+  Future<Server?> _addServerWithoutAutoNavigation(String address) async {
+    _suppressAutoNavigationOnServerConnected = true;
+    try {
+      return await _serverRepo.addServer(address);
+    } finally {
+      _suppressAutoNavigationOnServerConnected = false;
+    }
   }
 
   void _startDiscovery() {
@@ -117,10 +346,31 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
         if (!shouldHandleAdditionState) return;
         setState(() => _isConnecting = false);
         _addressController.clear();
+        if (_suppressAutoNavigationOnServerConnected) {
+          return;
+        }
         context.go('${Destinations.server}?serverId=$id');
-      case ServerUnableToConnect():
+      case ServerUnableToConnect(
+        :final candidatesTried,
+        :final lastCandidate,
+        :final lastErrorType,
+        :final lastStatusCode,
+        :final lastErrorMessage,
+      ):
         if (!shouldHandleAdditionState) return;
-        setState(() => _isConnecting = false);
+        final targetUrl = (lastCandidate != null && lastCandidate.isNotEmpty)
+            ? lastCandidate
+            : (candidatesTried.isNotEmpty ? candidatesTried.first : null);
+        setState(() {
+          _isConnecting = false;
+          _errorMessage = AppLocalizations.of(context).unableToConnectToServer;
+        });
+        _maybeOpenWebDiagnosticsForFailure(
+          targetUrl: targetUrl,
+          errorType: lastErrorType,
+          statusCode: lastStatusCode,
+          message: lastErrorMessage,
+        );
     }
   }
 
@@ -137,6 +387,10 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
       await _serverRepo.addServer(discovered.address);
     } catch (e) {
       if (!mounted) return;
+      _maybeOpenWebDiagnosticsForFailure(
+        targetUrl: discovered.address,
+        message: e.toString(),
+      );
       setState(() {
         _isConnecting = false;
         _errorMessage = AppLocalizations.of(context).unableToConnectToServer;
@@ -288,38 +542,61 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
           LayoutBuilder(
             builder: (context, constraints) {
               final isVerySmall = constraints.maxWidth < 360;
-              final addServerButton = _buildFooterActionButton(
-                onPressed: _isConnecting ? null : _showAddServerDialog,
-                icon: const Icon(Icons.add, size: 16),
-                label: l10n.addServer,
-              );
+              final actions = <Widget>[];
 
-              final embyConnectButton = _buildFooterActionButton(
-                onPressed: _isConnecting
-                    ? null
-                    : () => context.go(Destinations.embyConnect),
-                icon: const ServerTypeIcon(
-                  serverType: ServerType.emby,
-                  size: 16,
-                ),
-                label: l10n.embyConnect,
-              );
+              if (!_isWebPluginMode) {
+                actions.add(
+                  _buildFooterActionButton(
+                    onPressed: _isConnecting ? null : _showAddServerDialog,
+                    icon: const Icon(Icons.add, size: 16),
+                    label: l10n.addServer,
+                  ),
+                );
 
-              if (isVerySmall) {
-                return Column(
+                actions.add(
+                  _buildFooterActionButton(
+                    onPressed: _isConnecting
+                        ? null
+                        : () => context.go(Destinations.embyConnect),
+                    icon: const ServerTypeIcon(
+                      serverType: ServerType.emby,
+                      size: 16,
+                    ),
+                    label: l10n.embyConnect,
+                  ),
+                );
+              }
+
+              if (PlatformDetection.isWeb) {
+                actions.add(
+                  _buildFooterActionButton(
+                    onPressed: () => context.go(Destinations.webDiagnostics),
+                    icon: const Icon(Icons.bug_report, size: 16),
+                    label: 'Web diagnostics',
+                  ),
+                );
+              }
+
+              if (actions.isEmpty) {
+                return const SizedBox.shrink();
+              }
+
+              if (actions.length == 2 && !isVerySmall) {
+                return Row(
                   children: [
-                    SizedBox(width: double.infinity, child: addServerButton),
-                    const SizedBox(height: 8),
-                    SizedBox(width: double.infinity, child: embyConnectButton),
+                    Expanded(child: actions[0]),
+                    const SizedBox(width: 8),
+                    Expanded(child: actions[1]),
                   ],
                 );
               }
 
-              return Row(
+              return Column(
                 children: [
-                  Expanded(child: addServerButton),
-                  const SizedBox(width: 8),
-                  Expanded(child: embyConnectButton),
+                  for (var i = 0; i < actions.length; i++) ...[
+                    SizedBox(width: double.infinity, child: actions[i]),
+                    if (i < actions.length - 1) const SizedBox(height: 8),
+                  ],
                 ],
               );
             },
@@ -415,7 +692,11 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
   Future<void> _showAddServerDialog() async {
     if (_isAddDialogOpen) return;
     _isAddDialogOpen = true;
-    _addressController.clear();
+    final defaultAddress = _webDefaultServerUrl;
+    _addressController.text = defaultAddress ?? '';
+    _addressController.selection = TextSelection.collapsed(
+      offset: _addressController.text.length,
+    );
     try {
       await showFocusRestoringDialog<void>(
         context: context,
@@ -506,10 +787,11 @@ class _FocusableTileState extends State<_FocusableTile> {
     }
 
     if (event is KeyUpEvent) {
+      final wasPressed = _selectKeyPressed;
       _selectKeyPressed = false;
       _selectHoldTimer?.cancel();
       _selectHoldTimer = null;
-      if (!_longPressFiredFromKey) {
+      if (wasPressed && !_longPressFiredFromKey) {
         widget.onTap?.call();
       }
       _longPressFiredFromKey = false;

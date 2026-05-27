@@ -10,6 +10,7 @@ import '../../data/services/media_server_client_factory.dart';
 import '../../data/services/offline_playback_tracker.dart';
 import '../../playback/audio_capability_profile.dart';
 import '../../playback/hdr_stream_capability.dart';
+import '../../playback/html_video_backend.dart';
 import '../../playback/known_defects.dart';
 import '../../playback/external_player_policy.dart';
 import '../../playback/media_kit_player_backend.dart';
@@ -25,8 +26,8 @@ import '../../util/platform_detection.dart';
 final _getIt = GetIt.instance;
 
 const _nextSeasonEpisodeFields =
-  'Type,UserData,SeriesName,ParentIndexNumber,IndexNumber,SeriesId,SeasonId,'
-  'MediaSources,MediaStreams,RunTimeTicks';
+    'Type,UserData,SeriesName,ParentIndexNumber,IndexNumber,SeriesId,SeasonId,'
+    'MediaSources,MediaStreams,RunTimeTicks';
 
 bool _isDolbyVisionResolution(StreamResolutionResult resolution) {
   for (final stream in resolution.mediaStreams) {
@@ -35,6 +36,19 @@ bool _isDolbyVisionResolution(StreamResolutionResult resolution) {
     }
   }
   return false;
+}
+
+bool _shouldUseHtmlVideoBackend(StreamResolutionResult resolution) {
+  if (!PlatformDetection.isWeb) {
+    return false;
+  }
+
+  final mediaType = resolution.mediaType.trim().toLowerCase();
+  if (mediaType != 'video') {
+    return false;
+  }
+
+  return true;
 }
 
 bool _hasUnsupportedDolbyVisionProfile(StreamResolutionResult resolution) {
@@ -220,7 +234,9 @@ Future<String?> _resolveNextSeasonId({
     final candidateId = raw['Id']?.toString();
     if (candidateId == null || candidateId.isEmpty) continue;
 
-    final candidateNumber = _asInt(raw['IndexNumber'] ?? raw['ParentIndexNumber']);
+    final candidateNumber = _asInt(
+      raw['IndexNumber'] ?? raw['ParentIndexNumber'],
+    );
     if (candidateNumber == null || candidateNumber <= currentSeasonNumber) {
       continue;
     }
@@ -313,25 +329,47 @@ void registerPlaybackModule() {
   final pipService = PipService();
   _getIt.registerSingleton<PipService>(pipService);
 
+  final prefs = _getIt<UserPreferences>();
+
   final backend = MediaKitPlayerBackend(
-    _getIt<UserPreferences>(),
+    prefs,
     onNativeHandleReady: pipService.initializeIos,
   );
-  final media3Backend = Media3PlayerBackend(_getIt<UserPreferences>());
+  final media3Backend = Media3PlayerBackend(prefs);
   _getIt.registerSingleton<MediaKitPlayerBackend>(backend);
   _getIt.registerSingleton<Media3PlayerBackend>(media3Backend);
 
-  final prefs = _getIt<UserPreferences>();
+  HtmlVideoBackend? htmlBackend;
+  if (PlatformDetection.isWeb) {
+    htmlBackend = HtmlVideoBackend(prefs);
+    _getIt.registerSingleton<HtmlVideoBackend>(htmlBackend);
+  }
+
   final useMedia3ByDefault =
       PlatformDetection.isAndroid &&
       prefs.get(UserPreferences.playbackEnginePreference) ==
           PlaybackEnginePreference.media3;
-  final initialBackend = useMedia3ByDefault ? media3Backend : backend;
+  final initialBackend = PlatformDetection.isWeb
+      ? (htmlBackend ?? backend)
+      : (useMedia3ByDefault ? media3Backend : backend);
   _getIt.registerSingleton<PlayerBackend>(initialBackend);
 
   final manager = PlaybackManager();
   manager.setBackend(initialBackend);
   manager.setBackendSelector((resolution, currentBackend) {
+    if (PlatformDetection.isWeb) {
+      final webHtmlBackend = htmlBackend;
+      if (webHtmlBackend != null && _shouldUseHtmlVideoBackend(resolution)) {
+        if (currentBackend is HtmlVideoBackend) {
+          return currentBackend;
+        }
+        return webHtmlBackend;
+      }
+
+      if (currentBackend is MediaKitPlayerBackend) return currentBackend;
+      return _getIt<MediaKitPlayerBackend>();
+    }
+
     if (PlatformDetection.isAndroid) {
       final preferMedia3 =
           prefs.get(UserPreferences.playbackEnginePreference) ==
@@ -437,10 +475,7 @@ void registerPlaybackModule() {
   );
 
   _getIt.registerLazySingleton<SyncPlayManager>(
-    () => SyncPlayManager(
-      _getIt<PlaybackManager>(),
-      _getIt<UserPreferences>(),
-    ),
+    () => SyncPlayManager(_getIt<PlaybackManager>(), _getIt<UserPreferences>()),
   );
 }
 
@@ -452,8 +487,10 @@ void setActiveStreamResolver(MediaServerClient client) {
     _getIt.unregister<PlayerService>();
   }
 
-  final (MediaStreamResolver resolver, PlayerService service) =
-      switch (client.serverType) {
+  final (
+    MediaStreamResolver resolver,
+    PlayerService service,
+  ) = switch (client.serverType) {
     ServerType.jellyfin => () {
       final p = JellyfinPlugin(client);
       return (p.createStreamResolver(), p.createPlaySessionService());

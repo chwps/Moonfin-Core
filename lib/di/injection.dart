@@ -42,6 +42,7 @@ String _clientName() {
   if (PlatformDetection.isAndroid && PlatformDetection.isTV) {
     return 'Moonfin for Android TV';
   }
+  if (PlatformDetection.isWeb) return 'Moonfin for Web';
   if (PlatformDetection.isAndroid) return 'Moonfin for Android';
   if (PlatformDetection.isIOS) return 'Moonfin for iOS';
   if (PlatformDetection.isMacOS) return 'Moonfin for macOS';
