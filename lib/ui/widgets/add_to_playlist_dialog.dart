@@ -3,19 +3,29 @@ import 'package:get_it/get_it.dart';
 import 'package:moonfin_design/moonfin_design.dart';
 import 'package:server_core/server_core.dart';
 
+import '../../data/services/media_server_client_factory.dart';
 import '../../l10n/app_localizations.dart';
 import 'focusable_dialog_row.dart';
 import 'overlay_sheet.dart';
 
 class AddToPlaylistDialog extends StatefulWidget {
   final List<String> itemIds;
+  final String? serverId;
 
-  const AddToPlaylistDialog({super.key, required this.itemIds});
+  const AddToPlaylistDialog({
+    super.key,
+    required this.itemIds,
+    this.serverId,
+  });
 
-  static Future<bool?> show(BuildContext context, {required List<String> itemIds}) {
+  static Future<bool?> show(
+    BuildContext context, {
+    required List<String> itemIds,
+    String? serverId,
+  }) {
     return showFocusRestoringDialog<bool>(
       context: context,
-      builder: (_) => AddToPlaylistDialog(itemIds: itemIds),
+      builder: (_) => AddToPlaylistDialog(itemIds: itemIds, serverId: serverId),
     );
   }
 
@@ -24,13 +34,18 @@ class AddToPlaylistDialog extends StatefulWidget {
 }
 
 class _AddToPlaylistDialogState extends State<AddToPlaylistDialog> {
-  final _client = GetIt.instance<MediaServerClient>();
+  late final MediaServerClient _client;
   List<_PlaylistEntry>? _playlists;
   final _nameController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    final factory = GetIt.instance<MediaServerClientFactory>();
+    _client = widget.serverId != null
+        ? (factory.getClientIfExists(widget.serverId!) ??
+              GetIt.instance<MediaServerClient>())
+        : GetIt.instance<MediaServerClient>();
     _loadPlaylists();
   }
 
@@ -161,7 +176,6 @@ class _AddToPlaylistDialogState extends State<AddToPlaylistDialog> {
                             Navigator.pop(ctx);
                             _createAndAdd();
                           },
-                          style: FilledButton.styleFrom(backgroundColor: AppColorScheme.accent),
                           child: Text(AppLocalizations.of(ctx).playlistCreate),
                         ),
                       ],

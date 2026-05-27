@@ -4412,7 +4412,11 @@ class _ActionButtonsState extends State<_ActionButtons> {
           label: l10n.playlist,
           icon: Icons.playlist_add,
           onPressed: () =>
-              AddToPlaylistDialog.show(context, itemIds: [item.id]),
+              AddToPlaylistDialog.show(
+                context,
+                itemIds: [item.id],
+                serverId: item.serverId,
+              ),
         ),
       if (canShowDownloadActions)
         _DownloadButton(item: item, viewModel: viewModel),
@@ -9436,7 +9440,11 @@ class _AlbumActions extends StatelessWidget {
               label: l10n.playlist,
               icon: Icons.playlist_add,
               onPressed: () =>
-                  AddToPlaylistDialog.show(context, itemIds: [item.id]),
+                  AddToPlaylistDialog.show(
+                    context,
+                    itemIds: [item.id],
+                    serverId: item.serverId,
+                  ),
             ),
         ],
       ),
@@ -9962,7 +9970,11 @@ class _TrackTileState extends State<_TrackTile> with FocusStateMixin {
       onPlayNext: () => manager.queueService.insertNext(widget.track),
       onAddToQueue: () => manager.queueService.addToQueue(widget.track),
       onAddToPlaylist: () =>
-          AddToPlaylistDialog.show(context, itemIds: [widget.track.id]),
+          AddToPlaylistDialog.show(
+            context,
+            itemIds: [widget.track.id],
+            serverId: widget.track.serverId,
+          ),
       onRemoveFromPlaylist: widget.onRemoveFromPlaylist != null
           ? () => widget.onRemoveFromPlaylist!(widget.track)
           : null,

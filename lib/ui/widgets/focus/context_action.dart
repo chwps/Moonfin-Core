@@ -32,8 +32,15 @@ List<ItemContextAction> contextActionsFor(
   final l10n = AppLocalizations.of(context);
   final mutations = GetIt.instance<ItemMutationRepository>();
   final client = GetIt.instance<MediaServerClient>();
-  final isAdminUser =
-      GetIt.instance<UserRepository>().currentUser?.isAdministrator ?? false;
+  final currentUser = GetIt.instance<UserRepository>().currentUser;
+  final isAdminUser = currentUser?.isAdministrator ?? false;
+  final isSameServerItem = currentUser?.serverId == item.serverId;
+  final requiresCollectionPermission =
+      client.serverType == ServerType.jellyfin && isSameServerItem;
+  final canManageCollections =
+      !requiresCollectionPermission ||
+      currentUser?.canManageCollections == true ||
+      isAdminUser;
   final canRefreshMetadata =
       client.serverType == ServerType.jellyfin && isAdminUser;
   final actions = <ItemContextAction>[];
@@ -71,20 +78,23 @@ List<ItemContextAction> contextActionsFor(
       },
     ));
 
-    actions.add(ItemContextAction(
-      icon: Icons.collections_bookmark,
-      label: '${l10n.add} ${l10n.collections}',
-      onSelect: () async {
-        if (!context.mounted) return;
-        final added = await AddToCollectionDialog.show(
-          context,
-          itemIds: [item.id],
-        );
-        if (added == true) {
-          onChanged?.call();
-        }
-      },
-    ));
+    if (canManageCollections) {
+      actions.add(ItemContextAction(
+        icon: Icons.collections_bookmark,
+        label: '${l10n.add} ${l10n.collections}',
+        onSelect: () async {
+          if (!context.mounted) return;
+          final added = await AddToCollectionDialog.show(
+            context,
+            itemIds: [item.id],
+            serverId: item.serverId,
+          );
+          if (added == true) {
+            onChanged?.call();
+          }
+        },
+      ));
+    }
 
     actions.add(ItemContextAction(
       icon: Icons.playlist_add,
@@ -94,6 +104,7 @@ List<ItemContextAction> contextActionsFor(
         final added = await AddToPlaylistDialog.show(
           context,
           itemIds: [item.id],
+          serverId: item.serverId,
         );
         if (added == true) {
           onChanged?.call();

@@ -99,6 +99,8 @@ class AuthRepository {
     final isAdmin = policyJson?['IsAdministrator'] as bool? ?? false;
     final canManageSubtitles =
         policyJson?['EnableSubtitleManagement'] as bool? ?? false;
+    final canManageCollections =
+      policyJson?['EnableCollectionManagement'] as bool? ?? false;
 
     if (accessToken == null || userId == null) {
       const state = ApiClientError(error: 'Invalid auth response');
@@ -118,6 +120,7 @@ class AuthRepository {
       imageTag: imageTag,
       isAdministrator: isAdmin,
       canManageSubtitles: canManageSubtitles,
+      canManageCollections: canManageCollections,
     );
 
     await _authStore.putUser(user);

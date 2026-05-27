@@ -6,6 +6,7 @@ sealed class User {
   bool get isAdministrator;
   bool get canDownload;
   bool get canManageSubtitles;
+  bool get canManageCollections;
 
   const User();
 }
@@ -27,6 +28,8 @@ class PrivateUser extends User {
   final bool canDownload;
   @override
   final bool canManageSubtitles;
+  @override
+  final bool canManageCollections;
 
   const PrivateUser({
     required this.id,
@@ -38,6 +41,7 @@ class PrivateUser extends User {
     this.isAdministrator = false,
     this.canDownload = false,
     this.canManageSubtitles = false,
+    this.canManageCollections = false,
   });
 
   Map<String, dynamic> toJson() => {
@@ -48,6 +52,7 @@ class PrivateUser extends User {
         'isAdministrator': isAdministrator,
         'canDownload': canDownload,
         'canManageSubtitles': canManageSubtitles,
+        'canManageCollections': canManageCollections,
       };
 
   factory PrivateUser.fromJson(
@@ -66,6 +71,7 @@ class PrivateUser extends User {
       isAdministrator: json['isAdministrator'] as bool? ?? false,
       canDownload: json['canDownload'] as bool? ?? false,
       canManageSubtitles: json['canManageSubtitles'] as bool? ?? false,
+      canManageCollections: json['canManageCollections'] as bool? ?? false,
     );
   }
 
@@ -79,6 +85,7 @@ class PrivateUser extends User {
     bool? isAdministrator,
     bool? canDownload,
     bool? canManageSubtitles,
+    bool? canManageCollections,
   }) {
     return PrivateUser(
       id: id ?? this.id,
@@ -90,6 +97,7 @@ class PrivateUser extends User {
       isAdministrator: isAdministrator ?? this.isAdministrator,
       canDownload: canDownload ?? this.canDownload,
       canManageSubtitles: canManageSubtitles ?? this.canManageSubtitles,
+      canManageCollections: canManageCollections ?? this.canManageCollections,
     );
   }
 }
@@ -110,6 +118,8 @@ class PublicUser extends User {
   final bool canDownload;
   @override
   final bool canManageSubtitles;
+  @override
+  final bool canManageCollections;
 
   const PublicUser({
     required this.id,
@@ -120,5 +130,6 @@ class PublicUser extends User {
     this.isAdministrator = false,
     this.canDownload = false,
     this.canManageSubtitles = false,
+    this.canManageCollections = false,
   });
 }

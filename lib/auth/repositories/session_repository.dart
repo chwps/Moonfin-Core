@@ -195,14 +195,18 @@ class SessionRepository {
       final canDownload = serverUser.policy?.enableContentDownloading ?? false;
       final canManageSubtitles =
           serverUser.policy?.enableSubtitleManagement ?? false;
+      final canManageCollections =
+          serverUser.policy?.enableCollectionManagement ?? false;
 
       if (isAdmin != user.isAdministrator ||
           canDownload != user.canDownload ||
-          canManageSubtitles != user.canManageSubtitles) {
+          canManageSubtitles != user.canManageSubtitles ||
+          canManageCollections != user.canManageCollections) {
         final updatedUser = user.copyWith(
           isAdministrator: isAdmin,
           canDownload: canDownload,
           canManageSubtitles: canManageSubtitles,
+          canManageCollections: canManageCollections,
         );
         await _authStore.putUser(updatedUser);
         _userRepository.setCurrentUser(updatedUser);

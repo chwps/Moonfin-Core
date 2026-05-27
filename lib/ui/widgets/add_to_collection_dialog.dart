@@ -1,10 +1,12 @@
 import 'package:custom_tv_text_field/custom_tv_text_field.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:moonfin_design/moonfin_design.dart';
 import 'package:server_core/server_core.dart';
 
 import '../../data/repositories/item_mutation_repository.dart';
+import '../../data/services/media_server_client_factory.dart';
 import '../../l10n/app_localizations.dart';
 import '../../util/focus/dpad_keys.dart';
 import '../../util/platform_detection.dart';
@@ -13,13 +15,22 @@ import 'overlay_sheet.dart';
 
 class AddToCollectionDialog extends StatefulWidget {
   final List<String> itemIds;
+  final String? serverId;
 
-  const AddToCollectionDialog({super.key, required this.itemIds});
+  const AddToCollectionDialog({
+    super.key,
+    required this.itemIds,
+    this.serverId,
+  });
 
-  static Future<bool?> show(BuildContext context, {required List<String> itemIds}) {
+  static Future<bool?> show(
+    BuildContext context, {
+    required List<String> itemIds,
+    String? serverId,
+  }) {
     return showFocusRestoringDialog<bool>(
       context: context,
-      builder: (_) => AddToCollectionDialog(itemIds: itemIds),
+      builder: (_) => AddToCollectionDialog(itemIds: itemIds, serverId: serverId),
     );
   }
 
@@ -28,8 +39,30 @@ class AddToCollectionDialog extends StatefulWidget {
 }
 
 class _AddToCollectionDialogState extends State<AddToCollectionDialog> {
-  final _client = GetIt.instance<MediaServerClient>();
-  final _mutations = GetIt.instance<ItemMutationRepository>();
+  String _errorMessage(Object error) {
+    if (error is DioException) {
+      final status = error.response?.statusCode;
+      final data = error.response?.data;
+      final serverMessage = data is String
+          ? data
+          : (data is Map<String, dynamic>
+                ? (data['message'] ?? data['Message'])?.toString()
+                : null);
+      if (serverMessage != null && serverMessage.trim().isNotEmpty) {
+        return serverMessage;
+      }
+      if (status == 403) {
+        return 'Collection management not allowed for this account.';
+      }
+      if (status != null) {
+        return 'HTTP $status';
+      }
+    }
+    return AppLocalizations.of(context).failedToLoad;
+  }
+
+  late final MediaServerClient _client;
+  late final ItemMutationRepository _mutations;
   final _nameController = TextEditingController();
   final _createNameFocus = FocusNode(debugLabel: 'createCollectionName');
   final _createCreateFocus = FocusNode(debugLabel: 'createCollectionConfirm');
@@ -40,6 +73,12 @@ class _AddToCollectionDialogState extends State<AddToCollectionDialog> {
   @override
   void initState() {
     super.initState();
+    final factory = GetIt.instance<MediaServerClientFactory>();
+    _client = widget.serverId != null
+        ? (factory.getClientIfExists(widget.serverId!) ??
+              GetIt.instance<MediaServerClient>())
+        : GetIt.instance<MediaServerClient>();
+    _mutations = ItemMutationRepository(_client);
     _loadCollections();
   }
 
@@ -77,14 +116,70 @@ class _AddToCollectionDialogState extends State<AddToCollectionDialog> {
     }
   }
 
+  String? _collectionIdFromCreateResponse(Map<String, dynamic> created) {
+    final candidates = <String?>[
+      created['Id'] as String?,
+      created['id'] as String?,
+      created['CollectionId'] as String?,
+      created['collectionId'] as String?,
+      created['ItemId'] as String?,
+      created['itemId'] as String?,
+    ];
+    for (final candidate in candidates) {
+      if (candidate != null && candidate.isNotEmpty) {
+        return candidate;
+      }
+    }
+    return null;
+  }
+
+  Future<String?> _findCreatedCollectionId(String name) async {
+    final normalizedName = name.trim().toLowerCase();
+    for (var attempt = 0; attempt < 3; attempt++) {
+      final data = await _client.itemsApi.getItems(
+        includeItemTypes: const ['BoxSet'],
+        recursive: true,
+        searchTerm: name,
+        sortBy: 'DateCreated',
+        sortOrder: 'Descending',
+        limit: 25,
+      );
+      final items = (data['Items'] as List?) ?? const [];
+
+      String? firstFoundId;
+      for (final raw in items.whereType<Map>()) {
+        final entry = raw.cast<String, dynamic>();
+        final id = entry['Id'] as String?;
+        final entryName = (entry['Name'] as String?)?.trim().toLowerCase();
+        if (id == null || id.isEmpty) {
+          continue;
+        }
+        firstFoundId ??= id;
+        if (entryName == normalizedName) {
+          return id;
+        }
+      }
+
+      if (firstFoundId != null) {
+        return firstFoundId;
+      }
+
+      if (attempt < 2) {
+        await Future<void>.delayed(const Duration(milliseconds: 150));
+      }
+    }
+
+    return null;
+  }
+
   Future<void> _addToCollection(String collectionId) async {
     try {
       await _mutations.addToCollection(collectionId, widget.itemIds);
       if (mounted) Navigator.pop(context, true);
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context).failedToLoad)),
+        SnackBar(content: Text(_errorMessage(error))),
       );
     }
   }
@@ -95,21 +190,25 @@ class _AddToCollectionDialogState extends State<AddToCollectionDialog> {
     try {
       final created = await _mutations.createCollection(
         name: name,
-        itemIds: widget.itemIds,
       );
       if (!mounted) return;
-      final collectionId = created['Id'] as String?;
-      if (collectionId == null || collectionId.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context).failedToLoad)),
-        );
-        return;
+
+      final collectionId =
+          _collectionIdFromCreateResponse(created) ??
+          await _findCreatedCollectionId(name);
+
+      if (!mounted) return;
+
+      if (collectionId != null && widget.itemIds.isNotEmpty) {
+        await _mutations.addToCollection(collectionId, widget.itemIds);
       }
+
+      if (!mounted) return;
       Navigator.pop(context, true);
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context).failedToLoad)),
+        SnackBar(content: Text(_errorMessage(error))),
       );
     }
   }
@@ -267,9 +366,6 @@ class _AddToCollectionDialogState extends State<AddToCollectionDialog> {
                               Navigator.pop(ctx);
                               _createAndAdd();
                             },
-                            style: FilledButton.styleFrom(
-                              backgroundColor: AppColorScheme.accent,
-                            ),
                             child: Text(l10n.create),
                           ),
                         ],

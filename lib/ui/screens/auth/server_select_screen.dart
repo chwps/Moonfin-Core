@@ -245,6 +245,8 @@ class _ServerSelectScreenState extends State<ServerSelectScreen> {
         canDownload: currentUser.policy?.enableContentDownloading ?? false,
         canManageSubtitles: currentUser.policy?.enableSubtitleManagement ??
             false,
+        canManageCollections:
+          currentUser.policy?.enableCollectionManagement ?? false,
       );
 
       await _authStore.putUser(user);

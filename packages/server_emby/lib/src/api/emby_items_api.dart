@@ -7,6 +7,14 @@ class EmbyItemsApi implements ItemsApi {
 
   EmbyItemsApi(this._dio, this._getUserId);
 
+  bool _shouldRetryCollectionFallback(int statusCode) {
+    return statusCode == 400 ||
+        statusCode == 404 ||
+        statusCode == 405 ||
+        statusCode == 415 ||
+        statusCode == 422;
+  }
+
   @override
   Future<Map<String, dynamic>> getItems({
     String? parentId,
@@ -320,11 +328,45 @@ class EmbyItemsApi implements ItemsApi {
     required String name,
     List<String>? itemIds,
   }) async {
-    final response = await _dio.post(
-      '/Collections',
-      data: {'Name': name, 'Ids': ?itemIds},
-    );
-    return response.data as Map<String, dynamic>;
+    final hasItems = itemIds != null && itemIds.isNotEmpty;
+    final ids = hasItems ? itemIds.join(',') : null;
+    final queryParameters = <String, dynamic>{
+      'name': name,
+      'Name': name,
+      if (ids != null) 'ids': ids,
+      if (ids != null) 'Ids': ids,
+    };
+
+    Response<dynamic> response;
+    try {
+      response = await _dio.post(
+        '/Collections',
+        queryParameters: queryParameters,
+      );
+    } on DioException catch (error) {
+      final statusCode = error.response?.statusCode ?? 0;
+      if (!_shouldRetryCollectionFallback(statusCode)) {
+        rethrow;
+      }
+
+      response = await _dio.post(
+        '/Collections',
+        queryParameters: queryParameters,
+        data: {
+          'Name': name,
+          if (hasItems) 'Ids': itemIds,
+        },
+      );
+    }
+
+    final data = response.data;
+    if (data is Map<String, dynamic>) {
+      return data;
+    }
+    if (data is Map) {
+      return data.cast<String, dynamic>();
+    }
+    return <String, dynamic>{};
   }
 
   @override
@@ -337,10 +379,38 @@ class EmbyItemsApi implements ItemsApi {
 
   @override
   Future<void> addToCollection(String collectionId, List<String> itemIds) async {
-    await _dio.post(
-      '/Collections/$collectionId/Items',
-      queryParameters: {'Ids': itemIds.join(',')},
-    );
+    final ids = itemIds.join(',');
+    final path = '/Collections/$collectionId/Items';
+
+    Future<void> send({
+      String? queryKey,
+      bool includeBody = false,
+    }) async {
+      await _dio.post(
+        path,
+        queryParameters: queryKey == null ? null : {queryKey: ids},
+        data: includeBody
+            ? {
+                'Ids': itemIds,
+                'ids': ids,
+              }
+            : null,
+      );
+    }
+
+    for (final queryKey in const ['Ids', 'ids']) {
+      try {
+        await send(queryKey: queryKey);
+        return;
+      } on DioException catch (error) {
+        final statusCode = error.response?.statusCode ?? 0;
+        if (!_shouldRetryCollectionFallback(statusCode)) {
+          rethrow;
+        }
+      }
+    }
+
+    await send(includeBody: true);
   }
 
   @override
