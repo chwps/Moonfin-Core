@@ -62,17 +62,27 @@ class _SubtitleCustomizationScreenState
     required double min,
     required double max,
     required double step,
+    bool swallowDown = false,
   }) {
     if (event is! KeyDownEvent && event is! KeyRepeatEvent) {
       return KeyEventResult.ignored;
     }
     final key = event.logicalKey;
     if (key == LogicalKeyboardKey.arrowUp) {
-      node.previousFocus();
+      final moved = node.previousFocus();
+      if (!moved) {
+        node.requestFocus();
+      }
       return KeyEventResult.handled;
     }
     if (key == LogicalKeyboardKey.arrowDown) {
-      node.nextFocus();
+      if (swallowDown) {
+        return KeyEventResult.handled;
+      }
+      final moved = node.nextFocus();
+      if (!moved) {
+        node.requestFocus();
+      }
       return KeyEventResult.handled;
     }
     if (key == LogicalKeyboardKey.arrowLeft ||
@@ -107,6 +117,9 @@ class _SubtitleCustomizationScreenState
       Scaffold(
         appBar: buildSettingsAppBar(context, Text(l10n.subtitleCustomization)),
         body: ListView(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom + 16,
+          ),
           children: [
             const SubtitlePreview(),
             _ColorPickerTile(
@@ -161,6 +174,7 @@ class _SubtitleCustomizationScreenState
               max: 0.5,
               divisions: 50,
               step: 0.01,
+              swallowDown: true,
               labelBuilder: (v) => l10n.percentValue((v * 100).round()),
             ),
           ],
@@ -182,51 +196,65 @@ class _SubtitleCustomizationScreenState
     required double max,
     required int divisions,
     required double step,
+    bool swallowDown = false,
     required String Function(double) labelBuilder,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
     return ValueListenableBuilder<double>(
       valueListenable: binding,
-      builder: (context, value, _) => Focus(
-        focusNode: outerNode,
-        onFocusChange: onFocusChange,
-        onKeyEvent: (node, event) => _sliderKeyHandler(
-          node: node,
-          event: event,
-          binding: binding,
-          min: min,
-          max: max,
-          step: step,
-        ),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 90),
-          curve: Curves.easeOut,
-          decoration: BoxDecoration(
-            color: focused
-                ? AppColorScheme.onSurface
-                : colorScheme.surfaceContainerLow,
-            borderRadius: BorderRadius.circular(12),
+      builder: (context, value, _) => Padding(
+        padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+        child: Focus(
+          focusNode: outerNode,
+          onFocusChange: onFocusChange,
+          onKeyEvent: (node, event) => _sliderKeyHandler(
+            node: node,
+            event: event,
+            binding: binding,
+            min: min,
+            max: max,
+            step: step,
+            swallowDown: swallowDown,
           ),
-          child: ListTileTheme.merge(
-            textColor: focused
-                ? AppColors.black.withValues(alpha: 0.87)
-                : AppColorScheme.onSurface,
-            iconColor: focused
-                ? AppColors.black.withValues(alpha: 0.54)
-                : AppColorScheme.onSurface.withValues(alpha: 0.7),
-            child: ListTile(
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              leading: Icon(icon),
-              title: Text(label),
-              subtitle: Slider(
-                focusNode: innerNode,
-                value: value.clamp(min, max),
-                min: min,
-                max: max,
-                divisions: divisions,
-                label: labelBuilder(value),
-                onChanged: (v) => binding.value = v,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 90),
+            curve: Curves.easeOut,
+            decoration: BoxDecoration(
+              color: focused
+                  ? AppColorScheme.onSurface
+                  : colorScheme.surfaceContainerLow,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.fromBorderSide(
+                (focused
+                        ? ThemeRegistry.active.borders.focusBorder
+                        : ThemeRegistry.active.borders.cardBorder)
+                    .copyWith(width: 1),
+              ),
+              boxShadow: focused
+                  ? ThemeRegistry.active.borders.focusGlow
+                  : null,
+            ),
+            child: ListTileTheme.merge(
+              textColor: focused
+                  ? AppColors.black.withValues(alpha: 0.87)
+                  : AppColorScheme.onSurface,
+              iconColor: focused
+                  ? AppColors.black.withValues(alpha: 0.54)
+                  : AppColorScheme.onSurface.withValues(alpha: 0.7),
+              child: ListTile(
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                leading: Icon(icon),
+                title: Text(label),
+                subtitle: Slider(
+                  focusNode: innerNode,
+                  value: value.clamp(min, max),
+                  min: min,
+                  max: max,
+                  divisions: divisions,
+                  label: labelBuilder(value),
+                  onChanged: (v) => binding.value = v,
+                ),
               ),
             ),
           ),
