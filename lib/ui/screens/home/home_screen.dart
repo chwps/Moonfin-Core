@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -2610,13 +2609,14 @@ class _ContentRowsState extends State<_ContentRows>
     final rowLeftInsetV2 =
         (!navbarIsTopV2 && !PlatformDetection.useMobileUi) ? 56.0 : 0.0;
     final v2ExtendedWidth = isRowsV2
-        ? (MediaQuery.of(context).size.width -
-                rowLeftInsetV2 -
-                16.0 -
-                MediaQuery.paddingOf(context).right -
-                16.0)
-            .clamp(v2PortraitWidth, double.infinity)
-        : 0.0;
+      ? (MediaQuery.of(context).size.width -
+          rowLeftInsetV2 -
+          16.0 -
+          MediaQuery.paddingOf(context).right -
+          16.0)
+        .clamp(v2PortraitWidth, double.infinity)
+        .toDouble()
+      : v2PortraitWidth;
 
     double maxCardHeight = 0;
     double firstCardWidth = 0;
@@ -2726,12 +2726,12 @@ class _ContentRowsState extends State<_ContentRows>
                     ? isTouchFocused
                     : (isFocused || isHoverFocused))
               : isFocused;
-            final v2FocusedWidthForCurrentViewport =
-              PlatformDetection.useMobileUi
-              ? v2FocusedWidth
-                .clamp(v2PortraitWidth, v2ExtendedWidth)
-                .toDouble()
-              : v2FocusedWidth;
+          final v2FocusedWidthForCurrentViewport =
+              isRowsV2 && PlatformDetection.useMobileUi
+                  ? v2FocusedWidth
+                      .clamp(v2PortraitWidth, v2ExtendedWidth)
+                      .toDouble()
+                  : v2FocusedWidth;
           final canUseExpandedV2Card =
               isRowsV2 && effectiveV2Focused;
 
