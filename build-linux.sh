@@ -421,6 +421,7 @@ Installation:
 Dependencies:
   - GTK 3.0+
   - GLib 2.0+
+  - WebKitGTK 4.1 runtime (libwebkit2gtk-4.1-0)
   - libflutter_linux_gtk (bundled)
   - Additional runtime libs are bundled when available (libmpv, libsecret)
 
@@ -477,7 +478,7 @@ Version: ${version}
 Architecture: ${deb_arch}
 Maintainer: Moonfin Team <support@moonfin.dev>
 Installed-Size: $(du -sk "$pkg_root/usr" | cut -f1)
-Depends: libgtk-3-0, libglib2.0-0, libmpv2, libsecret-1-0
+Depends: libgtk-3-0, libglib2.0-0, libmpv2, libsecret-1-0, libwebkit2gtk-4.1-0
 Description: Jellyfin & Emby media client
  Moonfin is a media client for Jellyfin and Emby servers,
  available on mobile, TV, and desktop platforms.
@@ -674,6 +675,7 @@ parts:
       - libx11-6
       - libmpv2
       - libsecret-1-0
+      - libwebkit2gtk-4.1-0
 EOF
 
   cp -r "$BUILD_DIR"/* "$snap_dir/"

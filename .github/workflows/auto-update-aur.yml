@@ -84,6 +84,12 @@ jobs:
           sed -i "s/^pkgrel=.*/pkgrel=1/" PKGBUILD
           sed -i "s/^sha256sums=.*/sha256sums=('${SHA256}')/" PKGBUILD
 
+          if grep -q '^depends=' PKGBUILD; then
+            sed -i "s/^depends=.*/depends=('gtk3' 'glib2' 'mpv' 'ffmpeg' 'libva' 'libvdpau' 'libsecret' 'webkit2gtk-4.1')/" PKGBUILD
+          else
+            sed -i "/^pkgrel=/a depends=('gtk3' 'glib2' 'mpv' 'ffmpeg' 'libva' 'libvdpau' 'libsecret' 'webkit2gtk-4.1')" PKGBUILD
+          fi
+
           # Regenerate .SRCINFO from scratch (4-space indent, matching AUR format)
           printf '%s\n' \
             "pkgbase = moonfin-bin" \
@@ -100,6 +106,7 @@ jobs:
             "    depends = libva" \
             "    depends = libvdpau" \
             "    depends = libsecret" \
+            "    depends = webkit2gtk-4.1" \
             "    provides = moonfin" \
             "    conflicts = moonfin" \
             "    source = moonfin-bin-${VERSION}.tar.gz::https://github.com/Moonfin-Client/Mobile-Desktop/releases/download/${VERSION}/Moonfin_Linux_v${VERSION}.tar.gz" \
