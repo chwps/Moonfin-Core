@@ -29,34 +29,35 @@ class MediaBarRepository {
       return const MediaBarDisabled();
     }
 
+    final contentType = _prefs.get(UserPreferences.mediaBarContentType);
+    final maxItems =
+        int.tryParse(_prefs.get(UserPreferences.mediaBarItemCount)) ?? 10;
+    final libraryIds = _prefs
+        .get(UserPreferences.mediaBarLibraryIds)
+        .split(',')
+        .where((s) => s.isNotEmpty)
+        .toList();
+    final collectionIds = _prefs
+        .get(UserPreferences.mediaBarCollectionIds)
+        .split(',')
+        .where((s) => s.isNotEmpty)
+        .toList();
+    final excludedGenres = _prefs
+        .get(UserPreferences.mediaBarExcludedGenres)
+        .split(',')
+        .where((s) => s.isNotEmpty)
+        .toSet();
+
+    final fetchLimit = maxItems + 2;
+
+    final includeTypes = switch (contentType) {
+      'movies' => const ['Movie'],
+      'tvshows' => const ['Series'],
+      _ => const ['Movie', 'Series'],
+    };
+
     try {
-      final contentType = _prefs.get(UserPreferences.mediaBarContentType);
-      final maxItems =
-          int.tryParse(_prefs.get(UserPreferences.mediaBarItemCount)) ?? 10;
-      final libraryIds = _prefs
-          .get(UserPreferences.mediaBarLibraryIds)
-          .split(',')
-          .where((s) => s.isNotEmpty)
-          .toList();
-      final collectionIds = _prefs
-          .get(UserPreferences.mediaBarCollectionIds)
-          .split(',')
-          .where((s) => s.isNotEmpty)
-          .toList();
-      final excludedGenres = _prefs
-          .get(UserPreferences.mediaBarExcludedGenres)
-          .split(',')
-          .where((s) => s.isNotEmpty)
-          .toSet();
-
       final allItems = <Map<String, dynamic>>[];
-      final fetchLimit = maxItems + 2;
-
-      final includeTypes = switch (contentType) {
-        'movies' => const ['Movie'],
-        'tvshows' => const ['Series'],
-        _ => const ['Movie', 'Series'],
-      };
 
       final fetchTasks = <Future<List<Map<String, dynamic>>>>[];
 
@@ -77,28 +78,34 @@ class MediaBarRepository {
         allItems.addAll(batch);
       }
 
-      var withBackdrops = allItems
-          .where((item) =>
-              _hasBackdrop(item) &&
-              !_isBoxSet(item) &&
-              !_hasExcludedGenre(item, excludedGenres))
-          .toList()
-        ..shuffle();
-
-      var selected = withBackdrops.take(maxItems).toList();
+      var selected = _selectItemsWithBackdrops(
+        allItems,
+        maxItems,
+        excludedGenres,
+      );
 
       if (selected.isEmpty && (libraryIds.isNotEmpty || collectionIds.isNotEmpty)) {
         final fallbackItems = <Map<String, dynamic>>[];
         fallbackItems.addAll(await _fetchItems(includeTypes, fetchLimit));
 
-        withBackdrops = fallbackItems
-            .where((item) =>
-                _hasBackdrop(item) &&
-                !_isBoxSet(item) &&
-                !_hasExcludedGenre(item, excludedGenres))
-            .toList()
-          ..shuffle();
-        selected = withBackdrops.take(maxItems).toList();
+        selected = _selectItemsWithBackdrops(
+          fallbackItems,
+          maxItems,
+          excludedGenres,
+        );
+      }
+
+      if (selected.isEmpty) {
+        final firstLibraryItems = await _fetchItemsFromFirstSeriesOrMoviesLibrary(
+          includeTypes,
+          fetchLimit,
+          contentType: contentType,
+        );
+        selected = _selectItemsWithBackdrops(
+          firstLibraryItems,
+          maxItems,
+          excludedGenres,
+        );
       }
 
       if (selected.isEmpty) {
@@ -108,8 +115,104 @@ class MediaBarRepository {
       final items = selected.map(_toSlideItem).toList();
       return MediaBarReady(items);
     } catch (e) {
+      final firstLibraryItems = await _fetchItemsFromFirstSeriesOrMoviesLibrary(
+        includeTypes,
+        fetchLimit,
+        contentType: contentType,
+      );
+      final selected = _selectItemsWithBackdrops(
+        firstLibraryItems,
+        maxItems,
+        excludedGenres,
+      );
+      if (selected.isNotEmpty) {
+        final items = selected.map(_toSlideItem).toList();
+        return MediaBarReady(items);
+      }
       return MediaBarError('Failed to load: $e');
     }
+  }
+
+  List<Map<String, dynamic>> _selectItemsWithBackdrops(
+    List<Map<String, dynamic>> source,
+    int maxItems,
+    Set<String> excludedGenres,
+  ) {
+    final withBackdrops = source
+        .where((item) =>
+            _hasBackdrop(item) &&
+            !_isBoxSet(item) &&
+            !_hasExcludedGenre(item, excludedGenres))
+        .toList()
+      ..shuffle();
+    return withBackdrops.take(maxItems).toList();
+  }
+
+  Future<List<Map<String, dynamic>>> _fetchItemsFromFirstSeriesOrMoviesLibrary(
+    List<String>? itemTypes,
+    int limit, {
+    required String contentType,
+  }) async {
+    try {
+      final viewsResponse =
+          await _client.userViewsApi.getUserViews().timeout(const Duration(seconds: 4));
+      final views =
+          (viewsResponse['Items'] as List? ?? []).cast<Map<String, dynamic>>();
+      if (views.isEmpty) {
+        return const <Map<String, dynamic>>[];
+      }
+
+      final preferredCollectionTypes = switch (contentType) {
+        'movies' => const ['movies'],
+        'tvshows' => const ['tvshows'],
+        _ => const ['tvshows', 'movies'],
+      };
+
+      String? libraryId;
+
+      for (final preferredType in preferredCollectionTypes) {
+        for (final view in views) {
+          final collectionType = _normalizeCollectionType(view['CollectionType']);
+          if (collectionType != preferredType) {
+            continue;
+          }
+          final id = view['Id'] as String?;
+          if (id != null && id.isNotEmpty) {
+            libraryId = id;
+            break;
+          }
+        }
+        if (libraryId != null) {
+          break;
+        }
+      }
+
+      if (libraryId == null) {
+        for (final view in views) {
+          final collectionType = _normalizeCollectionType(view['CollectionType']);
+          if (collectionType != 'tvshows' && collectionType != 'movies') {
+            continue;
+          }
+          final id = view['Id'] as String?;
+          if (id != null && id.isNotEmpty) {
+            libraryId = id;
+            break;
+          }
+        }
+      }
+
+      if (libraryId == null) {
+        return const <Map<String, dynamic>>[];
+      }
+
+      return _fetchItems(itemTypes, limit, parentId: libraryId);
+    } catch (_) {
+      return const <Map<String, dynamic>>[];
+    }
+  }
+
+  String _normalizeCollectionType(Object? value) {
+    return value?.toString().trim().toLowerCase() ?? '';
   }
 
   void precacheImages(BuildContext context, List<MediaBarSlideItem> items) {
