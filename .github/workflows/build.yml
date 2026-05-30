@@ -59,13 +59,24 @@ jobs:
 
       - name: Set up signing
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/release.keystore
+          # Use printf (not echo) to avoid adding a trailing newline that can corrupt binary decode on some shells.
+          printf '%s' "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+
+          STORE_TYPE="${{ secrets.ANDROID_KEYSTORE_TYPE }}"
           cat > android/keystore.properties <<EOF
           storeFile=../release.keystore
+          storeType=$STORE_TYPE
           storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}
           keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
           keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
           EOF
+
+          # Fail fast with a clearer error if the keystore secret or type is wrong.
+          if [ -n "$STORE_TYPE" ]; then
+            keytool -list -v -keystore android/app/release.keystore -storetype "$STORE_TYPE" -storepass "${{ secrets.ANDROID_STORE_PASSWORD }}" >/dev/null
+          else
+            keytool -list -v -keystore android/app/release.keystore -storepass "${{ secrets.ANDROID_STORE_PASSWORD }}" >/dev/null
+          fi
 
       - name: Build
         run: |
