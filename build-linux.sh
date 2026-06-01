@@ -227,6 +227,23 @@ ensure_sqlite_unversioned_link() {
   ln -sf "$(basename "$sqlite_real")" "$dest_lib/libsqlite3.so"
 }
 
+# Arch ships libmpv.so.2; Ubuntu 22.04 ships libmpv.so.1. Ensure both soname
+# symlinks exist in the bundle so binaries compiled against either version work.
+ensure_mpv_compat_symlinks() {
+  local dest_lib="$1"
+
+  local mpv_real
+  mpv_real="$(find "$dest_lib" -maxdepth 1 -name 'libmpv.so.*' ! -type l 2>/dev/null | sort -V | tail -n1 || true)"
+  [ -z "$mpv_real" ] && return 0
+
+  local base
+  base="$(basename "$mpv_real")"
+
+  for alt in libmpv.so.1 libmpv.so.2 libmpv.so; do
+    [ ! -e "$dest_lib/$alt" ] && ln -sf "$base" "$dest_lib/$alt"
+  done
+}
+
 collect_transitive_libs() {
   local seed_libs="$1"
   local all_deps=""
@@ -321,6 +338,7 @@ inject_linux_runtime_libs() {
   local bundled_count
   bundled_count="$(copy_runtime_libs "$bundle_dir/lib" "$all_deps" "$skip")"
   ensure_sqlite_unversioned_link "$bundle_dir/lib"
+  ensure_mpv_compat_symlinks "$bundle_dir/lib"
   echo "Bundled $bundled_count runtime libraries for AppImage/Tarball"
 }
 
@@ -346,6 +364,7 @@ inject_flatpak_libs() {
   local count
   count="$(copy_runtime_libs "$dest_lib" "$all_deps" "$skip")"
   ensure_sqlite_unversioned_link "$dest_lib"
+  ensure_mpv_compat_symlinks "$dest_lib"
 
   echo "Bundled $count runtime libraries for Flatpak"
 }
