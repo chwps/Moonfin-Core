@@ -2804,9 +2804,10 @@ class _AdvancedOptionsScreenState extends State<_AdvancedOptionsScreen> {
               ),
               SwitchPreferenceTile(
                 preference: UserPreferences.media3TunnelingDisabled,
-                title: l10n.disableTunnelingTitle,
-                subtitle: l10n.disableTunnelingSubtitle,
-                icon: Icons.tv_off,
+                inverted: true,
+                title: l10n.enableTunnelingTitle,
+                subtitle: l10n.enableTunnelingSubtitle,
+                icon: Icons.tv,
               ),
               SwitchPreferenceTile(
                 preference: UserPreferences.media3MapDolbyVisionProfile7ToHevc,

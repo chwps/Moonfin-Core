@@ -7274,6 +7274,13 @@ class AppLocalizationsLv extends AppLocalizations {
       'Piespiedu atskaņošana bez tunelēšanas. Noderīga ierīcēm ar tunelēšanas audio/video pārtraukumiem.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Kartē Dolby Vision profilu 7 ar HEVC';
 
   @override

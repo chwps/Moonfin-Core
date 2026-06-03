@@ -7227,6 +7227,13 @@ class AppLocalizationsEo extends AppLocalizations {
       'Devigi ne-tunelitan reproduktadon. Utila sur aparatoj kun tunelaj audio/video malkontinuecoj.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Mapu Dolby Vision profilon 7 al HEVC';
 
   @override

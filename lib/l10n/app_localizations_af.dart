@@ -7245,6 +7245,13 @@ class AppLocalizationsAf extends AppLocalizations {
       'Forseer nie-getonnelde afspeel. Nuttig op toestelle met klank-/videodiskontinuïteite.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Kaart Dolby Vision profiel 7 aan HEVC';
 
   @override

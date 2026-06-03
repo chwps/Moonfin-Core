@@ -7306,6 +7306,13 @@ class AppLocalizationsHu extends AppLocalizations {
       'Force non-tunneled playback. Useful on devices with tunneling audio/video discontinuities.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Map Dolby Vision profile 7 to HEVC';
 
   @override

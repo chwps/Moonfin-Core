@@ -7348,6 +7348,13 @@ class AppLocalizationsCa extends AppLocalizations {
       'Força la reproducció sense túnel. Útil en dispositius amb discontinuïtats d\'àudio/vídeo de túnel.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Assigna el perfil Dolby Vision 7 a HEVC';
 
   @override

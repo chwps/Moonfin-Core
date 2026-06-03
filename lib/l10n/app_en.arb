@@ -6880,6 +6880,15 @@
     "description": "Setting subtitle for disable tunneling"
   },
 
+  "enableTunnelingTitle": "Enable tunneling",
+  "@enableTunnelingTitle": {
+    "description": "Setting title: enable tunneled video playback (advanced)"
+  },
+  "enableTunnelingSubtitle": "Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.",
+  "@enableTunnelingSubtitle": {
+    "description": "Setting subtitle for enable tunneling"
+  },
+
   "mapDolbyVisionP7Title": "Map Dolby Vision profile 7 to HEVC",
   "@mapDolbyVisionP7Title": {
     "description": "Setting title: play DV P7 as HDR10 HEVC on non-DV devices"

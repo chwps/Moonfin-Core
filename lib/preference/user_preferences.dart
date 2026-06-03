@@ -513,7 +513,7 @@ class UserPreferences extends ChangeNotifier {
 
   static final media3TunnelingDisabled = Preference(
     key: 'media3_tunneling_disabled',
-    defaultValue: false,
+    defaultValue: true,
   );
 
   static final media3MapDolbyVisionProfile7ToHevc = Preference(

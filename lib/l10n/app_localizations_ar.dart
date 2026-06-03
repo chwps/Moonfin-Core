@@ -7195,6 +7195,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'فرض التشغيل غير النفقي. مفيد على الأجهزة التي بها انقطاعات في الصوت/الفيديو.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title =>
       'قم بتعيين Dolby Vision الملف الشخصي 7 إلى HEVC';
 

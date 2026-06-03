@@ -7309,6 +7309,13 @@ class AppLocalizationsBg extends AppLocalizations {
       'Принудително нетунелирано възпроизвеждане. Полезно за устройства с прекъсвания на аудио/видео при тунелиране.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => 'Карта Dolby Vision профил 7 към HEVC';
 
   @override

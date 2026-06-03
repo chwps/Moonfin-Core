@@ -203,6 +203,8 @@ class SwitchPreferenceTile extends StatefulWidget {
   final Widget Function(double size, Color color)? iconBuilder;
   final VoidCallback? onChanged;
 
+  final bool inverted;
+
   const SwitchPreferenceTile({
     super.key,
     required this.preference,
@@ -211,6 +213,7 @@ class SwitchPreferenceTile extends StatefulWidget {
     this.icon,
     this.iconBuilder,
     this.onChanged,
+    this.inverted = false,
   });
 
   @override
@@ -266,9 +269,9 @@ class _SwitchPreferenceTileState extends State<SwitchPreferenceTile> {
             subtitle: widget.subtitle != null
                 ? Text(widget.subtitle!, style: _kSettingsSubtitleTextStyle)
                 : null,
-            value: value,
+            value: widget.inverted ? !value : value,
             onChanged: (v) {
-              _binding.value = v;
+              _binding.value = widget.inverted ? !v : v;
               widget.onChanged?.call();
             },
           ),

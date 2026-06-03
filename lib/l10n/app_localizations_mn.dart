@@ -7266,6 +7266,13 @@ class AppLocalizationsMn extends AppLocalizations {
       'Хонгилгүй тоглуулахыг албадах. Аудио/видео тасалдалтай төхөөрөмжүүдэд хэрэгтэй.';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title =>
       'Dolby Vision профайлыг 7-г HEVC рүү буулгана уу';
 

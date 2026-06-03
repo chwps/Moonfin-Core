@@ -12881,6 +12881,18 @@ abstract class AppLocalizations {
   /// **'Force non-tunneled playback. Useful on devices with tunneling audio/video discontinuities.'**
   String get disableTunnelingSubtitle;
 
+  /// Setting title: enable tunneled video playback (advanced)
+  ///
+  /// In en, this message translates to:
+  /// **'Enable tunneling'**
+  String get enableTunnelingTitle;
+
+  /// Setting subtitle for enable tunneling
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.'**
+  String get enableTunnelingSubtitle;
+
   /// Setting title: play DV P7 as HDR10 HEVC on non-DV devices
   ///
   /// In en, this message translates to:

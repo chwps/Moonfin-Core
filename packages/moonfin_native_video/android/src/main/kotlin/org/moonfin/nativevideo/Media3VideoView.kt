@@ -468,7 +468,6 @@ class Media3VideoView(
     private var videoPixelRatio = 1f
     private var currentNormalizationGainDb: Float? = null
     private var currentContainer: String? = null
-    private var currentVideoRangeType: String? = null
     private var currentMediaType: String = "video"
     private var currentAudioSessionId = C.AUDIO_SESSION_ID_UNSET
     private var openedAudioEffectSessionId = C.AUDIO_SESSION_ID_UNSET
@@ -1119,11 +1118,6 @@ class Media3VideoView(
             ?.trim()
             ?.lowercase()
             ?.takeIf { it.isNotEmpty() }
-        currentVideoRangeType = args["videoRangeType"]
-            ?.toString()
-            ?.trim()
-            ?.uppercase()
-            ?.takeIf { it.isNotEmpty() }
         currentMediaType = args["mediaType"]?.toString()?.lowercase() ?: "video"
         audioOffloadRetryAttemptedForCurrentSource = false
         stereoDownmixRetryAttemptedForCurrentSource = false
@@ -1523,8 +1517,7 @@ class Media3VideoView(
         val shouldEnableTunneling =
             !isAudioContent &&
                 !hasExternalSubtitle &&
-                !sessionTunnelingDisabled &&
-                isHdrLikeRangeType(currentVideoRangeType)
+                !sessionTunnelingDisabled
 
         val offloadMode = if (isAudioContent && !audioOffloadDisabled) {
             TrackSelectionParameters.AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED
@@ -2343,13 +2336,6 @@ class Media3VideoView(
             coefficients[channel * channelCount + channel] = 1f
         }
         return coefficients
-    }
-
-    private fun isHdrLikeRangeType(videoRangeType: String?): Boolean {
-        if (videoRangeType.isNullOrBlank()) {
-            return false
-        }
-        return videoRangeType.contains("HDR") || videoRangeType.contains("DOVI")
     }
 
     private fun queryHardwareAv1DecoderAvailability(): Boolean {

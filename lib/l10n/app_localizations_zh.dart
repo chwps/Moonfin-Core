@@ -6990,6 +6990,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get disableTunnelingSubtitle => '强制非隧道播放。对于具有隧道音频/视频不连续性的设备很有用。';
 
   @override
+  String get enableTunnelingTitle => 'Enable tunneling';
+
+  @override
+  String get enableTunnelingSubtitle =>
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
+
+  @override
   String get mapDolbyVisionP7Title => '将 Dolby Vision 配置文件 7 映射到 HEVC';
 
   @override
