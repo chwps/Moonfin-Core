@@ -281,15 +281,39 @@ class _ItemDetailScreenState extends State<ItemDetailScreen>
     final isAlbumOrPlaylist = type == 'MusicAlbum' || type == 'Playlist';
     final showNavigationChrome =
         _viewModel.state == ItemDetailState.ready && !isAlbumOrPlaylist;
+    Widget body = NavigationLayout(
+      showBackButton: true,
+      showNavigationChrome: showNavigationChrome,
+      child: _buildBody(context),
+    );
+    if (isAlbumOrPlaylist && !PlatformDetection.isTV) {
+      body = Stack(
+        children: [
+          Positioned.fill(child: body),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
     return RequestInitialFocus(
       targetNode: node,
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: NavigationLayout(
-          showBackButton: true,
-          showNavigationChrome: showNavigationChrome,
-          child: _buildBody(context),
-        ),
+        body: body,
       ),
     );
   }

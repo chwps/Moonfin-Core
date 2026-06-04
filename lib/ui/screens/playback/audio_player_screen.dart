@@ -679,7 +679,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
         children: [
           if (!isTv)
             IconButton(
-              icon: const Icon(Icons.keyboard_arrow_down, size: 28),
+              icon: const Icon(Icons.arrow_back, size: 24),
               onPressed: () => Navigator.of(context).pop(),
             ),
           const Spacer(),
