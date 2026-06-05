@@ -33,6 +33,7 @@ import '../../playback/inline_preview_engine.dart';
 import '../../playback/media3_player_backend.dart';
 import 'bounded_network_image.dart';
 import 'fullscreen_backdrop_switcher.dart';
+import 'mediabar/bookshelf_layout.dart';
 import 'rating_display.dart';
 import 'web_youtube_trailer.dart';
 
@@ -116,6 +117,7 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
   bool _sponsorBlockSeekInFlight = false;
   int _sponsorBlockToken = 0;
   String? _lastSyncedMakdBackdropUrl;
+  bool _bookshelfLoadingOverlay = false;
   final Set<String> _failedTrailerItemIds = <String>{};
   late bool _lastHardwareDecodingEnabled;
   late bool _lastUseMedia3TrailerEngine;
@@ -455,6 +457,10 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
       }
       final items = widget.viewModel.items;
       if (items.isEmpty) return;
+      if (_isBookshelfMode() && _currentIndex >= items.length - 1) {
+        _autoAdvanceTimer?.cancel();
+        return;
+      }
       final nextIndex = (_currentIndex + 1) % items.length;
       _goToPage(nextIndex);
     });
@@ -516,8 +522,15 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
     }
   }
 
+  bool _isBookshelfMode() {
+    final mode = UserPreferences.normalizeMediaBarMode(
+      widget.prefs.get(UserPreferences.mediaBarMode),
+    );
+    return mode == UserPreferences.mediaBarModeBookshelf;
+  }
+
   void _scheduleTrailerPreview(MediaBarSlideItem item) {
-    if (_isMakdMobileMode()) {
+    if (_isMakdMobileMode() || _isBookshelfMode()) {
       _cancelTrailerPreview();
       return;
     }
@@ -1250,6 +1263,7 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
       widget.prefs.get(UserPreferences.mediaBarMode),
     );
     final useMakdStyle = mode == UserPreferences.mediaBarModeMakd;
+    final useBookshelfStyle = mode == UserPreferences.mediaBarModeBookshelf;
 
     return switch (state) {
       MediaBarLoading() => SizedBox(height: widget.height),
@@ -1263,9 +1277,11 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
       MediaBarReady(items: final items) =>
         items.isEmpty
             ? const SizedBox.shrink()
-            : (useMakdStyle
-                  ? _buildMakdSlideshow(context, items)
-                  : _buildSlideshow(context, items)),
+            : (useBookshelfStyle
+                  ? _buildBookshelfSlideshow(context, items)
+                  : (useMakdStyle
+                        ? _buildMakdSlideshow(context, items)
+                        : _buildSlideshow(context, items))),
     };
   }
 
@@ -1864,6 +1880,76 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
     );
   }
 
+  Widget _buildBookshelfSlideshow(
+    BuildContext context,
+    List<MediaBarSlideItem> items,
+  ) {
+    final clampedIndex = _currentIndex.clamp(0, items.length - 1);
+    if (clampedIndex != _currentIndex) {
+      _currentIndex = clampedIndex;
+    }
+
+    final activeItem = items[clampedIndex];
+    if (widget.viewModel.bookshelfDetailFor(activeItem.itemId) == null) {
+      unawaited(widget.viewModel.ensureBookshelfDetail(activeItem.itemId));
+    }
+
+    return MouseRegion(
+      onEnter: (_) => _setPaused(true),
+      onExit: (_) => _setPaused(false),
+      child: Focus(
+        focusNode: widget.focusNode,
+        autofocus: widget.focusNode == null && PlatformDetection.useLeanbackUi,
+        skipTraversal: true,
+        onFocusChange: _handleFocusChange,
+        onKeyEvent: (node, event) => _handleKeyEvent(event, items),
+        child: SizedBox(
+          height: widget.height,
+          width: double.infinity,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              BookshelfLayout(
+                items: items,
+                activeIndex: clampedIndex,
+                onSelect: _selectBookshelfIndex,
+                onInfo: () => _navigateToItem(context, items),
+                onPlay: () => _playFromBookshelf(context, items),
+                detailFor: widget.viewModel.bookshelfDetailFor,
+              ),
+              if (_bookshelfLoadingOverlay)
+                const Positioned.fill(child: _TheaterLoadingOverlay()),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _selectBookshelfIndex(int index) {
+    final items = widget.viewModel.items;
+    if (index < 0 || index >= items.length) return;
+    if (index == _currentIndex) return;
+    setState(() => _currentIndex = index);
+    _startAutoAdvance();
+    unawaited(widget.viewModel.ensureBookshelfDetail(items[index].itemId));
+  }
+
+  void _playFromBookshelf(
+    BuildContext context,
+    List<MediaBarSlideItem> items,
+  ) {
+    if (mounted) {
+      setState(() => _bookshelfLoadingOverlay = true);
+    }
+    _navigateToItemAndPlay(context, items);
+    Future<void>.delayed(const Duration(milliseconds: 1400), () {
+      if (mounted && _bookshelfLoadingOverlay) {
+        setState(() => _bookshelfLoadingOverlay = false);
+      }
+    });
+  }
+
   KeyEventResult _handleKeyEvent(
     KeyEvent event,
     List<MediaBarSlideItem> items,
@@ -1893,7 +1979,11 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
         }
         if (downTime != null &&
             now.difference(downTime) >= _keyLongPressThreshold) {
-          _navigateToItemAndPlay(context, items);
+          if (_isBookshelfMode()) {
+            _playFromBookshelf(context, items);
+          } else {
+            _navigateToItemAndPlay(context, items);
+          }
         } else {
           _navigateToItem(context, items);
         }
@@ -1913,7 +2003,13 @@ class _MediaBarState extends State<MediaBar> with WidgetsBindingObserver {
       return KeyEventResult.handled;
     }
     if (key == LogicalKeyboardKey.arrowRight) {
-      _goToPage((_currentIndex + 1) % items.length);
+      if (_isBookshelfMode()) {
+        if (_currentIndex < items.length - 1) {
+          _goToPage(_currentIndex + 1);
+        }
+      } else {
+        _goToPage((_currentIndex + 1) % items.length);
+      }
       return KeyEventResult.handled;
     }
     if (key == LogicalKeyboardKey.arrowDown && widget.onNavigateDown != null) {
@@ -2573,6 +2669,55 @@ class _MakdActionButtons extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Theater-style loading treatment shown when Play is pressed in the Bookshelf
+/// MediaBar style.
+class _TheaterLoadingOverlay extends StatelessWidget {
+  const _TheaterLoadingOverlay();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ColoredBox(
+      color: AppColorScheme.scrim.withValues(alpha: 0.86),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 44,
+              height: 44,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  AppColorScheme.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 22),
+            Text(
+              'BUFFERING',
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: AppColorScheme.onSurface,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 4.0,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'OPTIMIZING FOR YOU',
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: AppColorScheme.onSurface.withValues(alpha: 0.7),
+                fontWeight: FontWeight.w600,
+                letterSpacing: 3.0,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
