@@ -77,8 +77,13 @@ class AudioCapabilityProfile {
       canPassthroughTrueHd ||
       canPassthroughTrueHdJoc;
 
-  bool get hasMultichannelCapability =>
-      maxPcmChannels > 2 || hasCompressedPassthroughRoute;
+  bool get hasMultichannelCapability {
+    if (maxPcmChannels > 2) return true;
+    if (!hasCompressedPassthroughRoute) return false;
+    return activeRouteType == AudioRouteType.hdmi ||
+        activeRouteType == AudioRouteType.arc ||
+        activeRouteType == AudioRouteType.earc;
+  }
 
   factory AudioCapabilityProfile.fromMap(Map<String, dynamic>? values) {
     if (values == null || values.isEmpty) {

@@ -2483,6 +2483,7 @@ class _AudioPreferencesScreenState extends State<_AudioPreferencesScreen> {
 
     final profile = _audioCapabilityProfile;
     final decodeCodecs = <String>[
+      'AAC',
       if (profile.canDecodeAc3) 'AC3',
       if (profile.canDecodeEac3) 'EAC3',
       if (profile.canDecodeDts) 'DTS',
