@@ -82,7 +82,7 @@ final class AppleTvVideoChannel: NSObject, FlutterStreamHandler {
         case "setSubtitleTrack":
             player?.setSubtitleTrack((args["index"] as? NSNumber)?.int32Value ?? -1)
         case "disableSubtitleTrack":
-            player?.setSubtitleTrack(-1)
+            player?.disableSubtitles()
         case "setVolume":
             break
         case "setAudioDelay":

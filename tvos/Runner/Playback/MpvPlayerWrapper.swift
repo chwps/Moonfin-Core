@@ -422,6 +422,10 @@ class MpvPlayerWrapper: NSObject, ObservableObject {
     }
 
     func setSubtitleTrack(_ trackIndex: Int32) {
+        if trackIndex < 0 {
+            disableSubtitles()
+            return
+        }
         subtitleDebug(
             "subtitle_mpv_set track_id=\(trackIndex) current_track_before=\(self.currentSubtitleTrackIndex) tracks=\(self.subtitleTrackDebugSummary(self.subtitleTracks))"
         )
