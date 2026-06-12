@@ -49,6 +49,15 @@ macos/Flutter/ephemeral
 ios/Flutter/Generated.xcconfig
 ios/Flutter/flutter_export_environment.sh
 ios/Flutter/ephemeral/
+# tvos - needs some things tracked but not these
+tvos/Flutter/Generated.xcconfig
+tvos/Flutter/flutter_export_environment.sh
+tvos/Flutter/ephemeral/
+tvos/Flutter/flutter_assets/
+tvos/Flutter/App.framework/
+**/tvos/Flutter/.last_build_id
+tvos/Pods/
+tvos/.symlinks/
 # Local package lock files
 packages/**/pubspec.lock
 
