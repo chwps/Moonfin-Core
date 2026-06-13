@@ -213,13 +213,6 @@ class _SettingsSidePanelState extends ConsumerState<SettingsSidePanel> {
       ),
     ];
 
-    final navbarIsLeft =
-        PlatformDetection.isAppleTV &&
-        GetIt.instance<UserPreferences>().get(
-              UserPreferences.navbarPosition,
-            ) ==
-            NavbarPosition.left;
-
     return Scaffold(
       appBar: AppBar(
         leading: PlatformDetection.isTV
@@ -232,7 +225,6 @@ class _SettingsSidePanelState extends ConsumerState<SettingsSidePanel> {
         title: Text(l10n.settings),
       ),
       body: ListView(
-        padding: navbarIsLeft ? const EdgeInsets.only(left: 56) : null,
         children: [for (final entry in entries) _PanelEntryTile(entry: entry)],
       ),
     );
