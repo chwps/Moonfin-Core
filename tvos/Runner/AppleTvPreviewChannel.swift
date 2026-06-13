@@ -287,7 +287,7 @@ private final class MpvPreviewPlayer: NSObject, FlutterTexture, PreviewBackend {
     nonisolated(unsafe) private var handle: OpaquePointer?
     nonisolated(unsafe) private var renderContext: OpaquePointer?
     nonisolated(unsafe) private var pixelBufferPool: CVPixelBufferPool?
-    nonisolated(unsafe) private var swFormat = strdup("bgra")
+    nonisolated(unsafe) private var swFormat: UnsafeMutablePointer<CChar>? = strdup("bgra")
     nonisolated(unsafe) private var currentFrame: CVPixelBuffer?
     nonisolated(unsafe) private var openCompletion: ((Bool) -> Void)?
     nonisolated(unsafe) private var isAlive = true
@@ -398,7 +398,9 @@ private final class MpvPreviewPlayer: NSObject, FlutterTexture, PreviewBackend {
 
     nonisolated private func renderIfAlive() {
         if contextFreed { return }
-        guard let ctx = renderContext, let pool = pixelBufferPool else { return }
+        guard let ctx = renderContext, let pool = pixelBufferPool,
+            let swFormat = swFormat
+        else { return }
         let flags = mpv_render_context_update(ctx)
         if flags & UInt64(MPV_RENDER_UPDATE_FRAME.rawValue) == 0 { return }
 
@@ -547,8 +549,8 @@ private final class MpvPreviewPlayer: NSObject, FlutterTexture, PreviewBackend {
             stateLock.lock()
             currentFrame = nil
             stateLock.unlock()
-            if let swFormat {
-                free(swFormat)
+            if let fmt = swFormat {
+                free(fmt)
                 swFormat = nil
             }
         }
