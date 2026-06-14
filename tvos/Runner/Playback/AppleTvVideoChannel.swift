@@ -261,23 +261,42 @@ final class AppleTvVideoChannel: NSObject, FlutterStreamHandler {
         let audioCodec = (args["audioCodec"] as? String ?? "").lowercased()
         let audioProfile = (args["audioProfile"] as? String ?? "").lowercased()
         let audioChannels = (args["audioChannels"] as? NSNumber)?.intValue ?? 0
+        let rangeType = (args["videoRangeType"] as? String ?? "").uppercased()
+        let isDolbyVision =
+            rangeType.contains("DOVI") || rangeType.contains("DOLBYVISION")
         let isAtmosFamily =
             audioCodec == "truehd" || audioCodec == "mlp"
             || (audioCodec == "eac3" && audioProfile.contains("joc"))
         let preferNative =
             !audioOnly
-            && ((dvProfile == 7 && nativeDvEnabled)
+            && ((isDolbyVision && nativeDvEnabled)
                 || (atmosPassthrough && isAtmosFamily && audioChannels != 2))
         player.configurePreferredBackendForNextPlayback(
             preferNative ? .native : .mpv, fallbackReason: nil)
+        if preferNative && isDolbyVision {
+            player.configureDolbyVisionMetadata(
+                profile: dvProfile >= 0 ? dvProfile : nil,
+                level: nil,
+                blSignalCompatibilityId: nil)
+        }
 
-        if !preferNative && !audioOnly {
-            DisplayCriteriaManager.shared.applyForStream(
+        if !audioOnly {
+            lastStreamCriteria = StreamCriteria(
                 codec: args["videoCodec"] as? String,
                 width: (args["videoWidth"] as? NSNumber)?.intValue ?? 0,
                 height: (args["videoHeight"] as? NSNumber)?.intValue ?? 0,
                 frameRate: (args["videoFrameRate"] as? NSNumber)?.doubleValue ?? 0,
                 rangeType: args["videoRangeType"] as? String)
+            applyDisplayCriteria()
+        } else {
+            lastStreamCriteria = nil
+        }
+
+        if !audioOnly {
+            player.configureDynamicRangeIntent(
+                contentRange: VideoCapabilityDetector.dynamicRange(
+                    fromRangeType: args["videoRangeType"] as? String),
+                sinkIsHdrCapable: VideoCapabilityDetector.displaySupportsHdr())
         }
 
         Task {
@@ -286,7 +305,26 @@ final class AppleTvVideoChannel: NSObject, FlutterStreamHandler {
             if autoPlay {
                 player.resume()
             }
+            applyDisplayCriteria()
         }
+    }
+
+    private struct StreamCriteria {
+        let codec: String?
+        let width: Int
+        let height: Int
+        let frameRate: Double
+        let rangeType: String?
+    }
+
+    private var lastStreamCriteria: StreamCriteria?
+
+    private func applyDisplayCriteria() {
+        guard let c = lastStreamCriteria else { return }
+        DisplayCriteriaManager.shared.applyForStream(
+            codec: c.codec, width: c.width, height: c.height,
+            frameRate: c.frameRate, rangeType: c.rangeType,
+            preferredWindow: playerVC?.view.window)
     }
 
     private func startStateTimer() {

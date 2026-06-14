@@ -9,6 +9,7 @@ final class NativePlayerWrapper: MpvPlayerWrapper {
     private let nativeLogger = Logger(subsystem: "org.moonfin.appletv", category: "NativePlayer")
     private var useNativeBackend = false
     private var nativeBackendRequested = false
+    static var lastNativeStartDiagnostic = "-"
 
     nonisolated(unsafe) private var demuxer: FFDemuxer?
     nonisolated(unsafe) private var videoDecoder: VTDecoder?
@@ -121,6 +122,8 @@ final class NativePlayerWrapper: MpvPlayerWrapper {
                 return
             }
             nativeLogger.warning("native playback failed, falling back")
+        } else {
+            Self.lastNativeStartDiagnostic = "not_requested"
         }
         await super.play(streamUrl: streamUrl, startPosition: startPosition, audioOnly: audioOnly)
     }
@@ -364,12 +367,22 @@ final class NativePlayerWrapper: MpvPlayerWrapper {
     // MARK: - Native playback lifecycle
 
     private func startNativePlayback(_ url: String, startPosition: TimeInterval) -> Bool {
-        guard FFmpegAvailability.isAvailable else { return false }
+        guard FFmpegAvailability.isAvailable else {
+            Self.lastNativeStartDiagnostic = "no_ffmpeg"
+            return false
+        }
 
         teardownNative()
 
         let demux = FFDemuxer()
-        guard demux.isReady, demux.open(url: url) else { return false }
+        guard demux.isReady else {
+            Self.lastNativeStartDiagnostic = "demuxer_not_ready"
+            return false
+        }
+        guard demux.open(url: url) else {
+            Self.lastNativeStartDiagnostic = "demux_open_failed"
+            return false
+        }
         _ = demux.seedDVConfigFromServer(
             profile: nativeServerDVProfile,
             level: nativeServerDVLevel,
@@ -378,18 +391,21 @@ final class NativePlayerWrapper: MpvPlayerWrapper {
         demuxer = demux
 
         guard demux.videoStreamIndex >= 0 else {
+            Self.lastNativeStartDiagnostic = "no_video_stream"
             teardownNative()
             return false
         }
 
         let videoInfo = demux.streams.first { $0.index == demux.videoStreamIndex }
         guard let videoInfo, let extradata = videoInfo.extradata, !extradata.isEmpty else {
+            Self.lastNativeStartDiagnostic = "no_extradata"
             teardownNative()
             return false
         }
 
         let decoder = VTDecoder()
         guard decoder.configure(extradata: extradata, dvConfig: demux.dvConfig) else {
+            Self.lastNativeStartDiagnostic = "decoder_config_failed"
             teardownNative()
             return false
         }
@@ -440,6 +456,7 @@ final class NativePlayerWrapper: MpvPlayerWrapper {
         nativeVideoSurface.setDynamicRange(nativeRequestedContentRange)
 
         useNativeBackend = true
+        Self.lastNativeStartDiagnostic = "active"
         updatePlaybackBackend(identifier: "native", fallbackReason: nil)
 
         duration = demux.duration
