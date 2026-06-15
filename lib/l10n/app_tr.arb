@@ -4,11 +4,11 @@
     "@appTitle": {
         "description": "The application title"
     },
-    "signIn": "Giris yap",
+    "signIn": "Giriş yap",
     "@signIn": {
         "description": "Sign in heading and button label"
     },
-    "connectingToServer": "Connecting to {serverName}",
+    "connectingToServer": "{serverName} sunucusuna bağlanılıyor",
     "@connectingToServer": {
         "description": "Subtitle showing which server the user is connecting to",
         "placeholders": {
@@ -17,15 +17,15 @@
             }
         }
     },
-    "quickConnect": "Hizli baglanti",
+    "quickConnect": "Hızlı bağlantı",
     "@quickConnect": {
         "description": "Quick Connect toggle button label"
     },
-    "password": "Sifre",
+    "password": "Şifre",
     "@password": {
         "description": "Password field label and toggle button"
     },
-    "username": "Kullanici adi",
+    "username": "Kullanıcı Adı",
     "@username": {
         "description": "Username field label"
     },
@@ -45,11 +45,11 @@
     "@serverUnavailable": {
         "description": "Error message when server cannot be reached"
     },
-    "loginFailed": "giriş başarısız oldu",
+    "loginFailed": "Giriş başarısız",
     "@loginFailed": {
         "description": "Generic login failure message"
     },
-    "quickConnectUnavailable": "QuickConnect unavailable: {detail}",
+    "quickConnectUnavailable": "Hızlı Bağlantı kullanılamıyor: {detail}",
     "@quickConnectUnavailable": {
         "description": "Quick Connect generic error message",
         "placeholders": {
@@ -58,7 +58,7 @@
             }
         }
     },
-    "quickConnectUnavailableWithStatus": "QuickConnect unavailable ({status}): {detail}",
+    "quickConnectUnavailableWithStatus": "Hızlı Bağlantı kullanılamıyor ({status}): {detail}",
     "@quickConnectUnavailableWithStatus": {
         "description": "Quick Connect error message with HTTP status info",
         "placeholders": {
@@ -82,7 +82,7 @@
     "@selectServer": {
         "description": "Button to navigate back to server selection"
     },
-    "appVersionFooter": "Moonfin version {version}",
+    "appVersionFooter": "Moonfin sürümü {version}",
     "@appVersionFooter": {
         "description": "App version shown in footer",
         "placeholders": {
@@ -99,7 +99,7 @@
     "@discoveredServers": {
         "description": "Section heading for auto-discovered local servers"
     },
-    "noneFound": "Hiçbiri bulunamadı",
+    "noneFound": "Sunucu bulunamadı",
     "@noneFound": {
         "description": "Shown when no servers are discovered on the network"
     },
@@ -119,7 +119,7 @@
     "@removeServer": {
         "description": "Dialog title for removing a saved server"
     },
-    "removeServerConfirmation": "Remove \"{serverName}\" from your servers?",
+    "removeServerConfirmation": "\"{serverName}\" sunucularınızdan kaldırılsın mı?",
     "@removeServerConfirmation": {
         "description": "Confirmation message when removing a saved server",
         "placeholders": {
@@ -128,11 +128,11 @@
             }
         }
     },
-    "cancel": "Iptal",
+    "cancel": "İptal",
     "@cancel": {
         "description": "Generic cancel button label"
     },
-    "remove": "Kaldir",
+    "remove": "Sil",
     "@remove": {
         "description": "Remove button label in confirmation dialogs"
     },
@@ -148,7 +148,7 @@
     "@serverAddressHint": {
         "description": "Hint text for the server URL input field"
     },
-    "connect": "Bağlamak",
+    "connect": "Bağlan",
     "@connect": {
         "description": "Button to initiate connection to a server"
     },
@@ -156,11 +156,11 @@
     "@secureStorageUnavailable": {
         "description": "Dialog title when system keyring is inaccessible"
     },
-    "secureStorageUnavailableMessage": "Moonfin sistem anahtarlığınıza erişemedi. Giriş yapmaya devam edebilirsiniz ancak anahtarlığın kilidi açılana kadar güvenli token depolama alanı kullanılamayabilir.",
+    "secureStorageUnavailableMessage": "Moonfin sistem anahtarlığınıza erişemedi. Giriş işlemine devam edilebilir, ancak anahtarlık kilidi açılana kadar güvenli jeton depolama özelliği kullanılamayabilir.",
     "@secureStorageUnavailableMessage": {
         "description": "Explanation when secure storage is not available"
     },
-    "ok": "TAMAM",
+    "ok": "Tamam",
     "@ok": {
         "description": "Generic OK button label"
     },
@@ -188,7 +188,7 @@
     "@themeNeonPulseSubtitle": {
         "description": "Preview description for the Neon Pulse theme"
     },
-    "embyConnectSignInSubtitle": "Emby Connect hesabınızla oturum açın",
+    "embyConnectSignInSubtitle": "Emby Bağlantısı hesabınızla oturum açın",
     "@embyConnectSignInSubtitle": {
         "description": "Subtitle on the Emby Connect sign-in screen"
     },
@@ -204,23 +204,23 @@
     "@tryAgain": {
         "description": "Button to retry a failed operation"
     },
-    "noLinkedServers": "Bu Emby Connect hesabına bağlı sunucu yok",
+    "noLinkedServers": "Bu Emby Bağlantısı hesabına bağlı sunucu yok",
     "@noLinkedServers": {
         "description": "Error when Emby Connect account has no linked servers"
     },
-    "invalidEmbyConnectCredentials": "Geçersiz Emby Connect kimlik bilgileri",
+    "invalidEmbyConnectCredentials": "Geçersiz Emby Bağlantısı kimlik bilgileri",
     "@invalidEmbyConnectCredentials": {
         "description": "Error when Emby Connect auth response is invalid"
     },
-    "invalidEmbyConnectLogin": "Geçersiz Emby Connect kullanıcı adı veya şifresi",
+    "invalidEmbyConnectLogin": "Geçersiz Emby Bağlantısı kullanıcı adı veya şifresi",
     "@invalidEmbyConnectLogin": {
         "description": "Error for wrong Emby Connect credentials"
     },
-    "embyConnectExchangeNotSupported": "Sunucu Emby Connect değişimini desteklemiyor",
+    "embyConnectExchangeNotSupported": "Sunucu Emby Bağlantısı değişimini desteklemiyor",
     "@embyConnectExchangeNotSupported": {
         "description": "Error when server lacks Emby Connect exchange endpoint"
     },
-    "embyConnectNetworkError": "Emby Connect veya seçilen sunucuyla iletişim kurulurken ağ hatası",
+    "embyConnectNetworkError": "Emby Bağlantısı veya seçilen sunucu ile iletişim kurulurken ağ hatası oluştu",
     "@embyConnectNetworkError": {
         "description": "Generic network error during Emby Connect flow"
     },
@@ -236,11 +236,11 @@
     "@noReachableAddress": {
         "description": "Shown when a discovered server has no usable address"
     },
-    "invalidServerExchangeResponse": "Sunucu değişim uç noktasından geçersiz yanıt",
+    "invalidServerExchangeResponse": "Sunucu takas uç noktasından geçersiz yanıt alındı",
     "@invalidServerExchangeResponse": {
         "description": "Error when server exchange returns invalid data"
     },
-    "unableToConnectTo": "Unable to connect to {target}",
+    "unableToConnectTo": "{target} bağlantısı kurulamadı",
     "@unableToConnectTo": {
         "description": "Error when connection to a specific server or address fails",
         "placeholders": {
@@ -261,15 +261,15 @@
     "@exit": {
         "description": "Exit button label"
     },
-    "noHomeRowsLoaded": "Hiçbir ana satır yüklenemedi",
+    "noHomeRowsLoaded": "Ana sayfa satırları yüklenemedi",
     "@noHomeRowsLoaded": {
         "description": "Heading when home screen has no rows to display"
     },
-    "noHomeRowsHint": "Aktif ana sayfa bölümlerini yenilemeyi veya azaltmayı deneyin.",
+    "noHomeRowsHint": "Sayfayı yenilemeyi veya aktif ana sayfa bölümlerini azaltmayı deneyin.",
     "@noHomeRowsHint": {
         "description": "Hint text below the no-home-rows heading"
     },
-    "retryHomeRows": "Ana Sayfa Satırlarını Yeniden Dene",
+    "retryHomeRows": "Ana sayfa satırlarını yeniden dene",
     "@retryHomeRows": {
         "description": "Button to retry loading home rows after failure"
     },
@@ -285,7 +285,7 @@
     "@schedule": {
         "description": "Live TV schedule button label"
     },
-    "series": "Seri",
+    "series": "Diziler",
     "@series": {
         "description": "Section header for TV series"
     },
@@ -333,7 +333,7 @@
     "@noLibrariesFound": {
         "description": "Empty state when no libraries are available"
     },
-    "library": "Kutuphane",
+    "library": "Kütüphane",
     "@library": {
         "description": "Library label used in navigation and fallback subtitle"
     },
@@ -349,7 +349,7 @@
     "@noGenresFound": {
         "description": "Empty state when no genres are available"
     },
-    "failedToLoadFolderError": "Failed to load folder: {error}",
+    "failedToLoadFolderError": "Klasör yüklenemedi: {error}",
     "@failedToLoadFolderError": {
         "description": "Error when a folder cannot be loaded",
         "placeholders": {
@@ -362,7 +362,7 @@
     "@thisFolderIsEmpty": {
         "description": "Empty state for folder browse screen"
     },
-    "itemCountLabel": "{count} items",
+    "itemCountLabel": "{count} öğe",
     "@itemCountLabel": {
         "description": "Subtitle showing number of items in a folder or collection",
         "placeholders": {
@@ -387,7 +387,7 @@
     "@favorites": {
         "description": "Favorites section heading and filter label"
     },
-    "totalCountItems": "{count} Items",
+    "totalCountItems": "{count} Öğe",
     "@totalCountItems": {
         "description": "Header showing total item count",
         "placeholders": {
@@ -408,15 +408,15 @@
     "@sortAndFilter": {
         "description": "Dialog title for sort and filter options"
     },
-    "type": "Tip",
+    "type": "Tür",
     "@type": {
         "description": "Stream info label for subtitle type"
     },
-    "sortBy": "Göre sırala",
+    "sortBy": "Sıralama Ölçütü",
     "@sortBy": {
         "description": "Section header for sort options"
     },
-    "display": "Görüntülemek",
+    "display": "Ekran",
     "@display": {
         "description": "Dialog title for display settings"
     },
@@ -444,7 +444,7 @@
     "@extraLarge": {
         "description": "Size option: extra large"
     },
-    "libraryGenresTitle": "{name} — Genres",
+    "libraryGenresTitle": "{name} — Türler",
     "@libraryGenresTitle": {
         "description": "Header title showing library name with genres suffix",
         "placeholders": {
@@ -497,7 +497,7 @@
     "@justNow": {
         "description": "Relative time for less than a minute ago"
     },
-    "minutesAgo": "{count}m ago",
+    "minutesAgo": "{count}dk önce",
     "@minutesAgo": {
         "description": "Relative time in minutes",
         "placeholders": {
@@ -506,7 +506,7 @@
             }
         }
     },
-    "hoursAgo": "{count}h ago",
+    "hoursAgo": "{count}sa önce",
     "@hoursAgo": {
         "description": "Relative time in hours",
         "placeholders": {
@@ -515,7 +515,7 @@
             }
         }
     },
-    "daysAgo": "{count}d ago",
+    "daysAgo": "{count}g önce",
     "@daysAgo": {
         "description": "Relative time in days",
         "placeholders": {
@@ -524,11 +524,11 @@
             }
         }
     },
-    "discoverySubjects": "Keşif Konuları",
+    "discoverySubjects": "Keşif Kategorileri",
     "@discoverySubjects": {
         "description": "Title for the book discovery subject picker panel"
     },
-    "pickDiscoverySubjects": "Keşfet'te hangi konu akışlarının gösterileceğini seçin.",
+    "pickDiscoverySubjects": "Keşfet bölümünde hangi konu akışlarının gösterileceğini seçin.",
     "@pickDiscoverySubjects": {
         "description": "Instruction text in discovery subject picker"
     },
@@ -552,7 +552,7 @@
     "@librivoxDescription": {
         "description": "Subtitle for audiobook discovery section"
     },
-    "titlesCount": "{count} titles",
+    "titlesCount": "{count} başlıklar",
     "@titlesCount": {
         "description": "Label showing number of titles",
         "placeholders": {
@@ -585,7 +585,7 @@
     "@continueListening": {
         "description": "Section title for audiobooks in progress"
     },
-    "listen": "Dinlemek",
+    "listen": "Dinle",
     "@listen": {
         "description": "Primary action label for audiobooks"
     },
@@ -613,7 +613,7 @@
     "@unreadDiscoveries": {
         "description": "Book rail title for unread items"
     },
-    "pickUpAgain": "Tekrar Al",
+    "pickUpAgain": "Kaldığın Yerden Devam Et",
     "@pickUpAgain": {
         "description": "Book rail title for in-progress bookmarked items"
     },
@@ -633,7 +633,7 @@
     "@booksWithHighlights": {
         "description": "Subtitle for bookmarks secondary rail"
     },
-    "jumpBackNarration": "Yerinizi aramadan anlatıma geri dönün.",
+    "jumpBackNarration": "Kaldığınız yeri aramakla uğraşmadan anlatıya hemen geri dönün.",
     "@jumpBackNarration": {
         "description": "Subtitle for audiobook continue listening rail"
     },
@@ -661,7 +661,7 @@
     "@savedPlacesChapters": {
         "description": "Hero card subtitle for bookmarks section"
     },
-    "authorsCount": "{count} authors",
+    "authorsCount": "{count} yazar",
     "@authorsCount": {
         "description": "Metric pill showing author count",
         "placeholders": {
@@ -670,7 +670,7 @@
             }
         }
     },
-    "genresCount": "{count} genres",
+    "genresCount": "{count} tür",
     "@genresCount": {
         "description": "Metric pill showing genre count",
         "placeholders": {
@@ -679,7 +679,7 @@
             }
         }
     },
-    "percentCompleted": "{percent}% completed",
+    "percentCompleted": "%{percent} tamamlandı",
     "@percentCompleted": {
         "description": "Reading progress percentage label",
         "placeholders": {
@@ -688,7 +688,7 @@
             }
         }
     },
-    "readyWhenYouAre": "Hazır olduğunuzda hazır",
+    "readyWhenYouAre": "Sen hazır olduğunda hazırız",
     "@readyWhenYouAre": {
         "description": "Label shown when no reading progress exists"
     },
@@ -704,7 +704,7 @@
     "@bookmarksAndProgress": {
         "description": "Panel header for bookmarks section"
     },
-    "titlesArrangedForBrowsing": "{count} titles arranged for reading-first browsing.",
+    "titlesArrangedForBrowsing": "Okuma odaklı göz atma için düzenlenmiş {count} başlık.",
     "@titlesArrangedForBrowsing": {
         "description": "Panel subtitle showing total titles",
         "placeholders": {
@@ -733,11 +733,11 @@
     "@browseByGenre": {
         "description": "Collection picker dialog title for genre browse"
     },
-    "discover": "Keşfetmek",
+    "discover": "Keşfet",
     "@discover": {
         "description": "Section title for book discovery"
     },
-    "trendingTitlesOpenLibrary": "Open Library adresinden konuya göre trend olan başlıklar.",
+    "trendingTitlesOpenLibrary": "Open Library'den konularına göre popüler kitaplar.",
     "@trendingTitlesOpenLibrary": {
         "description": "Subtitle for book discovery section"
     },
@@ -753,7 +753,7 @@
     "@audiobooks": {
         "description": "Audiobooks navigation and tab label"
     },
-    "noLabelFound": "No {label} found",
+    "noLabelFound": "{label} bulunamadı",
     "@noLabelFound": {
         "description": "Empty state with dynamic label like books or audiobooks",
         "placeholders": {
@@ -778,11 +778,11 @@
     "@playedStatus": {
         "description": "Section header for played status filter"
     },
-    "readStatus": "Okumak",
+    "readStatus": "Oku",
     "@readStatus": {
         "description": "Filter label for read/watched items in book libraries"
     },
-    "watched": "izlendi",
+    "watched": "İzlendi",
     "@watched": {
         "description": "Filter label for watched items"
     },
@@ -790,11 +790,11 @@
     "@unread": {
         "description": "Status label for an unread book"
     },
-    "unwatched": "izlenmedi",
+    "unwatched": "İzlenmedi",
     "@unwatched": {
         "description": "Filter label for unwatched items"
     },
-    "seriesStatus": "Seri Durumu",
+    "seriesStatus": "Dizi Durumu",
     "@seriesStatus": {
         "description": "Section header for series status filter"
     },
@@ -822,7 +822,7 @@
     "@overview": {
         "description": "Section header for content overview/description"
     },
-    "noLibrivoxDescription": "Bu başlık için henüz LibriVox tarafından bir açıklama sağlanmadı.",
+    "noLibrivoxDescription": "LibriVox tarafından bu kitap için henüz bir açıklama girilmedi.",
     "@noLibrivoxDescription": {
         "description": "Fallback when LibriVox title has no description"
     },
@@ -834,11 +834,11 @@
     "@openLinks": {
         "description": "Section header for external links"
     },
-    "librivoxPage": "LibriVox Sayfa",
+    "librivoxPage": "LibriVox Sayfası",
     "@librivoxPage": {
         "description": "Button label for LibriVox external link"
     },
-    "internetArchive": "İnternet Arşivi",
+    "internetArchive": "Internet Archive",
     "@internetArchive": {
         "description": "Button label for Internet Archive external link"
     },
@@ -850,7 +850,7 @@
     "@downloadZip": {
         "description": "Button label for zip download external link"
     },
-    "sectionCountLabel": "{count} sections",
+    "sectionCountLabel": "{count} bölüm",
     "@sectionCountLabel": {
         "description": "Detail chip showing number of sections in audiobook",
         "placeholders": {
@@ -859,7 +859,7 @@
             }
         }
     },
-    "firstPublished": "First published {year}",
+    "firstPublished": "İlk Yayınlanma {year}",
     "@firstPublished": {
         "description": "Publication year for a book",
         "placeholders": {
@@ -868,7 +868,7 @@
             }
         }
     },
-    "noOpenLibraryOverview": "Open Library adresinden bu başlık için henüz bir genel bakış mevcut değil.",
+    "noOpenLibraryOverview": "Open Library'de bu kitap için henüz bir özet bulunmuyor.",
     "@noOpenLibraryOverview": {
         "description": "Fallback when Open Library has no description"
     },
@@ -876,11 +876,11 @@
     "@subjects": {
         "description": "Section header for Open Library subjects"
     },
-    "all": "Tüm",
+    "all": "Tümü",
     "@all": {
         "description": "Filter option for showing all items"
     },
-    "booksCount": "{count} books",
+    "booksCount": "{count} kitap",
     "@booksCount": {
         "description": "Label showing number of books in a discover row",
         "placeholders": {
@@ -897,7 +897,7 @@
     "@audiobookDetails": {
         "description": "AppBar title for LibriVox audiobook detail screen"
     },
-    "authorsCountTitle": "{count} Authors",
+    "authorsCountTitle": "{count} Yazar",
     "@authorsCountTitle": {
         "description": "AppBar title for LibriVox authors list screen",
         "placeholders": {
@@ -906,7 +906,7 @@
             }
         }
     },
-    "audiobookCountLabel": "{count, plural, =1{1 audiobook} other{{count} audiobooks}}",
+    "audiobookCountLabel": "{count, plural, =1{1 sesli kitap} other{{count} sesli kitap}}",
     "@audiobookCountLabel": {
         "description": "Subtitle showing number of audiobooks by an author",
         "placeholders": {
@@ -931,15 +931,15 @@
     "@failedToLoad": {
         "description": "Error message when item detail fails to load"
     },
-    "delete": "Silmek",
+    "delete": "Sil",
     "@delete": {
         "description": "Delete action button label"
     },
-    "save": "Kaydetmek",
+    "save": "Kaydet",
     "@save": {
         "description": "Save action button label"
     },
-    "moreLikeThis": "Bunun Gibi Daha Fazlası",
+    "moreLikeThis": "Buna Benzer",
     "@moreLikeThis": {
         "description": "Section header for similar items"
     },
@@ -955,11 +955,11 @@
     "@episodes": {
         "description": "Section header for episodes"
     },
-    "nextUp": "Sıradaki",
+    "nextUp": "Sıradaki Bölümler",
     "@nextUp": {
         "description": "Home section: next up"
     },
-    "seasons": "Mevsimler",
+    "seasons": "Sezonlar",
     "@seasons": {
         "description": "Section header for seasons"
     },
@@ -995,7 +995,7 @@
     "@tracklist": {
         "description": "Section header for album track listing"
     },
-    "discNumber": "Disc {number}",
+    "discNumber": "Disk {number}",
     "@discNumber": {
         "description": "Label for an album disc section in a multi-disc track list",
         "placeholders": {
@@ -1028,7 +1028,7 @@
     "@unableToLoadAuthorDetails": {
         "description": "Error message when author details fail to load"
     },
-    "published": "Published {year}",
+    "published": "Yayınlanma yılı: {year}",
     "@published": {
         "description": "Publication year for an author book tile",
         "placeholders": {
@@ -1041,7 +1041,7 @@
     "@publicationDateUnknown": {
         "description": "Placeholder when publication date is unknown"
     },
-    "seasonCount": "{count, plural, =1{1 Season} other{{count} Seasons}}",
+    "seasonCount": "{count, plural, =1{1 Sezon} other{{count} Sezon}}",
     "@seasonCount": {
         "description": "Number of seasons for a series",
         "placeholders": {
@@ -1050,7 +1050,7 @@
             }
         }
     },
-    "endsAt": "Ends at {time}",
+    "endsAt": "Bitiş saati: {time}",
     "@endsAt": {
         "description": "Label showing when media will end",
         "placeholders": {
@@ -1059,7 +1059,7 @@
             }
         }
     },
-    "view": "Görüş",
+    "view": "Bak",
     "@view": {
         "description": "Action button label for viewing a photo"
     },
@@ -1067,11 +1067,11 @@
     "@resumeReading": {
         "description": "Action button label to resume reading a book"
     },
-    "read": "Okumak",
+    "read": "Oku",
     "@read": {
         "description": "Action button label to start reading a book"
     },
-    "resumeFrom": "Resume from {position}",
+    "resumeFrom": "{position} konumundan devam et",
     "@resumeFrom": {
         "description": "Action button label showing resume position",
         "placeholders": {
@@ -1088,7 +1088,7 @@
     "@startOver": {
         "description": "Action button label to restart reading a book"
     },
-    "restart": "Yeniden baslat",
+    "restart": "Yeniden başlat",
     "@restart": {
         "description": "Action button label to restart playing media"
     },
@@ -1112,11 +1112,11 @@
     "@version": {
         "description": "Action button label for version/media source selection"
     },
-    "cast": "Döküm",
+    "cast": "Oyuncular",
     "@cast": {
         "description": "Action button label for casting to a device"
     },
-    "trailer": "Römork",
+    "trailer": "Fragman",
     "@trailer": {
         "description": "Action button label for trailer playback"
     },
@@ -1144,7 +1144,7 @@
     "@downloadAll": {
         "description": "Action button label to download all items"
     },
-    "download": "İndirmek",
+    "download": "İndir",
     "@download": {
         "description": "Action button label to download an item"
     },
@@ -1152,7 +1152,7 @@
     "@deleteDownloaded": {
         "description": "Action button label to delete downloaded album tracks"
     },
-    "goToSeries": "Seriye Git",
+    "goToSeries": "Diziye Git",
     "@goToSeries": {
         "description": "Action button label to navigate to the parent series"
     },
@@ -1204,7 +1204,7 @@
     "@deleteDownloadedAlbum": {
         "description": "Dialog title for deleting downloaded album tracks"
     },
-    "deleteDownloadedTracksMessage": "Delete downloaded tracks for \"{title}\"?",
+    "deleteDownloadedTracksMessage": "\"{title}\" için indirilen parçalar silinsin mi?",
     "@deleteDownloadedTracksMessage": {
         "description": "Confirmation message for deleting downloaded album tracks",
         "placeholders": {
@@ -1225,7 +1225,7 @@
     "@noTracksLoaded": {
         "description": "Message when no tracks are available"
     },
-    "noItemsLoaded": "No {itemLabel} loaded",
+    "noItemsLoaded": "Yüklü {itemLabel} yok",
     "@noItemsLoaded": {
         "description": "Message when no items are loaded for download",
         "placeholders": {
@@ -1234,7 +1234,7 @@
             }
         }
     },
-    "downloadingTitle": "Downloading {title} ({count} items)...",
+    "downloadingTitle": "{title} indiriliyor ({count} öge)...",
     "@downloadingTitle": {
         "description": "Snackbar message when downloading album tracks",
         "placeholders": {
@@ -1246,7 +1246,7 @@
             }
         }
     },
-    "deleteConfirmMessage": "Are you sure you want to delete \"{name}\" from the server? This action cannot be undone.",
+    "deleteConfirmMessage": "\"{name}\" isimli ögeyi sunucudan silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
     "@deleteConfirmMessage": {
         "description": "Confirmation message for permanently deleting an item",
         "placeholders": {
@@ -1263,7 +1263,7 @@
     "@noPlayableTrailerFound": {
         "description": "Error message when no trailer can be played"
     },
-    "unsupportedBookFormat": "Unsupported book format: .{extension}",
+    "unsupportedBookFormat": "Geçersiz kitap formatı: .{extension}",
     "@unsupportedBookFormat": {
         "description": "Error message for unsupported book file format",
         "placeholders": {
@@ -1284,7 +1284,7 @@
     "@none": {
         "description": "Option label for no subtitle selected"
     },
-    "downloadSubtitlesLabel": "Altyazıları indirin...",
+    "downloadSubtitlesLabel": "Altyazıları indir...",
     "@downloadSubtitlesLabel": {
         "description": "Label for the download subtitles option"
     },
@@ -1300,7 +1300,7 @@
     "@selectedSubtitleInvalid": {
         "description": "Error message when a selected subtitle is invalid"
     },
-    "subtitleDownloadedSelected": "Subtitle downloaded and selected: {name}",
+    "subtitleDownloadedSelected": "Altyazı indirildi ve seçildi: {name}",
     "@subtitleDownloadedSelected": {
         "description": "Success message after downloading and selecting a subtitle",
         "placeholders": {
@@ -1313,7 +1313,7 @@
     "@subtitleDownloadedPending": {
         "description": "Message when subtitle was downloaded but not yet visible"
     },
-    "noRemoteSubtitlesFound": "No remote subtitles found for {language}.",
+    "noRemoteSubtitlesFound": "{language} dili için çevrimiçi altyazı bulunamadı.",
     "@noRemoteSubtitlesFound": {
         "description": "Message when no remote subtitles were found",
         "placeholders": {
@@ -1326,7 +1326,7 @@
     "@selectVersion": {
         "description": "Dialog title for selecting a media version"
     },
-    "versionNumber": "Version {number}",
+    "versionNumber": "Sürüm {number}",
     "@versionNumber": {
         "description": "Default label for a media version",
         "placeholders": {
@@ -1355,7 +1355,7 @@
     "@noEpisodesLoaded": {
         "description": "Message when no episodes are available for download"
     },
-    "downloadingItem": "Downloading {name} ({quality})...",
+    "downloadingItem": "{name} indiriliyor ({quality})...",
     "@downloadingItem": {
         "description": "Snackbar message when downloading an item",
         "placeholders": {
@@ -1371,7 +1371,7 @@
     "@deleteDownloadedFiles": {
         "description": "Dialog title for deleting downloaded files"
     },
-    "deleteLocalFilesMessage": "Delete local files for {typeLabel}?\n\nThis will free up storage space. You can re-download later.",
+    "deleteLocalFilesMessage": "{typeLabel} için yerel dosyalar silinsin mi?\n\nBu işlem depolama alanında yer açacaktır. Daha sonra tekrar indirebilirsiniz.",
     "@deleteLocalFilesMessage": {
         "description": "Confirmation message for deleting local downloaded files",
         "placeholders": {
@@ -1392,7 +1392,7 @@
     "@deleteFiles": {
         "description": "Action button label for deleting downloaded files"
     },
-    "director": "MÜDÜR",
+    "director": "YÖNETMEN",
     "@director": {
         "description": "Metadata label for director"
     },
@@ -1404,7 +1404,7 @@
     "@studio": {
         "description": "Metadata label for studio"
     },
-    "studioMoreCount": "+{count} more",
+    "studioMoreCount": "+{count} daha",
     "@studioMoreCount": {
         "description": "Label showing additional studio count",
         "placeholders": {
@@ -1413,7 +1413,7 @@
             }
         }
     },
-    "totalEpisodes": "{count} Episodes",
+    "totalEpisodes": "{count} Bölüm",
     "@totalEpisodes": {
         "description": "Season progress label showing total episodes",
         "placeholders": {
@@ -1434,7 +1434,7 @@
             }
         }
     },
-    "episodeLabel": "Episode {number}",
+    "episodeLabel": "{number}. bölüm",
     "@episodeLabel": {
         "description": "Label for an episode number",
         "placeholders": {
@@ -1443,7 +1443,7 @@
             }
         }
     },
-    "chapterNumber": "Chapter {number}",
+    "chapterNumber": "{number}. kısım",
     "@chapterNumber": {
         "description": "Default name for a chapter",
         "placeholders": {
@@ -1452,7 +1452,7 @@
             }
         }
     },
-    "trackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+    "trackCount": "{count, plural, =1{1 parça} other{{count} parça}}",
     "@trackCount": {
         "description": "Label showing number of tracks in an album",
         "placeholders": {
@@ -1461,7 +1461,7 @@
             }
         }
     },
-    "chapterCount": "{count, plural, =1{1 chapter} other{{count} chapters}}",
+    "chapterCount": "{count, plural, =1{1 bölüm} other{{count} bölüm}}",
     "@chapterCount": {
         "description": "Label showing number of chapters in an audiobook",
         "placeholders": {
@@ -1470,7 +1470,7 @@
             }
         }
     },
-    "born": "Born {date}",
+    "born": "Doğum Tarihi: {date}",
     "@born": {
         "description": "Person birth date label",
         "placeholders": {
@@ -1479,7 +1479,7 @@
             }
         }
     },
-    "died": "Died {date}",
+    "died": "Ölüm Tarihi: {date}",
     "@died": {
         "description": "Person death date label",
         "placeholders": {
@@ -1488,7 +1488,7 @@
             }
         }
     },
-    "age": "Age {age}",
+    "age": "Yaş: {age}",
     "@age": {
         "description": "Person age label",
         "placeholders": {
@@ -1509,7 +1509,7 @@
     "@shuffle": {
         "description": "Action button label for shuffle playback"
     },
-    "downloadsCount": "{count} downloads",
+    "downloadsCount": "{count} indirme",
     "@downloadsCount": {
         "description": "Subtitle showing number of downloads for a remote subtitle",
         "placeholders": {
@@ -1522,7 +1522,7 @@
     "@perfectMatch": {
         "description": "Label for a subtitle that is a hash match"
     },
-    "channelsCount": "{count}ch",
+    "channelsCount": "{count} kanal",
     "@channelsCount": {
         "description": "Audio channel count label",
         "placeholders": {
@@ -1539,7 +1539,7 @@
     "@stereo": {
         "description": "Audio channel layout label for stereo"
     },
-    "remoteSubtitlePermissionError": "Remote subtitle {action} requires the Jellyfin subtitle management permission for this user.",
+    "remoteSubtitlePermissionError": "Çevrimiçi altyazı {action} işlemi, bu kullanıcı için Jellyfin altyazı yönetimi izni gerektirir.",
     "@remoteSubtitlePermissionError": {
         "description": "Error message when user lacks subtitle management permission",
         "placeholders": {
@@ -1548,7 +1548,7 @@
             }
         }
     },
-    "remoteSubtitleNotFoundError": "This item could not be found on the server for remote subtitle {action}.",
+    "remoteSubtitleNotFoundError": "Çevrimiçi altyazı {action} işlemi için bu öge sunucuda bulunamadı.",
     "@remoteSubtitleNotFoundError": {
         "description": "Error message when item not found for subtitle operation",
         "placeholders": {
@@ -1557,7 +1557,7 @@
             }
         }
     },
-    "remoteSubtitleDetailError": "Remote subtitle {action} failed: {detail}",
+    "remoteSubtitleDetailError": "Çevrimiçi altyazı {action} işlemi başarısız oldu: {detail}",
     "@remoteSubtitleDetailError": {
         "description": "Error message with detail for subtitle operation",
         "placeholders": {
@@ -1569,7 +1569,7 @@
             }
         }
     },
-    "remoteSubtitleHttpError": "Remote subtitle {action} failed (HTTP {status}).",
+    "remoteSubtitleHttpError": "Çevrimiçi altyazı {action} işlemi başarısız oldu (HTTP {status}).",
     "@remoteSubtitleHttpError": {
         "description": "Error message with HTTP status for subtitle operation",
         "placeholders": {
@@ -1581,7 +1581,7 @@
             }
         }
     },
-    "remoteSubtitleGenericError": "Failed to {action} remote subtitles.",
+    "remoteSubtitleGenericError": "Çevrimiçi altyazı {action} işlemi başarısız oldu.",
     "@remoteSubtitleGenericError": {
         "description": "Generic error message for subtitle operation",
         "placeholders": {
@@ -1590,7 +1590,7 @@
             }
         }
     },
-    "deleteSeriesFiles": "all downloaded episodes for \"{name}\"",
+    "deleteSeriesFiles": "\"{name}\" için indirilen tüm bölümler",
     "@deleteSeriesFiles": {
         "description": "Type label for series file deletion",
         "placeholders": {
@@ -1635,7 +1635,7 @@
     "@castingUnavailableOffline": {
         "description": "Snackbar message when casting is unavailable offline"
     },
-    "castActionFailed": "{label} action failed: {error}",
+    "castActionFailed": "{label} işlemi başarısız oldu: {error}",
     "@castActionFailed": {
         "description": "Error when a cast action fails",
         "placeholders": {
@@ -1647,7 +1647,7 @@
             }
         }
     },
-    "failedToSetCastVolume": "Failed to set cast volume: {error}",
+    "failedToSetCastVolume": "Yansıtma ses düzeyi ayarlanamadı: {error}",
     "@failedToSetCastVolume": {
         "description": "Error when setting cast volume fails",
         "placeholders": {
@@ -1656,7 +1656,7 @@
             }
         }
     },
-    "castControlsTitle": "{label} Controls",
+    "castControlsTitle": "{label} Kontroller",
     "@castControlsTitle": {
         "description": "Title for cast controls dialog",
         "placeholders": {
@@ -1681,7 +1681,7 @@
     "@syncPosition": {
         "description": "Cast control action to sync playback position"
     },
-    "stopCast": "Stop {label}",
+    "stopCast": "{label} durdur",
     "@stopCast": {
         "description": "Cast control action to stop casting",
         "placeholders": {
@@ -1694,7 +1694,7 @@
     "@queueIsEmpty": {
         "description": "Empty state text for playback queue"
     },
-    "trackNumber": "Track {number}",
+    "trackNumber": "Parça {number}",
     "@trackNumber": {
         "description": "Fallback track name in queue",
         "placeholders": {
@@ -1719,7 +1719,7 @@
     "@castingViaDlna": {
         "description": "Cast mini bar label for DLNA"
     },
-    "secondsCount": "{seconds} seconds",
+    "secondsCount": "{seconds} saniye",
     "@secondsCount": {
         "description": "Double-tap skip overlay duration label",
         "placeholders": {
@@ -1853,7 +1853,7 @@
     "@audioBitrate": {
         "description": "Stream info label for audio bitrate"
     },
-    "sampleRate": "Örnek Hızı",
+    "sampleRate": "Örnekleme Hızı",
     "@sampleRate": {
         "description": "Stream info label for audio sample rate"
     },
@@ -1869,7 +1869,7 @@
     "@embedded": {
         "description": "Subtitle type label for embedded subtitles"
     },
-    "castSessionError": "{protocol} session error",
+    "castSessionError": "{protocol} oturum hatası",
     "@castSessionError": {
         "description": "Fallback error message for cast session errors",
         "placeholders": {
@@ -1878,7 +1878,7 @@
             }
         }
     },
-    "failedToLoadBookDetails": "Failed to load book details: {error}",
+    "failedToLoadBookDetails": "Kitap detayları yüklenemedi: {error}",
     "@failedToLoadBookDetails": {
         "description": "Error when loading book details fails",
         "placeholders": {
@@ -1887,11 +1887,11 @@
             }
         }
     },
-    "epubUnavailableOnPlatform": "Uygulama içi EPUB oluşturma henüz bu platformda mevcut değil.",
+    "epubUnavailableOnPlatform": "Uygulama içi EPUB görüntüleme henüz bu platformda desteklenmiyor.",
     "@epubUnavailableOnPlatform": {
         "description": "Fallback message when EPUB cannot render on current platform"
     },
-    "formatCannotRenderInApp": "This format (.{extension}) cannot be rendered in-app yet.",
+    "formatCannotRenderInApp": "Bu format (.{extension}) henüz uygulama içinde görüntülenemiyor.",
     "@formatCannotRenderInApp": {
         "description": "Fallback message for unsupported document format",
         "placeholders": {
@@ -1908,7 +1908,7 @@
     "@couldNotOpenExternalViewer": {
         "description": "Error when external viewer fails to open"
     },
-    "failedToOpenInAppReader": "Failed to open in-app reader: {error}",
+    "failedToOpenInAppReader": "Uygulama içi okuyucu açılamadı: {error}",
     "@failedToOpenInAppReader": {
         "description": "Error when in-app reader fails to open",
         "placeholders": {
@@ -1917,7 +1917,7 @@
             }
         }
     },
-    "bookmarkAlreadySaved": "Bookmark already saved at {label}.",
+    "bookmarkAlreadySaved": "{label} konumunda zaten bir yer imi kayıtlı.",
     "@bookmarkAlreadySaved": {
         "description": "Snackbar when bookmark already exists",
         "placeholders": {
@@ -1926,7 +1926,7 @@
             }
         }
     },
-    "bookmarkAdded": "Bookmark added: {label}",
+    "bookmarkAdded": "Yer imi eklendi: {label}",
     "@bookmarkAdded": {
         "description": "Snackbar confirming bookmark was added",
         "placeholders": {
@@ -1943,7 +1943,7 @@
     "@noTableOfContentsAvailable": {
         "description": "Empty state for table of contents panel"
     },
-    "pageLabel": "Page {number}",
+    "pageLabel": "Sayfa {number}",
     "@pageLabel": {
         "description": "Page number label in TOC or position",
         "placeholders": {
@@ -1969,7 +1969,7 @@
             }
         }
     },
-    "percentRead": "{percent}% read",
+    "percentRead": "%{percent} okundu",
     "@percentRead": {
         "description": "Chip label showing reading progress",
         "placeholders": {
@@ -1990,7 +1990,7 @@
     "@markAsRead": {
         "description": "Button or menu item to mark as read"
     },
-    "reloadReader": "Reader'ı Yeniden Yükle",
+    "reloadReader": "Okuyucuyu Yeniden Yükle",
     "@reloadReader": {
         "description": "Button or menu item to reload the reader"
     },
@@ -1998,11 +1998,11 @@
     "@noPagesFound": {
         "description": "Empty state for comic reader"
     },
-    "failedToDecodePageImage": "Sayfa görüntüsünün kodu çözülemedi.",
+    "failedToDecodePageImage": "Sayfa resmi yüklenemedi.",
     "@failedToDecodePageImage": {
         "description": "Error when comic page image cannot be decoded"
     },
-    "resetZoom": "Reset Zoom ({zoom}x)",
+    "resetZoom": "Yakınlaştırmaya sıfırla ({zoom}x)",
     "@resetZoom": {
         "description": "Tooltip for reset zoom button",
         "placeholders": {
@@ -2035,7 +2035,7 @@
     "@markedAsUnread": {
         "description": "Snackbar confirming item marked as unread"
     },
-    "failedToUpdateReadState": "Failed to update read state: {error}",
+    "failedToUpdateReadState": "Okuma durumu güncellenemedi: {error}",
     "@failedToUpdateReadState": {
         "description": "Error when marking read/unread fails",
         "placeholders": {
@@ -2048,7 +2048,7 @@
     "@themeSystem": {
         "description": "Reader theme option for system default"
     },
-    "themeLight": "Tema: Işık",
+    "themeLight": "Tema: Aydınlık",
     "@themeLight": {
         "description": "Reader theme option for light mode"
     },
@@ -2080,7 +2080,7 @@
     "@readerFallbackModeActive": {
         "description": "Title for fallback reader mode"
     },
-    "platformCannotHostDocumentEngine": "This platform cannot host the embedded document engine for {extension} files.",
+    "platformCannotHostDocumentEngine": "Bu platform, {extension} dosyaları için yerleşik doküman motorunu desteklemiyor.",
     "@platformCannotHostDocumentEngine": {
         "description": "Fallback description when platform lacks document engine",
         "placeholders": {
@@ -2089,7 +2089,7 @@
             }
         }
     },
-    "reloadReaderPlatformHint": "Desteklenen bir platform hedefine (Android, iOS, macOS) geçtikten sonra Reader'ı Yeniden Yükle'yi kullanın.",
+    "reloadReaderPlatformHint": "Desteklenen bir platform hedefine (Android, iOS, macOS) geçiş yaptıktan sonra Okuyucuyu Yeniden Yükle seçeneğini kullanın.",
     "@reloadReaderPlatformHint": {
         "description": "Hint text in fallback reader mode"
     },
@@ -2133,7 +2133,7 @@
     "@guideTimeline": {
         "description": "Section title for the TV guide timeline"
     },
-    "failedToLoadGuide": "Failed to load guide: {error}",
+    "failedToLoadGuide": "Rehber yüklenemedi: {error}",
     "@failedToLoadGuide": {
         "description": "Error when guide data fails to load",
         "placeholders": {
@@ -2174,7 +2174,7 @@
     "@favoriteChannel": {
         "description": "Button label to add a channel to favorites"
     },
-    "watch": "Kol saati",
+    "watch": "İzle",
     "@watch": {
         "description": "Button label to start watching a channel"
     },
@@ -2182,7 +2182,7 @@
     "@close": {
         "description": "Button label to close a dialog"
     },
-    "failedToPlayChannel": "Failed to play {name}",
+    "failedToPlayChannel": "{name} oynatılamadı",
     "@failedToPlayChannel": {
         "description": "Error when live TV channel playback fails",
         "placeholders": {
@@ -2219,7 +2219,7 @@
     "@cancelRecording": {
         "description": "Dialog title for cancelling a recording"
     },
-    "cancelScheduledRecordingOf": "Cancel scheduled recording of \"{name}\"?",
+    "cancelScheduledRecordingOf": "\"{name}\" için zamanlanmış kayıt iptal edilsin mi?",
     "@cancelScheduledRecordingOf": {
         "description": "Confirmation message for cancelling a scheduled recording",
         "placeholders": {
@@ -2228,7 +2228,7 @@
             }
         }
     },
-    "no": "HAYIR",
+    "no": "Hayır",
     "@no": {
         "description": "Negative dialog button label"
     },
@@ -2248,15 +2248,15 @@
     "@noSeriesRecordings": {
         "description": "Empty state when no series recordings exist"
     },
-    "cancelSeriesRecording": "Seri Kaydı İptal Et",
+    "cancelSeriesRecording": "Dizi Kaydını İptal Et",
     "@cancelSeriesRecording": {
         "description": "Button label to cancel a series recording"
     },
-    "cancelSeriesRecordingQuestion": "Seri Kaydı İptal Edilsin mi?",
+    "cancelSeriesRecordingQuestion": "Dizi Kaydı İptal Edilsin mi?",
     "@cancelSeriesRecordingQuestion": {
         "description": "Dialog title for cancelling a series recording"
     },
-    "stopRecordingName": "Stop recording \"{name}\"?",
+    "stopRecordingName": "\"{name}\" kaydı durdurulsun mu?",
     "@stopRecordingName": {
         "description": "Confirmation message for stopping a series recording",
         "placeholders": {
@@ -2273,11 +2273,11 @@
     "@searchThisLibrary": {
         "description": "Search hint when scoped to a specific library"
     },
-    "searchEllipsis": "Aramak...",
+    "searchEllipsis": "Ara...",
     "@searchEllipsis": {
         "description": "Search hint placeholder"
     },
-    "noResultsForQuery": "No results for \"{query}\"",
+    "noResultsForQuery": "\"{query}\" için sonuç bulunamadı",
     "@noResultsForQuery": {
         "description": "Shown when search returns no results",
         "placeholders": {
@@ -2286,7 +2286,7 @@
             }
         }
     },
-    "searchFailedError": "Search failed: {error}",
+    "searchFailedError": "Arama hata verdi: {error}",
     "@searchFailedError": {
         "description": "Shown when search encounters an error",
         "placeholders": {
@@ -2331,7 +2331,7 @@
     "@deleteDownload": {
         "description": "Dialog title for deleting a download"
     },
-    "removeItemAndFiles": "Remove \"{name}\" and its files?",
+    "removeItemAndFiles": "\"{name}\" ve dosyaları kaldırılsın mı?",
     "@removeItemAndFiles": {
         "description": "Confirmation to delete a downloaded item and its files",
         "placeholders": {
@@ -2340,7 +2340,7 @@
             }
         }
     },
-    "tracksCount": "{count} tracks",
+    "tracksCount": "{count} parça",
     "@tracksCount": {
         "description": "Number of tracks in an album",
         "placeholders": {
@@ -2357,7 +2357,7 @@
     "@playAlbum": {
         "description": "Button to play an album"
     },
-    "failedToLoadAlbum": "Failed to load album: {error}",
+    "failedToLoadAlbum": "Albüm yüklenemedi: {error}",
     "@failedToLoadAlbum": {
         "description": "Error when loading an album fails",
         "placeholders": {
@@ -2366,7 +2366,7 @@
             }
         }
     },
-    "noDownloadedTracksForAlbum": "No downloaded tracks found for {name}.",
+    "noDownloadedTracksForAlbum": "{name} için indirilmiş parça bulunamadı.",
     "@noDownloadedTracksForAlbum": {
         "description": "Shown when an album has no downloaded tracks",
         "placeholders": {
@@ -2375,7 +2375,7 @@
             }
         }
     },
-    "season": "Mevsim",
+    "season": "Sezon",
     "@season": {
         "description": "Fallback name for a season"
     },
@@ -2391,7 +2391,7 @@
     "@deleteEpisode": {
         "description": "Dialog title for deleting an episode"
     },
-    "removeName": "Remove \"{name}\"?",
+    "removeName": "\"{name}\" kaldırılsın mı?",
     "@removeName": {
         "description": "Confirmation to remove an item by name",
         "placeholders": {
@@ -2400,7 +2400,7 @@
             }
         }
     },
-    "durationMinutes": "{minutes} min",
+    "durationMinutes": "{minutes} dk",
     "@durationMinutes": {
         "description": "Duration in minutes",
         "placeholders": {
@@ -2421,7 +2421,7 @@
             }
         }
     },
-    "episodeNumber": "Episode {number}",
+    "episodeNumber": "Bölüm {number}",
     "@episodeNumber": {
         "description": "Episode label with number",
         "placeholders": {
@@ -2430,11 +2430,11 @@
             }
         }
     },
-    "seriesNotFound": "Seri bulunamadı",
+    "seriesNotFound": "Dizi bulunamadı",
     "@seriesNotFound": {
         "description": "Shown when a series cannot be found"
     },
-    "errorLoadingSeries": "Seri yüklenirken hata oluştu",
+    "errorLoadingSeries": "Dizi yüklenirken hata oluştu",
     "@errorLoadingSeries": {
         "description": "Error when loading a series fails"
     },
@@ -2442,7 +2442,7 @@
     "@downloadedEpisodes": {
         "description": "Section title for downloaded episodes"
     },
-    "seasonNumber": "Season {number}",
+    "seasonNumber": "Sezon {number}",
     "@seasonNumber": {
         "description": "Season label with number",
         "placeholders": {
@@ -2451,7 +2451,7 @@
             }
         }
     },
-    "specials": "Özel ürünler",
+    "specials": "Özel Bölümler",
     "@specials": {
         "description": "Label for special episodes"
     },
@@ -2459,7 +2459,7 @@
     "@deleteSeason": {
         "description": "Dialog title for deleting a season"
     },
-    "deleteAllEpisodesInSeason": "Delete all downloaded episodes in {season}?",
+    "deleteAllEpisodesInSeason": "{season} içindeki tüm indirilmiş bölümler silinsin mi?",
     "@deleteAllEpisodesInSeason": {
         "description": "Confirmation to delete all episodes in a season",
         "placeholders": {
@@ -2468,7 +2468,7 @@
             }
         }
     },
-    "episodeCount": "{count, plural, =1{1 episode} other{{count} episodes}}",
+    "episodeCount": "{count, plural, =1{1 bölüm} other{{count} bölüm}}",
     "@episodeCount": {
         "description": "Number of episodes with pluralization",
         "placeholders": {
@@ -2513,7 +2513,7 @@
     "@deleteSelected": {
         "description": "Dialog title for deleting selected items"
     },
-    "deleteSelectedCount": "Delete {count} downloaded items?",
+    "deleteSelectedCount": "İndirilen {count} öge silinsin mi?",
     "@deleteSelectedCount": {
         "description": "Confirmation to delete selected downloaded items",
         "placeholders": {
@@ -2534,7 +2534,7 @@
     "@database": {
         "description": "Storage breakdown label for database"
     },
-    "ofStorageLimit": "of {limit} limit",
+    "ofStorageLimit": "/ {limit}",
     "@ofStorageLimit": {
         "description": "Text showing storage used of total limit",
         "placeholders": {
@@ -2643,7 +2643,7 @@
     "@customizeAccountPlaybackInterface": {
         "description": "Settings screen subtitle"
     },
-    "optionsCount": "{count} options",
+    "optionsCount": "{count} seçenek",
     "@optionsCount": {
         "description": "Number of options in a settings section",
         "placeholders": {
@@ -2696,11 +2696,11 @@
     "@showBackdropImages": {
         "description": "Description for background backdrops"
     },
-    "seriesThumbnails": "Seri Küçük Resimleri",
+    "seriesThumbnails": "Dizi Küçük Resimlerini Göster",
     "@seriesThumbnails": {
         "description": "Setting for series thumbnails"
     },
-    "seriesThumbnailsDescription": "Yalnızca bölümler: her satır görüntü türüyle eşleşen seri resimlerini kullanın",
+    "seriesThumbnailsDescription": "Diziler için bölüm küçük resmi yerine ana dizi görselini kullan.",
     "@seriesThumbnailsDescription": {
         "description": "Description for series thumbnails setting"
     },
@@ -2724,7 +2724,7 @@
     "@inVideo": {
         "description": "Option: show in video"
     },
-    "seasonalEffects": "Mevsim Etkileri",
+    "seasonalEffects": "Mevsim Efektleri",
     "@seasonalEffects": {
         "description": "Setting for seasonal visual effects"
     },
@@ -2732,7 +2732,7 @@
     "@snow": {
         "description": "Seasonal effect: snow"
     },
-    "fireworks": "havai fişek",
+    "fireworks": "Havai fişek",
     "@fireworks": {
         "description": "Seasonal effect: fireworks"
     },
@@ -2756,7 +2756,7 @@
     "@themeMusicVolume": {
         "description": "Setting for theme music volume"
     },
-    "percentValue": "{value}%",
+    "percentValue": "%{value}",
     "@percentValue": {
         "description": "Percentage display",
         "placeholders": {
@@ -2773,7 +2773,7 @@
     "@playWhenBrowsingHomeScreen": {
         "description": "Description for theme music on home rows"
     },
-    "detailsBackgroundBlur": "Ayrıntılar Arka Plan Bulanıklığı",
+    "detailsBackgroundBlur": "Detay Arka Plan Bulanıklığı",
     "@detailsBackgroundBlur": {
         "description": "Setting for details background blur"
     },
@@ -2786,7 +2786,7 @@
             }
         }
     },
-    "browsingBackgroundBlur": "Arka Plan Bulanıklığına Göz Atılıyor",
+    "browsingBackgroundBlur": "Gezinme Arka Plan Bulanıklığı",
     "@browsingBackgroundBlur": {
         "description": "Setting for browsing background blur"
     },
@@ -2798,43 +2798,43 @@
     "@maxResolution": {
         "description": "Setting for max resolution"
     },
-    "playerZoomMode": "Oyuncu Yakınlaştırma Modu",
+    "playerZoomMode": "Oynatıcı Yakınlaştırma Modu",
     "@playerZoomMode": {
         "description": "Setting for player zoom mode"
     },
-    "fit": "Yerleştirmek",
+    "fit": "Sığdır",
     "@fit": {
         "description": "Zoom mode: fit"
     },
-    "autoCrop": "Otomatik Kırpma",
+    "autoCrop": "Otomatik Kırp",
     "@autoCrop": {
         "description": "Zoom mode: auto crop"
     },
-    "stretch": "Uzatmak",
+    "stretch": "Uzat",
     "@stretch": {
         "description": "Zoom mode: stretch"
     },
-    "refreshRateSwitching": "Yenileme Hızı Değiştirme",
+    "refreshRateSwitching": "Yenileme Hızını Değiştir",
     "@refreshRateSwitching": {
         "description": "Setting for refresh rate switching"
     },
-    "disabled": "Engelli",
+    "disabled": "Devre Dışı",
     "@disabled": {
         "description": "Option: disabled"
     },
-    "scaleOnTv": "TV'de ölçeklendirin",
+    "scaleOnTv": "TV'de Ölçekle",
     "@scaleOnTv": {
         "description": "Refresh rate option: scale on TV"
     },
-    "scaleOnDevice": "Cihazda Ölçeklendir",
+    "scaleOnDevice": "Cihazda Ölçekle",
     "@scaleOnDevice": {
         "description": "Refresh rate option: scale on device"
     },
-    "trickPlay": "Hile Oyunu",
+    "trickPlay": "Hızlı Oynatma Görselleri",
     "@trickPlay": {
         "description": "Setting for trick play thumbnails"
     },
-    "showPreviewThumbnailsWhenSeeking": "Arama yaparken önizleme küçük resimlerini göster",
+    "showPreviewThumbnailsWhenSeeking": "Sararken önizleme küçük resimlerini göster",
     "@showPreviewThumbnailsWhenSeeking": {
         "description": "Description for trick play"
     },
@@ -6785,35 +6785,35 @@
     "@mediaPreviewDescription": {
         "description": "Description for media preview"
     },
-    "keyboardPreferSystemIme": "Prefer system keyboard",
+    "keyboardPreferSystemIme": "Sistem klavyesini tercih et",
     "@keyboardPreferSystemIme": {
         "description": "Settings label for preferring the native system keyboard instead of the custom TV keyboard"
     },
-    "keyboardPreferSystemImeDescription": "Use your device input method by default for text entry",
+    "keyboardPreferSystemImeDescription": "Metin girişi için varsayılan olarak cihazınızın giriş yöntemini kullanın",
     "@keyboardPreferSystemImeDescription": {
         "description": "Settings subtitle for the system keyboard preference"
     },
-    "musicVideos": "Music Videos",
+    "musicVideos": "Müzik Videoları",
     "@musicVideos": {
         "description": "Section header for music videos filmography row"
     },
-    "record": "Record",
+    "record": "Kayıt",
     "@record": {
         "description": "Button label to schedule a live TV recording"
     },
-    "cancelRecordingAction": "Cancel Recording",
+    "cancelRecordingAction": "Kaydı iptal et",
     "@cancelRecordingAction": {
         "description": "Button label to cancel a scheduled live TV recording"
     },
-    "programSetToRecord": "Program set to record",
+    "programSetToRecord": "Program kaydedilmek üzere ayarlandı",
     "@programSetToRecord": {
         "description": "Snackbar confirmation after scheduling a live TV program recording"
     },
-    "recordingCancelled": "Recording cancelled",
+    "recordingCancelled": "Kayıt iptal edildi",
     "@recordingCancelled": {
         "description": "Snackbar confirmation after cancelling a live TV recording"
     },
-    "unableToCreateRecording": "Unable to create recording",
+    "unableToCreateRecording": "Kayıt oluşturulamadı",
     "@unableToCreateRecording": {
         "description": "Error when creating a live TV recording fails"
     },
@@ -7413,5 +7413,54 @@
     "@settingsNone": {
         "description": "Option label to hide all decorations on media segment countdown overlay"
     },
-    "settingsShowSeerrButtonInNavigation": ""
+    "settingsShowSeerrButtonInNavigation": "",
+    "endsIn": "{time} içinde sona eriyor",
+    "@endsIn": {
+        "description": "Label showing remaining time for segment or timeout",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "settingsScrollWheelActionDescription": "Oynatma sırasında video üzerinde fare tekerleğini kaydırmanın ne işe yarayacağını seçin.",
+    "@settingsScrollWheelActionDescription": {
+        "description": "Description for the mouse scroll wheel action setting"
+    },
+    "settingsScrollWheelAction": "Fare tekerleği",
+    "@settingsScrollWheelAction": {
+        "description": "Setting title for the mouse scroll wheel action during playback"
+    },
+    "interfaceLanguage": "Arayüz Dili",
+    "@interfaceLanguage": {
+        "description": "Label for the app interface language setting"
+    },
+    "scrollWheelActionSeek": "Sar (İleri / Geri)",
+    "@scrollWheelActionSeek": {
+        "description": "Scroll wheel action option: seek forward and back"
+    },
+    "scrollWheelActionOff": "Kapalı",
+    "@scrollWheelActionOff": {
+        "description": "Scroll wheel action option: do nothing"
+    },
+    "scrollWheelActionVolume": "Ses",
+    "@scrollWheelActionVolume": {
+        "description": "Scroll wheel action option: adjust volume"
+    },
+    "empty": "Boş",
+    "@empty": {
+        "description": "Label indicating a section or category is empty"
+    },
+    "systemLanguageDefault": "Sistem Varsayılanı",
+    "@systemLanguageDefault": {
+        "description": "Label for using the system default language in settings"
+    },
+    "playerTooltipVolume": "Ses",
+    "@playerTooltipVolume": {
+        "description": "Tooltip for the volume control button in the player OSD"
+    },
+    "accountPreferences": "Hesap Ayarları",
+    "@accountPreferences": {
+        "description": "Section header for account preferences settings"
+    }
 }
