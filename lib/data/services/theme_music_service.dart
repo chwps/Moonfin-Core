@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:media_kit/media_kit.dart';
 import 'package:playback_core/playback_core.dart';
 import 'package:server_core/server_core.dart';
 
 import '../../preference/user_preferences.dart';
 import '../models/aggregated_item.dart';
+import 'theme_audio_player.dart';
 
 class ThemeMusicService {
   final MediaServerClient _client;
   final UserPreferences _prefs;
   final PlaybackManager _playbackManager;
 
-  Player? _player;
+  ThemeAudioPlayer? _player;
   String? _currentThemeSourceId;
   Timer? _fadeTimer;
   double _targetVolume = 0.0;
@@ -83,7 +83,7 @@ class ThemeMusicService {
     final generation = ++_playGeneration;
     _currentThemeSourceId = themeItemId;
 
-    Player? localPlayer;
+    ThemeAudioPlayer? localPlayer;
     try {
       final data = await _client.itemsApi.getThemeMedia(themeItemId);
       if (generation != _playGeneration) return;
@@ -97,7 +97,7 @@ class ThemeMusicService {
       final url = _buildAudioUrl(songId);
 
       _targetVolume = _prefs.get(UserPreferences.themeMusicVolume) / 100.0;
-      localPlayer = Player();
+      localPlayer = ThemeAudioPlayer.create();
       _player = localPlayer;
 
       await localPlayer.setVolume(0);
@@ -106,13 +106,13 @@ class ThemeMusicService {
         return;
       }
 
-      await localPlayer.open(Media(url));
+      await localPlayer.open(url);
       if (generation != _playGeneration) {
         await _safeDispose(localPlayer);
         return;
       }
 
-      await localPlayer.setPlaylistMode(PlaylistMode.loop);
+      await localPlayer.setLoop();
       if (generation != _playGeneration) {
         await _safeDispose(localPlayer);
         return;
@@ -126,7 +126,7 @@ class ThemeMusicService {
     }
   }
 
-  Future<void> _safeDispose(Player player) async {
+  Future<void> _safeDispose(ThemeAudioPlayer player) async {
     try {
       await player.setVolume(0);
     } catch (_) {}
@@ -166,7 +166,7 @@ class ThemeMusicService {
     _fadeTimer?.cancel();
     _fadingOut = true;
     final generation = _playGeneration;
-    final currentVolume = player.state.volume;
+    final currentVolume = player.currentVolume;
     final steps = _fadeDurationMs ~/ _fadeStepMs;
     var step = 0;
 
