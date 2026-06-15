@@ -10,24 +10,33 @@ final class LoopbackHTTPServer {
 
     init(root: URL) { self.root = root }
 
-    func start() -> UInt16? {
+    func start() async -> UInt16? {
         let params = NWParameters.tcp
         params.requiredInterfaceType = .loopback
         guard let listener = try? NWListener(using: params, on: .any) else { return nil }
         self.listener = listener
         listener.newConnectionHandler = { [weak self] conn in self?.accept(conn) }
 
-        let ready = DispatchSemaphore(value: 0)
-        listener.stateUpdateHandler = { state in
-            switch state {
-            case .ready, .failed, .cancelled: ready.signal()
-            default: break
+        let ready: Bool = await withCheckedContinuation { continuation in
+            var didResume = false
+            let resume: (Bool) -> Void = { value in
+                if !didResume {
+                    didResume = true
+                    continuation.resume(returning: value)
+                }
             }
+            listener.stateUpdateHandler = { state in
+                switch state {
+                case .ready: resume(true)
+                case .failed, .cancelled: resume(false)
+                default: break
+                }
+            }
+            listener.start(queue: queue)
+            queue.asyncAfter(deadline: .now() + 5) { resume(false) }
         }
-        listener.start(queue: queue)
-        _ = ready.wait(timeout: .now() + 5)
 
-        guard let rawPort = listener.port?.rawValue, rawPort != 0 else {
+        guard ready, let rawPort = listener.port?.rawValue, rawPort != 0 else {
             listener.cancel()
             self.listener = nil
             return nil

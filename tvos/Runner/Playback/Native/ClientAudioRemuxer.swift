@@ -26,7 +26,7 @@ final class ClientAudioRemuxer {
         tempDir = dir
 
         let srv = LoopbackHTTPServer(root: dir)
-        guard let port = srv.start() else { cleanupTempDir(); return nil }
+        guard let port = await srv.start() else { cleanupTempDir(); return nil }
         server = srv
 
         let playlistName = "audio.m3u8"
@@ -37,7 +37,7 @@ final class ClientAudioRemuxer {
         }
 
         let playlistURL = dir.appendingPathComponent(playlistName)
-        let deadline = Date().addingTimeInterval(15)
+        let deadline = Date().addingTimeInterval(8)
         while Date() < deadline {
             if cancelPtr.pointee != 0 { break }
             if let contents = try? String(contentsOf: playlistURL, encoding: .utf8), contents.contains(".m4s") {

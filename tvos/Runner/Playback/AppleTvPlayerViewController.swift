@@ -1816,6 +1816,7 @@ final class AppleTvPlayerViewController: UIViewController {
         }
         if telemetry["hybrid_active"] == "yes" {
             rows.append(("Hybrid Audio", "active"))
+            rows.append(("mpv Audio (aid)", telemetry["mpv_init_aid"] ?? "on"))
             if let v = value("hybrid_audio_source") {
                 rows.append(("Hybrid Source", v))
             }
