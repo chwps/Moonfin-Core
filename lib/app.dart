@@ -433,6 +433,7 @@ class _GlobalShortcutScopeState extends State<_GlobalShortcutScope>
     }
     if (DialogBackSuppressor.consume()) return true;
     if (OverlaySheetController.closeTopSheet()) return true;
+    if (InlineBackInterceptor.handleBack()) return true;
     if (_isPlayerRoute()) return false;
     final navigatorState = appRouter.routerDelegate.navigatorKey.currentState;
     if (navigatorState == null) return false;
@@ -487,6 +488,12 @@ class _GlobalShortcutScopeState extends State<_GlobalShortcutScope>
         return false;
       }
       if (OverlaySheetController.closeTopSheet()) {
+        return true;
+      }
+      if (InlineBackInterceptor.handleBack()) {
+        if (PlatformDetection.isAndroid && key == LogicalKeyboardKey.goBack) {
+          DialogBackSuppressor.markDismissed();
+        }
         return true;
       }
       if (_isPlayerRoute()) {

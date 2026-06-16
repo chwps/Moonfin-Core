@@ -27,6 +27,22 @@ class DialogBackSuppressor {
   }
 }
 
+class InlineBackInterceptor {
+  InlineBackInterceptor._();
+
+  static final List<VoidCallback> _handlers = <VoidCallback>[];
+
+  static void push(VoidCallback onBack) => _handlers.add(onBack);
+
+  static void remove(VoidCallback onBack) => _handlers.remove(onBack);
+
+  static bool handleBack() {
+    if (_handlers.isEmpty) return false;
+    _handlers.last();
+    return true;
+  }
+}
+
 /// Creates an idempotent back-dismiss action for a dialog route.
 ///
 /// Use this in custom back-key handlers inside dialogs so the Android
