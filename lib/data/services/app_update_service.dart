@@ -1,14 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:jellyfin_preference/jellyfin_preference.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../preference/user_preferences.dart';
 import '../../util/app_distribution.dart';
-import '../../util/platform_detection.dart';
 
 enum DesktopUpdateCheckStatus {
   updateAvailable,
@@ -18,7 +15,6 @@ enum DesktopUpdateCheckStatus {
   disabledByPreference,
   rateLimited,
   alreadyNotified,
-  noMatchingAsset,
 }
 
 class DesktopUpdateCheckResult {
@@ -33,14 +29,15 @@ class DesktopUpdateCheckResult {
 
 class DesktopUpdateInfo {
   final String version;
+
+  /// Direct download link for the matching release asset, or the releases page
+  /// when there is no single asset to pick (e.g. Linux).
   final Uri downloadUri;
-  final String assetName;
   final String releaseNotesUrl;
 
   const DesktopUpdateInfo({
     required this.version,
     required this.downloadUri,
-    required this.assetName,
     required this.releaseNotesUrl,
   });
 }
@@ -78,65 +75,6 @@ class AppUpdateService {
       respectNotificationPreference: false,
       suppressIfAlreadyNotified: false,
     );
-  }
-
-  /// Downloads [update] to a temporary file, yielding progress in [0.0, 1.0].
-  /// Completes with the local file path when done.
-  Stream<_DownloadEvent> downloadUpdate(DesktopUpdateInfo update) async* {
-    final dir = PlatformDetection.isAndroid
-        ? await getExternalStorageDirectory() ?? await getTemporaryDirectory()
-        : await getTemporaryDirectory();
-
-    final fileName = update.assetName.isNotEmpty
-        ? update.assetName
-        : 'moonfin_update${_extensionFor(update.downloadUri.path)}';
-    final savePath = '${dir.path}/$fileName';
-
-    final client = HttpClient()
-      ..userAgent = 'MoonfinUpdateChecker/1.0'
-      ..connectionTimeout = const Duration(seconds: 20);
-
-    try {
-      final request = await client.getUrl(update.downloadUri);
-      final response = await request.close().timeout(const Duration(seconds: 20));
-      if (response.statusCode < 200 || response.statusCode >= 300) {
-        await response.drain<void>().catchError((_) {});
-        yield _DownloadEvent.failed('HTTP ${response.statusCode}');
-        return;
-      }
-
-      final contentLength = response.contentLength;
-      int received = 0;
-      final file = File(savePath);
-      await file.parent.create(recursive: true);
-      final raf = await file.open(mode: FileMode.write);
-      try {
-        await for (final chunk in response) {
-          await raf.writeFrom(chunk);
-          received += chunk.length;
-          if (contentLength > 0) {
-            yield _DownloadEvent.progress(received / contentLength);
-          } else {
-            yield _DownloadEvent.progress(-1);
-          }
-        }
-      } finally {
-        await raf.close();
-      }
-      yield _DownloadEvent.done(savePath);
-    } catch (e) {
-      yield _DownloadEvent.failed(e.toString());
-    } finally {
-      client.close(force: true);
-    }
-  }
-
-  String _extensionFor(String path) {
-    final lower = path.toLowerCase();
-    for (final ext in const ['.apk', '.dmg', '.exe', '.appimage', '.deb', '.rpm']) {
-      if (lower.endsWith(ext)) return ext;
-    }
-    return '';
   }
 
   Future<DesktopUpdateCheckResult> _checkForUpdate({
@@ -186,16 +124,6 @@ class AppUpdateService {
       );
     }
 
-    _ReleaseAsset? selectedAsset;
-    if (!AppDistribution.opensReleasesInBrowser) {
-      selectedAsset = _selectAsset(release.assets);
-      if (selectedAsset == null) {
-        return const DesktopUpdateCheckResult(
-          status: DesktopUpdateCheckStatus.noMatchingAsset,
-        );
-      }
-    }
-
     final lastNotified = _store.getString(_lastNotifiedVersionKey);
     if (suppressIfAlreadyNotified &&
         _normalizeVersion(lastNotified) == _normalizeVersion(release.version)) {
@@ -206,14 +134,14 @@ class AppUpdateService {
 
     await _store.setString(_lastNotifiedVersionKey, release.version);
 
+    final asset = _selectAsset(release.assets);
     return DesktopUpdateCheckResult(
       status: DesktopUpdateCheckStatus.updateAvailable,
       update: DesktopUpdateInfo(
         version: release.version,
-        downloadUri: selectedAsset != null
-            ? Uri.parse(selectedAsset.downloadUrl)
+        downloadUri: asset != null
+            ? Uri.parse(asset.downloadUrl)
             : Uri.parse(release.releaseNotesUrl),
-        assetName: selectedAsset?.name ?? '',
         releaseNotesUrl: release.releaseNotesUrl,
       ),
     );
@@ -283,6 +211,8 @@ class AppUpdateService {
     }
   }
 
+  /// Asset to download for this build's channel, or null when there is no
+  /// single asset to pick (Linux) or none matched.
   _ReleaseAsset? _selectAsset(List<_ReleaseAsset> assets) {
     if (assets.isEmpty) return null;
 
@@ -393,29 +323,6 @@ class _LatestRelease {
     required this.assets,
     required this.releaseNotesUrl,
   });
-}
-
-sealed class _DownloadEvent {
-  const _DownloadEvent();
-
-  const factory _DownloadEvent.progress(double fraction) = DownloadProgressEvent;
-  const factory _DownloadEvent.done(String filePath) = DownloadDoneEvent;
-  const factory _DownloadEvent.failed(String error) = DownloadFailedEvent;
-}
-
-final class DownloadProgressEvent extends _DownloadEvent {
-  final double fraction;
-  const DownloadProgressEvent(this.fraction);
-}
-
-final class DownloadDoneEvent extends _DownloadEvent {
-  final String filePath;
-  const DownloadDoneEvent(this.filePath);
-}
-
-final class DownloadFailedEvent extends _DownloadEvent {
-  final String error;
-  const DownloadFailedEvent(this.error);
 }
 
 class _ReleaseAsset {

@@ -28,10 +28,8 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.os.PowerManager
-import android.provider.Settings
 import android.util.Rational
 import android.view.Display
-import androidx.core.content.FileProvider
 import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import com.google.android.gms.cast.CastMediaControlIntent
@@ -102,7 +100,6 @@ class MainActivity : AudioServiceActivity() {
         private const val PLATFORM_CHANNEL = "org.moonfin.androidtv/platform"
         private const val AUDIO_CAPS_EVENTS_CHANNEL =
             "org.moonfin.androidtv/audioCapabilitiesEvents"
-        private const val UPDATE_CHANNEL = "org.moonfin.androidtv/update"
         private const val EXTERNAL_PLAYER_PROXY_REQUEST_CODE = 17115
         private const val EXTRA_EXTERNAL_PLAYER_LAUNCH_INTENT = "moonfin.external_player.launch_intent"
         private const val EXTRA_EXTERNAL_PLAYER_ERROR_CODE = "moonfin.external_player.error_code"
@@ -215,62 +212,6 @@ class MainActivity : AudioServiceActivity() {
                         finishAndRemoveTask()
                     } else {
                         finishAffinity()
-                    }
-                }
-                else -> result.notImplemented()
-            }
-        }
-
-        MethodChannel(
-            flutterEngine.dartExecutor.binaryMessenger,
-            UPDATE_CHANNEL,
-        ).setMethodCallHandler { call, result ->
-            when (call.method) {
-                "canInstallPackages" -> {
-                    val canInstall = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        packageManager.canRequestPackageInstalls()
-                    } else {
-                        @Suppress("DEPRECATION")
-                        android.provider.Settings.Secure.getInt(
-                            contentResolver,
-                            android.provider.Settings.Secure.INSTALL_NON_MARKET_APPS,
-                            0
-                        ) == 1
-                    }
-                    result.success(canInstall)
-                }
-                "requestInstallPermission" -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-                            data = Uri.parse("package:$packageName")
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        }
-                        startActivity(intent)
-                    }
-                    result.success(null)
-                }
-                "installApk" -> {
-                    val path = call.argument<String>("path")
-                    if (path == null) {
-                        result.error("INVALID_ARGS", "path is required", null)
-                        return@setMethodCallHandler
-                    }
-                    try {
-                        val apkFile = java.io.File(path)
-                        val apkUri = FileProvider.getUriForFile(
-                            this,
-                            "$packageName.fileprovider",
-                            apkFile,
-                        )
-                        val intent = Intent(Intent.ACTION_VIEW).apply {
-                            setDataAndType(apkUri, "application/vnd.android.package-archive")
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        }
-                        startActivity(intent)
-                        result.success(null)
-                    } catch (e: Exception) {
-                        result.error("INSTALL_FAILED", e.message, null)
                     }
                 }
                 else -> result.notImplemented()

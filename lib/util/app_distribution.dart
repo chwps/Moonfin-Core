@@ -63,8 +63,9 @@ class AppDistribution {
     }
   }
 
-  /// Whether this build supports in-app update checking and downloading.
-  /// Returns false for store/managed distributions (AAB, AUR, PKG, signed IPA).
+  /// Whether this build prompts about updates (linking to the releases page).
+  /// Returns false for store/managed distributions (AAB, AUR, PKG, signed IPA),
+  /// which update through their store.
   static bool get supportsInAppUpdates {
     switch (channel) {
       case DistributionChannel.apk:
@@ -77,14 +78,4 @@ class AppDistribution {
         return false;
     }
   }
-
-  /// Whether downloading an update opens a browser instead of downloading
-  /// the file in-app. True only for Linux direct builds.
-  static bool get opensReleasesInBrowser =>
-      channel == DistributionChannel.linux;
-
-  /// Whether this is an Android build that can install an APK.
-  static bool get isAndroidApkBuild =>
-      channel == DistributionChannel.apk ||
-      channel == DistributionChannel.androidTvApk;
 }

@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playback_core/playback_core.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'data/services/app_update_service.dart';
@@ -25,7 +26,6 @@ import 'ui/theme/app_theme_controller.dart';
 import 'ui/widgets/cast_mini_player.dart';
 import 'ui/widgets/mini_audio_player.dart';
 import 'ui/widgets/offline_banner.dart';
-import 'ui/widgets/app_update_dialog.dart';
 import 'ui/widgets/exit_confirmation_dialog.dart';
 import 'ui/screensaver/screensaver_controller.dart';
 import 'ui/screensaver/screensaver_host.dart';
@@ -819,16 +819,14 @@ class _ConnectivityListenerState extends ConsumerState<_ConnectivityListener>
       messenger.showSnackBar(
         SnackBar(
           content: Text(l10n.updateAvailableVersion(update.version)),
-          duration: const Duration(seconds: 12),
+          duration: const Duration(seconds: 7),
           action: SnackBarAction(
             label: l10n.download,
             onPressed: () {
-              final navContext =
-                  appRouter.routerDelegate.navigatorKey.currentContext ??
-                  context;
-              if (navContext.mounted) {
-                showAppUpdateDialog(navContext, update);
-              }
+              unawaited(launchUrl(
+                update.downloadUri,
+                mode: LaunchMode.externalApplication,
+              ));
             },
           ),
         ),
