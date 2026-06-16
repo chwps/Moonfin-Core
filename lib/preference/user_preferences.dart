@@ -106,33 +106,120 @@ class UserPreferences extends ChangeNotifier {
     'enable_still_watching',
     'pref_language_override',
     'pref_media_segment_countdown',
+    'pref_desktop_ui_scale',
+    'poster_size_library',
+    'poster_size_playlist',
+    'pref_home_rows_fullscreen',
+    'pref_show_seerr_button',
+    'pref_show_media_details_on_library_page',
+    'pref_use_detailed_sub_headings',
+    'pref_show_clock',
+    'pref_use_24_hour_clock',
+    'pref_clock_behavior',
+    'pref_prefer_system_ime_keyboard',
+    'pref_audio_language',
+    'pref_subtitle_language',
+    'subtitles_background_color',
+    'subtitles_text_weight',
+    'subtitles_text_color',
+    'subtitles_text_stroke_color',
+    'subtitles_text_size',
+    'subtitles_offset_position',
+    'subtitles_default_to_none',
+    'subtitles_use_embedded_styles',
+    'subtitles_use_embedded_font_sizes',
+    'prefer_sdh_subtitles',
+    'app_theme_id',
+    'pref_custom_theme_id',
+    'pref_navbar_position',
+    'focus_color',
+    'pref_watched_indicator_behavior',
+    'pref_card_focus_expansion',
+    'pref_home_rows_style',
+    'poster_size',
+    'pref_display_favorites_rows',
+    'pref_display_collections_rows',
+    'pref_display_genres_rows',
+    'pref_favorites_row_sort_by',
+    'pref_collections_row_sort_by',
+    'pref_genres_row_sort_by',
+    'pref_genres_row_item_filter',
+    'pref_show_shuffle_button',
+    'pref_show_genres_button',
+    'pref_show_favorites_button',
+    'pref_show_syncplay_button',
+    'pref_show_libraries_in_toolbar',
+    'pref_shuffle_content_type',
+    'pref_merge_continue_watching_next_up',
+    'enable_multi_server_libraries',
+    'enable_folder_view',
+    'seasonal_surprise',
+    'mediaBarEnabled',
+    'mediaBarMode',
+    'mediaBarContentType',
+    'mediaBarItemCount',
+    'mediaBarOverlayOpacity',
+    'mediaBarOverlayColor',
+    'navbarOpacity',
+    'navbarColor',
+    'mediaBarAutoAdvance',
+    'mediaBarIntervalMs',
+    'mediaBarTrailerPreview',
+    'mediaBarTrailerAudio',
+    'episodePreviewEnabled',
+    'previewAudioEnabled',
+    'mediaBarLibraryIds',
+    'mediaBarCollectionIds',
+    'mediaBarExcludedGenres',
+    'themeMusicEnabled',
+    'themeMusicVolume',
+    'themeMusicOnHomeRows',
+    'homeRowsUniversalOverride',
+    'homeRowsUniversalImageType',
+    'pref_enable_series_thumbnails',
+    'pref_show_backdrop',
+    'detailsBackgroundBlurAmount',
+    'browsingBackgroundBlurAmount',
+    'enableAdditionalRatings',
+    'mdblistApiKey',
+    'showRatingLabels',
+    'showRatingBadges',
+    'enableEpisodeRatings',
+    'tmdbApiKey',
+    'seerrEnabled',
+    'jellyseerrBlockNsfw',
+    'enabledRatings',
+    'home_sections_config',
   };
 
   bool _isScopedPreference<T>(Preference<T> pref) {
-    return _scopedPreferenceKeys.contains(pref.key);
+    return _scopedPreferenceKeys.contains(pref.key) ||
+        pref.key.startsWith('homeRowImageType_');
   }
 
-  Preference<dynamic>? _scopedPreference(Preference<dynamic> pref) {
+  Preference<T> getEffectivePreference<T>(Preference<T> pref) {
+    if (_isScopedPreference(pref)) {
+      final scoped = _scopedPreference(pref);
+      if (scoped != null) {
+        return scoped;
+      }
+    }
+    return pref;
+  }
+
+  Preference<T>? _scopedPreference<T>(Preference<T> pref) {
     final scopeSuffix = _activeProfileScopeSuffix();
     if (scopeSuffix == null) {
       return null;
     }
-    final scopedKey = '${pref.key}_$scopeSuffix';
-    if (pref is EnumPreference) {
-      return EnumPreference<Enum>(
-        key: scopedKey,
-        defaultValue: pref.defaultValue,
-        values: pref.values.cast<Enum>(),
-      );
-    }
-    return Preference<dynamic>(key: scopedKey, defaultValue: pref.defaultValue);
+    return pref.withKey('${pref.key}_$scopeSuffix');
   }
 
   T get<T>(Preference<T> pref) {
     if (_isScopedPreference(pref)) {
       final scoped = _scopedPreference(pref);
       if (scoped != null && _store.containsKey(scoped.key)) {
-        return _store.get(scoped) as T;
+        return _store.get(scoped);
       }
       return _store.get(pref);
     }
@@ -279,12 +366,13 @@ class UserPreferences extends ChangeNotifier {
         profile,
       );
 
-  bool resolveTrueHdAtmosPassthroughEnabled([AudioCapabilityProfile? profile]) =>
-      _resolvePassthrough(
-        trueHdAtmosPassthroughEnabled,
-        (p) => p.canPassthroughTrueHdJoc,
-        profile,
-      );
+  bool resolveTrueHdAtmosPassthroughEnabled([
+    AudioCapabilityProfile? profile,
+  ]) => _resolvePassthrough(
+    trueHdAtmosPassthroughEnabled,
+    (p) => p.canPassthroughTrueHdJoc,
+    profile,
+  );
 
   /// The eight per-codec passthrough toggle preferences.
   static List<Preference<bool>> get passthroughTogglePreferences =>
