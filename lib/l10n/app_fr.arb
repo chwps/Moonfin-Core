@@ -2700,7 +2700,7 @@
     "@seriesThumbnails": {
         "description": "Setting for series thumbnails"
     },
-    "seriesThumbnailsDescription": "Épisodes uniquement : utiliser l’illustration de la série correspondant au type d’image de chaque rangée",
+    "seriesThumbnailsDescription": "Pour les séries TV, utiliser le visuel principal de la série au lieu de la miniature de l'épisode.",
     "@seriesThumbnailsDescription": {
         "description": "Description for series thumbnails setting"
     },
@@ -3226,7 +3226,7 @@
     "@syncing": {
         "description": "Label while syncing"
     },
-    "syncToProfile": "Synchroniser vers le profil",
+    "syncToProfile": "Synchroniser le profil",
     "@syncToProfile": {
         "description": "Button to sync to a profile"
     },
@@ -3751,7 +3751,7 @@
     "@mode": {
         "description": "Setting for mode"
     },
-    "libraryArt": "Illustrations de bibliothèque",
+    "libraryArt": "Visuels de bibliothèque",
     "@libraryArt": {
         "description": "Screensaver mode: library art"
     },
@@ -3901,7 +3901,7 @@
     "@ratingSourcesDescription": {
         "description": "Description for rating sources"
     },
-    "pluginLabel": "Plugin",
+    "pluginLabel": "Moonbase Plugin",
     "@pluginLabel": {
         "description": "Settings title for plugin"
     },
@@ -3997,7 +3997,7 @@
     "@networks": {
         "description": "Seerr row: networks"
     },
-    "resetRowsToDefaults": "Réinitialiser les lignes par défaut",
+    "resetRowsToDefaults": "Réinitialiser les rangées par défaut",
     "@resetRowsToDefaults": {
         "description": "Tooltip for reset rows to defaults"
     },
@@ -4030,15 +4030,15 @@
             }
         }
     },
-    "discoverRows": "Lignes de découverte",
+    "discoverRows": "Rangées de découverte",
     "@discoverRows": {
         "description": "Section title for discover rows"
     },
-    "discoverRowsDescriptionPlugin": "Faites glisser pour réorganiser. Activez ou désactivez les lignes. L’ordre des lignes activées se synchronise avec le plugin Moonfin.",
+    "discoverRowsDescriptionPlugin": "Faites glisser pour réorganiser. Activez ou désactivez les rangées. L'ordre des rangées activées se synchronise avec le plugin Moonfin.",
     "@discoverRowsDescriptionPlugin": {
         "description": "Description for discover rows with plugin"
     },
-    "discoverRowsDescription": "Faites glisser pour réorganiser. Activez ou désactivez les lignes.",
+    "discoverRowsDescription": "Faites glisser pour réorganiser. Activez ou désactivez les rangées.",
     "@discoverRowsDescription": {
         "description": "Description for discover rows without plugin"
     },
@@ -4144,7 +4144,7 @@
     "@navbarStyleToolbarAppearance": {
         "description": "Navigation settings subtitle"
     },
-    "reorderToggleHomeRows": "Réorganiser et afficher/masquer les lignes d’accueil",
+    "reorderToggleHomeRows": "Réorganiser et afficher/masquer les rangées d'accueil",
     "@reorderToggleHomeRows": {
         "description": "Home sections settings subtitle"
     },
@@ -6523,12 +6523,12 @@
     "rememberMyChoice": "Souviens-toi de mon choix",
     "playHdr10Fallback": "Lire la solution de secours HDR10",
     "requestTranscode": "Demander un transcodage",
-    "homeScreenSectionsIntegrationDescription": "Détectez les lignes exposées par le plugin « Home Screen Sections » d'IAmParadox27. Les lignes peuvent être activées et réorganisées ci-dessous.",
+    "homeScreenSectionsIntegrationDescription": "Détectez les rangées exposées par le plugin « Home Screen Sections » d'IAmParadox27. Les rangées peuvent être activées et réorganisées ci-dessous.",
     "homeScreenSectionsIntegrationNoServers": "Aucun serveur Jellyfin n'a encore signalé le plugin.",
-    "kefinTweaksIntegrationDescription": "Détectez les lignes configurées via le plugin \"KefinTweaks\" de ranaldsgift. Les sections personnalisées, récemment publiées, à revoir, saisonnières et récemment ajoutées à la bibliothèque sont reflétées à partir de la configuration KefinTweaks sur chaque serveur Jellyfin.",
+    "kefinTweaksIntegrationDescription": "Détectez les rangées configurées via le plugin \"KefinTweaks\" de ranaldsgift. Les sections personnalisées, récemment publiées, à revoir, saisonnières et récemment ajoutées à la bibliothèque sont reflétées à partir de la configuration KefinTweaks sur chaque serveur Jellyfin.",
     "kefinTweaksIntegrationNoServers": "Aucun serveur Jellyfin ne signale KefinTweaks pour le moment.",
     "integrationOpenHomeSections": "Sections d'accueil ouvertes",
-    "integrationOpenHomeSectionsSubtitle": "Activer, désactiver et réorganiser les lignes",
+    "integrationOpenHomeSectionsSubtitle": "Activer, désactiver et réorganiser les rangées",
     "integrationInstalledButDisabled": "Installé mais désactivé",
     "integrationNotInstalled": "Non installé",
     "integrationSectionsCount": "{count, plural, one {# section} other {# sections}}",
@@ -6562,7 +6562,7 @@
     "settingsAccountSecurity": "Compte et sécurité",
     "settingsAccountSecuritySubtitle": "Authentification, code PIN et contrôle parental",
     "settingsPersonalization": "Personnalisation",
-    "settingsPersonalizationSubtitle": "Thème, navigation, lignes d'accueil et visibilité de la bibliothèque",
+    "settingsPersonalizationSubtitle": "Thème, navigation, rangées d'accueil et visibilité de la bibliothèque",
     "settingsDynamicContent": "Contenu dynamique",
     "settingsDynamicContentSubtitle": "Barre média et superpositions visuelles",
     "settingsPlaybackSyncplay": "Lecture & SyncPlay",
@@ -6666,7 +6666,7 @@
     "settingsBitstreamAc3ToExternalDecoder": "Bitstream AC3 vers décodeur externe",
     "settingsCinemaMode": "Mode cinéma",
     "settingsCinemaModeSubtitle": "Lire des bandes-annonces/prerolls avant un long métrage principal",
-    "settingsNextUpDisplayDescription": "Extended affiche une carte complète avec les illustrations et la description de l'épisode. Minimal montre une superposition de compte à rebours compacte. Désactivé masque entièrement l’invite.",
+    "settingsNextUpDisplayDescription": "Extended affiche une carte complète avec le visuel et la description de l'épisode. Minimal montre une superposition de compte à rebours compacte. Désactivé masque entièrement l'invite.",
     "settingsShort": "Court",
     "settingsLong": "Long",
     "settingsVeryLong": "Très longtemps",
@@ -7048,7 +7048,7 @@
     "@useDetailedSubHeadings": {
         "description": "Label for setting to toggle detailed or minimal subrow on library pages"
     },
-    "useDetailedSubHeadingsDescription": "Afficher la sous-ligne détaillée ou minimale sur les pages de la bibliothèque.",
+    "useDetailedSubHeadingsDescription": "Afficher la sous-rangée détaillée ou minimale sur les pages de la bibliothèque.",
     "@useDetailedSubHeadingsDescription": {
         "description": "Subtitle for the use detailed sub headings setting"
     },
@@ -7102,25 +7102,25 @@
     "bottomBar": "Barre inférieure",
     "homeRowsStyleClassic": "Classique",
     "homeRowsStyleModern": "Moderne",
-    "homeRowsSection": "Lignes d'accueil",
-    "rowsType": "Type de lignes",
-    "rowsTypeDescription": "Classic conserve le type d'image par ligne et la superposition d'informations. Modern utilise des rangées du portrait à la toile de fond.",
-    "displayFavoritesRows": "Afficher les lignes de favoris",
-    "displayFavoritesRowsSubtitle": "Afficher les films, séries et autres lignes préférées dans les sections d'accueil.",
-    "favoritesRowSorting": "Tri des lignes des favoris",
-    "favoritesRowSortingDescription": "Triez les lignes des favoris par date d'ajout, date de sortie, par ordre alphabétique, etc.",
-    "displayCollectionsRows": "Afficher les lignes des collections",
-    "displayCollectionsRowsSubtitle": "Afficher les lignes des collections dans les sections d'accueil.",
-    "collectionsRowSorting": "Tri des lignes de collections",
-    "collectionsRowSortingDescription": "Triez les lignes des collections par date d'ajout, date de sortie, par ordre alphabétique, etc.",
-    "displayGenresRows": "Afficher les lignes de genres",
-    "displayGenresRowsSubtitle": "Afficher les lignes de genres dans les sections d'accueil.",
-    "genresRowSorting": "Tri des lignes par genre",
-    "genresRowSortingDescription": "Triez les lignes de genres par date d'ajout, date de sortie, par ordre alphabétique, etc.",
-    "genresRowItems": "Éléments de ligne de genres",
-    "genresRowItemsDescription": "Afficher des films, des séries ou les deux dans les lignes Genres.",
+    "homeRowsSection": "Rangées d'accueil",
+    "rowsType": "Type de rangée",
+    "rowsTypeDescription": "Classic conserve le type d'image par rangée et la superposition d'informations. Modern utilise des rangées passant du portrait à l'arrière-plan.",
+    "displayFavoritesRows": "Afficher les rangées de favoris",
+    "displayFavoritesRowsSubtitle": "Afficher les films, séries et autres rangées préférées dans les sections d'accueil.",
+    "favoritesRowSorting": "Tri des rangées de favoris",
+    "favoritesRowSortingDescription": "Triez les rangées de favoris par date d'ajout, date de sortie, par ordre alphabétique, etc.",
+    "displayCollectionsRows": "Afficher les rangées de collections dans les sections d'accueil.",
+    "displayCollectionsRowsSubtitle": "Afficher les rangées de collections dans les sections d'accueil.",
+    "collectionsRowSorting": "Tri des rangées de collections",
+    "collectionsRowSortingDescription": "Triez les rangées de collections par date d'ajout, date de sortie, par ordre alphabétique, etc.",
+    "displayGenresRows": "Afficher les rangées de genres",
+    "displayGenresRowsSubtitle": "Afficher les rangées de genres dans les sections d'accueil.",
+    "genresRowSorting": "Tri des rangées par genre",
+    "genresRowSortingDescription": "Triez les rangées de genres par date d'ajout, date de sortie, par ordre alphabétique, etc.",
+    "genresRowItems": "Éléments de rangée de genres",
+    "genresRowItemsDescription": "Afficher des films, des séries ou les deux dans les rangées Genres.",
     "appearance": "Apparence",
-    "cardSize": "Taille de la carte",
+    "cardSize": "Taille des cartes des rangées d'accueil",
     "externalPlayerApp": "Application de lecteur externe",
     "externalPlayerAskEachTimeSubtitle": "Afficher le sélecteur d'application lorsque la lecture démarre.",
     "loadingInstalledPlayers": "Chargement des lecteurs installés...",
@@ -7140,7 +7140,7 @@
     "playerRouting": "Routage des joueurs",
     "preferSoftwareDecoders": "Préférer les décodeurs logiciels",
     "preferSoftwareDecodersSubtitle": "Utilisez FFmpeg (audio) et libgav1 (AV1) avant les décodeurs matériels. Désactivez-le si le passage audio HDMI est interrompu.",
-    "useExternalPlayer": "Utiliser un lecteur externe",
+    "useExternalPlayer": "Toujours utiliser un lecteur externe",
     "useExternalPlayerSubtitle": "Ouvrez la lecture vidéo dans votre application externe sélectionnée sur Android TV.",
     "automaticQueuing": "File d'attente automatique",
     "preferSdhSubtitles": "Préférer les sous-titres SDH",
@@ -7522,5 +7522,144 @@
     "currentUser": "Utilisateur actuel",
     "@currentUser": {
         "description": "Option: current user"
+    },
+    "seerrDiscoveryRows": "Rangées de découverte Seerr",
+    "@seerrDiscoveryRows": {
+        "description": "Subtitle shown under Seerr discovery home rows"
+    },
+    "settingsShowSeerrButtonInNavigation": "Afficher le bouton Seerr dans la barre de navigation",
+    "displaySeerrRows": "Afficher les rangées de découverte Seerr",
+    "displaySeerrRowsSubtitle": "Afficher les rangées de découverte Seerr dans les sections de l'accueil.",
+    "settingsProgressBar": "Barre de progression",
+    "@settingsProgressBar": {
+        "description": "Option label to show only progress bar on media segment countdown overlay"
+    },
+    "settingsMediaSegmentCountdown": "Compte à rebours des segments",
+    "@settingsMediaSegmentCountdown": {
+        "description": "Setting label for media segment countdown customizations"
+    },
+    "clockModeStatic": "Statique",
+    "@clockModeStatic": {
+        "description": "Screensaver clock mode: fixed in a corner"
+    },
+    "homeRowDisplay": "Affichage des rangées d'accueil",
+    "homeRowSections": "Sections des rangées d'accueil",
+    "homeRowToggles": "Activation des rangées d'accueil",
+    "homeRowTogglesSubtitle": "Activer ou désactiver les différentes catégories de rangées d'accueil",
+    "settingsTimer": "Minuteur",
+    "@settingsTimer": {
+        "description": "Option label to show only countdown timer on media segment countdown overlay"
+    },
+    "settingsNone": "Aucun",
+    "@settingsNone": {
+        "description": "Option label to hide all decorations on media segment countdown overlay"
+    },
+    "homeRowTogglesDescription": "Activer les options suivantes pour afficher les rangées dans les sections de l'accueil.",
+    "displayPlaylistsRows": "Afficher les rangées de playlists",
+    "displayPlaylistsRowsSubtitle": "Afficher les rangées de playlists dans les sections de l'accueil.",
+    "playlistsRowSorting": "Tri des rangées de playlists",
+    "playlistsRowSortingDescription": "Triez les rangées de playlists par date d'ajout, date de sortie, ordre alphabétique, et plus encore.",
+    "externalPlayerAppDescription": "Définir un lecteur externe pour activer l'option de lecture par appui long",
+    "changeArtwork": "Changer le visuel",
+    "missing": "Manquant",
+    "clearAllArtworkButton": "Effacer tous les visuels ?",
+    "clearAllArtworkWarning": "Êtes-vous sûr de vouloir supprimer tous les visuels téléchargés ?",
+    "directors": "RÉALISATEURS",
+    "@directors": {
+        "description": "Metadata label for directors"
+    },
+    "writer": "SCÉNARISTE",
+    "@writer": {
+        "description": "Metadata label for writer"
+    },
+    "showMediaDetailsOnLibraryPage": "Afficher les détails du média",
+    "@showMediaDetailsOnLibraryPage": {
+        "description": "Setting title to show/hide focused media details at the top of the library page"
+    },
+    "showMediaDetailsOnLibraryPageDescription": "Afficher les détails de l'élément sélectionné en haut des pages de la bibliothèque.",
+    "@showMediaDetailsOnLibraryPageDescription": {
+        "description": "Setting description to show/hide focused media details at the top of the library page"
+    },
+    "confirmClear": "Confirmer la suppression",
+    "confirmClearMessage": "Êtes-vous sûr de vouloir effacer ce {itemType} ?",
+    "@confirmClearMessage": {
+        "description": "Confirmation message when clearing a specific artwork",
+        "placeholders": {
+            "itemType": {
+                "type": "String"
+            }
+        }
+    },
+    "uploadButton": "Envoyer ?",
+    "resolutionLabel": "Résolution : ",
+    "onlyShowInterfaceLanguage": "Afficher uniquement les visuels dans la langue de l'interface",
+    "confirmClearAll": "Confirmer la suppression",
+    "imageUploadSuccess": "Image envoyée avec succès !",
+    "imageUploadFailed": "Échec de l'envoi de l'image : {error}",
+    "@imageUploadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "imageDownloadFailed": "Impossible de définir l'image : {error}",
+    "@imageDownloadFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "imageDeleteFailed": "Impossible de supprimer l'image : {error}",
+    "@imageDeleteFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "clearAllArtworkFailed": "Impossible d'effacer tous les visuels : {error}",
+    "@clearAllArtworkFailed": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "yes": "Oui",
+    "posterCategory": "Affiche",
+    "backdropsCategory": "Arrière-plans",
+    "bannerCategory": "Bannière",
+    "logoCategory": "Logo",
+    "thumbnailCategory": "Miniature",
+    "artCategory": "Visuel",
+    "discArtCategory": "Visuel du disque",
+    "screenshotCategory": "Capture d'écran",
+    "boxCoverCategory": "Jaquette",
+    "boxRearCoverCategory": "Jaquette arrière",
+    "menuArtCategory": "Visuel du menu",
+    "confirmItemPoster": "affiche",
+    "confirmItemBackdrop": "arrière-plan",
+    "confirmItemBanner": "bannière",
+    "confirmItemLogo": "logo",
+    "confirmItemThumbnail": "miniature",
+    "confirmItemArt": "visuel",
+    "confirmItemDiscArt": "visuel du disque",
+    "confirmItemScreenshot": "capture d'écran",
+    "confirmItemBoxCover": "jaquette",
+    "confirmItemBoxRearCover": "jaquette arrière",
+    "confirmItemMenuArt": "visuel du menu",
+    "resolutionAll": "Toutes",
+    "resolutionHigh": "Élevée (1080p+)",
+    "resolutionMedium": "Moyenne (720p)",
+    "resolutionLow": "Basse (<720p)",
+    "sources": "Sources",
+    "@sources": {
+        "description": "Title of the artwork source-provider filter dialog"
+    },
+    "clockModeBouncing": "Rebondissant",
+    "@clockModeBouncing": {
+        "description": "Screensaver clock mode: bounces around the screen"
     }
 }
