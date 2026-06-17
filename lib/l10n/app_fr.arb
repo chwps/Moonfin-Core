@@ -111,7 +111,7 @@
     "@addServer": {
         "description": "Button to manually add a server address"
     },
-    "embyConnect": "Emby Connecter",
+    "embyConnect": "Emby Connect",
     "@embyConnect": {
         "description": "Emby Connect sign-in option label"
     },
@@ -160,7 +160,7 @@
     "@secureStorageUnavailableMessage": {
         "description": "Explanation when secure storage is not available"
     },
-    "ok": "D'ACCORD",
+    "ok": "OK",
     "@ok": {
         "description": "Generic OK button label"
     },
@@ -180,7 +180,7 @@
     "@themeMoonfinSubtitle": {
         "description": "Preview description for the Moonfin theme"
     },
-    "themeNeonPulse": "Néon Impulsion",
+    "themeNeonPulse": "Neon Pulse",
     "@themeNeonPulse": {
         "description": "Display name for the Neon Pulse theme"
     },
@@ -301,7 +301,7 @@
     "@browseAll": {
         "description": "Button to browse all items in a library"
     },
-    "genres": "Genre",
+    "genres": "Genres",
     "@genres": {
         "description": "Genres navigation label"
     },
@@ -461,7 +461,7 @@
     "@albums": {
         "description": "Music browse view button label"
     },
-    "albumArtists": "Artistes d'album",
+    "albumArtists": "Artistes de l'album",
     "@albumArtists": {
         "description": "Music browse view button label"
     },
@@ -506,7 +506,7 @@
             }
         }
     },
-    "hoursAgo": "{count}h il y a",
+    "hoursAgo": "il y a {count}h",
     "@hoursAgo": {
         "description": "Relative time in hours",
         "placeholders": {
@@ -515,7 +515,7 @@
             }
         }
     },
-    "daysAgo": "{count}d il y a",
+    "daysAgo": "il y a {count}j",
     "@daysAgo": {
         "description": "Relative time in days",
         "placeholders": {
@@ -536,15 +536,15 @@
     "@apply": {
         "description": "Button label to apply selected options"
     },
-    "audiobookGenres": "Genres d'audiolivres",
+    "audiobookGenres": "Genres de livres audio",
     "@audiobookGenres": {
         "description": "Title for audiobook genre picker panel"
     },
-    "pickAudiobookGenres": "Choisissez quels genres afficher dans Découvrir les audiolivres.",
+    "pickAudiobookGenres": "Choisissez quels genres afficher dans Découvrir pour les livres audio.",
     "@pickAudiobookGenres": {
         "description": "Instruction text in audiobook genre picker"
     },
-    "discoverAudiobooks": "Découvrir des audiolivres",
+    "discoverAudiobooks": "Découvrir des livres audio",
     "@discoverAudiobooks": {
         "description": "Section title for audiobook discovery"
     },
@@ -617,7 +617,7 @@
     "@pickUpAgain": {
         "description": "Book rail title for in-progress bookmarked items"
     },
-    "bookHighlightsDescription": "Vos livres avec des surlignages, des favoris ou une progression de lecture.",
+    "bookHighlightsDescription": "Vos livres favoris, en cours de lecture ou contenant des passages surlignés.",
     "@bookHighlightsDescription": {
         "description": "Subtitle for saved highlights section"
     },
@@ -629,7 +629,7 @@
     "@handPickedFromListeningQueue": {
         "description": "Subtitle for primary book rail from audiobooks"
     },
-    "booksWithHighlights": "Livres avec des surlignages, des favoris ou une progression de lecture.",
+    "booksWithHighlights": "Livres favoris, en cours de lecture ou contenant des passages surlignés.",
     "@booksWithHighlights": {
         "description": "Subtitle for bookmarks secondary rail"
     },
@@ -645,7 +645,7 @@
     "@quickAccessFavorites": {
         "description": "Subtitle for favorites book rail"
     },
-    "searchAudiobooks": "Rechercher des audiolivres",
+    "searchAudiobooks": "Rechercher des livres audio",
     "@searchAudiobooks": {
         "description": "Placeholder text in audiobook search bar"
     },
@@ -670,7 +670,7 @@
             }
         }
     },
-    "genresCount": "{count}genres",
+    "genresCount": "{count} genres",
     "@genresCount": {
         "description": "Metric pill showing genre count",
         "placeholders": {
@@ -704,7 +704,7 @@
     "@bookmarksAndProgress": {
         "description": "Panel header for bookmarks section"
     },
-    "titlesArrangedForBrowsing": "{count} titres organisés pour une navigation en lecture en premier.",
+    "titlesArrangedForBrowsing": "{count} titres organisés pour une navigation privilégiant la lecture.",
     "@titlesArrangedForBrowsing": {
         "description": "Panel subtitle showing total titles",
         "placeholders": {
@@ -749,7 +749,7 @@
     "@nothingMatchesSection": {
         "description": "Empty state for book experience when no items match"
     },
-    "audiobooks": "Audiolivres",
+    "audiobooks": "Livres audio",
     "@audiobooks": {
         "description": "Audiobooks navigation and tab label"
     },
@@ -838,7 +838,7 @@
     "@librivoxPage": {
         "description": "Button label for LibriVox external link"
     },
-    "internetArchive": "Archives Internet",
+    "internetArchive": "Internet Archive",
     "@internetArchive": {
         "description": "Button label for Internet Archive external link"
     },
@@ -906,7 +906,7 @@
             }
         }
     },
-    "audiobookCountLabel": "{count, plural, =1{1 audiobook} other{{count} audiobooks}}",
+    "audiobookCountLabel": "{count, plural, =0{0 livre audio} =1{1 livre audio} other{{count} livres audio}}",
     "@audiobookCountLabel": {
         "description": "Subtitle showing number of audiobooks by an author",
         "placeholders": {
@@ -939,7 +939,7 @@
     "@save": {
         "description": "Save action button label"
     },
-    "moreLikeThis": "Plus comme ça",
+    "moreLikeThis": "Plus de ce genre",
     "@moreLikeThis": {
         "description": "Section header for similar items"
     },
@@ -1041,7 +1041,7 @@
     "@publicationDateUnknown": {
         "description": "Placeholder when publication date is unknown"
     },
-    "seasonCount": "{count, plural, =1{1 Season} other{{count} Seasons}}",
+    "seasonCount": "{count, plural, =0{0 Saison} =1{1 Saison} other{{count} Saisons}}",
     "@seasonCount": {
         "description": "Number of seasons for a series",
         "placeholders": {
@@ -1132,7 +1132,7 @@
     "@favorite": {
         "description": "Action button label to favorite an item"
     },
-    "playlist": "Liste de lecture",
+    "playlist": "Playlist",
     "@playlist": {
         "description": "Action button label for adding to a playlist"
     },
@@ -1172,11 +1172,11 @@
     "@deleteItem": {
         "description": "Dialog title for deleting an item"
     },
-    "deletePlaylist": "Supprimer la liste de lecture",
+    "deletePlaylist": "Supprimer la Playlist",
     "@deletePlaylist": {
         "description": "Dialog title for deleting a playlist"
     },
-    "deletePlaylistMessage": "Supprimer cette liste de lecture du serveur ?",
+    "deletePlaylistMessage": "Supprimer cette Playlist du serveur ?",
     "@deletePlaylistMessage": {
         "description": "Confirmation message for deleting a playlist"
     },
@@ -1184,7 +1184,7 @@
     "@deleteItemMessage": {
         "description": "Confirmation message for deleting an item"
     },
-    "failedToDeletePlaylist": "Échec de la suppression de la liste de lecture",
+    "failedToDeletePlaylist": "Échec de la suppression de la playlist",
     "@failedToDeletePlaylist": {
         "description": "Error message when playlist deletion fails"
     },
@@ -1192,11 +1192,11 @@
     "@failedToDeleteItem": {
         "description": "Error message when item deletion fails"
     },
-    "renamePlaylist": "Renommer la liste de lecture",
+    "renamePlaylist": "Renommer la Playlist",
     "@renamePlaylist": {
         "description": "Dialog title for renaming a playlist"
     },
-    "playlistName": "Nom de la liste de lecture",
+    "playlistName": "Nom de la Playlist",
     "@playlistName": {
         "description": "Hint text for playlist name input field"
     },
@@ -1404,7 +1404,7 @@
     "@studio": {
         "description": "Metadata label for studio"
     },
-    "studioMoreCount": "+{count} plus",
+    "studioMoreCount": "{count, plural, =1{+ 1 autre} other{+ {count} autres}}",
     "@studioMoreCount": {
         "description": "Label showing additional studio count",
         "placeholders": {
@@ -1452,7 +1452,7 @@
             }
         }
     },
-    "trackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+    "trackCount": "{count, plural, =0{0 piste} =1{1 piste} other{{count} pistes}}",
     "@trackCount": {
         "description": "Label showing number of tracks in an album",
         "placeholders": {
@@ -1461,7 +1461,7 @@
             }
         }
     },
-    "chapterCount": "{count, plural, =1{1 chapter} other{{count} chapters}}",
+    "chapterCount": "{count, plural, =0{0 chapitre} =1{1 chapitre} other{{count} chapitres}}",
     "@chapterCount": {
         "description": "Label showing number of chapters in an audiobook",
         "placeholders": {
@@ -2129,7 +2129,7 @@
     "@premiere": {
         "description": "Premiere category filter label"
     },
-    "guideTimeline": "Frise du guide",
+    "guideTimeline": "Grille des Programmes",
     "@guideTimeline": {
         "description": "Section title for the TV guide timeline"
     },
@@ -3507,7 +3507,7 @@
     "@mediaBarModeDescription": {
         "description": "Description for media bar style setting"
     },
-    "mediaBarModeMoonfin": "Aileron de lune",
+    "mediaBarModeMoonfin": "Moonfin",
     "@mediaBarModeMoonfin": {
         "description": "Media bar style option: Moonfin"
     },
@@ -5583,7 +5583,7 @@
     "adminMetadataFieldCriticRating": "Note des critiques",
     "adminMetadataFieldTagline": "Slogan",
     "adminMetadataFieldOverview": "Synopsis",
-    "adminMetadataGenres": "Genre",
+    "adminMetadataGenres": "Genres",
     "adminMetadataTags": "Balises",
     "adminMetadataStudios": "Ateliers",
     "adminMetadataPeople": "Personnes",
@@ -6014,7 +6014,7 @@
     "folders": "Dossiers",
     "libraries": "Bibliothèques",
     "syncPlay": "SyncPlay",
-    "jellyseerr": "Jellyseerr",
+    "jellyseerr": "Seerr",
     "seeAll": "Voir tout",
     "noItems": "Aucun élément",
     "switchUser": "Changer d'utilisateur",
@@ -6716,7 +6716,7 @@
             }
         }
     },
-    "latestLibraryName": "Dernier {libraryName}",
+    "latestLibraryName": "{libraryName}, ajouts récents",
     "@latestLibraryName": {
         "description": "Row title for latest media in a specific library",
         "placeholders": {
@@ -7365,5 +7365,46 @@
     "enableTunnelingTitle": "Activer le tunnel vidéo",
     "@enableTunnelingTitle": {
         "description": "Setting title: enable tunneled video playback (advanced)"
+    },
+    "systemLanguageDefault": "Langue du système",
+    "@systemLanguageDefault": {
+        "description": "Label for using the system default language in settings"
+    },
+    "accountPreferences": "PREFERENCES DU COMPTE",
+    "@accountPreferences": {
+        "description": "Section header for account preferences settings"
+    },
+    "interfaceLanguage": "Langage de l'interface",
+    "@interfaceLanguage": {
+        "description": "Label for the app interface language setting"
+    },
+    "empty": "Vide",
+    "@empty": {
+        "description": "Label indicating a section or category is empty"
+    },
+    "themeGlass": "Glass",
+    "@themeGlass": {
+        "description": "Display name for the Glass theme"
+    },
+    "endsIn": "Fin dans {time}",
+    "@endsIn": {
+        "description": "Label showing remaining time for segment or timeout",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "playerTooltipVolume": "Volume",
+    "@playerTooltipVolume": {
+        "description": "Tooltip for the volume control button in the player OSD"
+    },
+    "settingsAudioOutputModeDescription": "Choisissez comment l'audio est décodé. AVR Passthrough envoie les flux Dolby/DTS directement à votre ampli sans traitements ; Auto ou Downmix décode localement.",
+    "@settingsAudioOutputModeDescription": {
+        "description": "Description for audio output mode setting"
+    },
+    "themeGlassSubtitle": "Style \"Verre liquide\" avec arrière-plan en dégradé animé, surfaces dépolies et touches de bleu Apple",
+    "@themeGlassSubtitle": {
+        "description": "Preview description for the Glass theme"
     }
 }
