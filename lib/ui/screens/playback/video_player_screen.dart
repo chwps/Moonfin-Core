@@ -3473,7 +3473,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
     if (mediaKitBackend == null) {
       return const Positioned.fill(child: ColoredBox(color: Colors.black));
     }
-    final selectedVo = _subtitleActive ? 'gpu' : 'mediacodec_embed';
+    final hwDecodingEnabled = _prefs.get(UserPreferences.hardwareDecoding);
+    const selectedVo = 'gpu';
     if (PlatformDetection.useNativeVideoSurface) {
       return Positioned.fill(
         child: NativeVideoView(
@@ -3481,7 +3482,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
           zoomMode: _nativeZoomMode(_zoomMode),
           fill: Colors.black,
           videoOutput: selectedVo,
-          hardwareDecodingEnabled: _prefs.get(UserPreferences.hardwareDecoding),
+          hardwareDecodingEnabled: hwDecodingEnabled,
           onVoReady: _onVoReady,
         ),
       );

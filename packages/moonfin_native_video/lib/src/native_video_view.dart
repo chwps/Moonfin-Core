@@ -26,7 +26,7 @@ class NativeVideoView extends StatefulWidget {
     required this.player,
     this.zoomMode = NativeVideoZoomMode.fit,
     this.fill = const Color(0xFF000000),
-    this.videoOutput = 'mediacodec_embed',
+    this.videoOutput = 'gpu',
     this.hardwareDecodingEnabled = true,
     this.onVoReady,
   });
@@ -119,8 +119,10 @@ class _NativeVideoViewState extends State<NativeVideoView> {
     await _setProperty('sub-visibility', 'yes');
   }
 
-  String _hwdecMode() =>
-      widget.hardwareDecodingEnabled ? 'auto-copy' : 'no';
+  String _hwdecMode() {
+    if (!widget.hardwareDecodingEnabled) return 'no';
+    return widget.videoOutput == 'mediacodec_embed' ? 'mediacodec' : 'auto-copy';
+  }
 
   Future<void> _enqueueMutation(Future<void> Function() op) {
     _pendingOp = _pendingOp.then((_) => op()).catchError((_) {});

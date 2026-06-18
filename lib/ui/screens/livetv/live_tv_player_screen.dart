@@ -847,7 +847,7 @@ class _LiveTvPlayerScreenState extends State<LiveTvPlayerScreen> {
         child: NativeVideoView(
           player: mediaKitBackend.player,
           fill: Colors.black,
-          videoOutput: 'mediacodec_embed',
+          videoOutput: 'gpu',
           hardwareDecodingEnabled: _prefs.get(UserPreferences.hardwareDecoding),
         ),
       );
