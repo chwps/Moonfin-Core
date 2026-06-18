@@ -710,13 +710,12 @@ class _TopToolbarState extends State<TopToolbar> {
         _prefs.get(UserPreferences.navbarPosition) == NavbarPosition.top;
 
     int order = 1;
-    var neonSlot = 0;
+    var navSlot = 0;
     Color? nextNavColor() {
-      if (!isNeon) return null;
-      final c = neonSlot.isEven
-          ? AppColorScheme.accent
-          : AppColorScheme.onSurface;
-      neonSlot += 1;
+      final cycle = AppColorScheme.navColorCycle;
+      if (cycle.isEmpty) return null;
+      final c = cycle[navSlot % cycle.length];
+      navSlot += 1;
       return c;
     }
 

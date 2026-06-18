@@ -22,6 +22,10 @@ class AppColorScheme {
   static Color get accent => ThemeRegistry.active.colors.accent;
   static Color get onAccent => ThemeRegistry.active.colors.onAccent;
 
+  /// Ordered palette cycled across navbar icon slots. Empty means no cycling
+  /// (icons keep their inherited colour). See [ThemeSpec.navColorCycle].
+  static List<Color> get navColorCycle => ThemeRegistry.active.navColorCycle;
+
   // Buttons
   static Color get buttonNormal => ThemeRegistry.active.colors.buttonNormal;
   static Color get buttonFocused => ThemeRegistry.active.colors.buttonFocused;
