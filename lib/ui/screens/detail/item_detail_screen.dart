@@ -2952,28 +2952,34 @@ class _Backdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FullscreenBackdropSwitcher(
-      imageUrl: url,
-      duration: BackgroundService.transitionDuration,
-      imageBuilder: (imageUrl) => _blurredImage(imageUrl, blurAmount),
+    return RepaintBoundary(
+      child: FullscreenBackdropSwitcher(
+        imageUrl: url,
+        duration: BackgroundService.transitionDuration,
+        imageBuilder: (imageUrl) => _blurredImage(imageUrl, blurAmount),
+      ),
     );
   }
 
   Widget _blurredImage(String imageUrl, double blur) {
+    final blurred = blur > 0;
     final image = CachedNetworkImage(
       imageUrl: imageUrl,
       fit: BoxFit.cover,
       fadeInDuration: Duration.zero,
+      memCacheWidth: blurred ? 640 : null,
       errorWidget: (_, _, _) => const SizedBox.shrink(),
     );
-    if (blur <= 0) return image;
-    return ImageFiltered(
-      imageFilter: ImageFilter.blur(
-        sigmaX: blur,
-        sigmaY: blur,
-        tileMode: TileMode.decal,
+    if (!blurred) return image;
+    return RepaintBoundary(
+      child: ImageFiltered(
+        imageFilter: ImageFilter.blur(
+          sigmaX: blur,
+          sigmaY: blur,
+          tileMode: TileMode.decal,
+        ),
+        child: image,
       ),
-      child: image,
     );
   }
 }
