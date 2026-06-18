@@ -358,6 +358,11 @@ class ThemeSpec {
 
   final String id;
   final String displayName;
+
+  /// Optional description shown under the theme name in the
+  /// picker. `null` for built-in themes (they use localized subtitles).
+  final String? description;
+
   final ThemeColorTokens colors;
   final ThemeBorderTokens borders;
   final ThemeSemanticTokens semantic;
@@ -390,6 +395,7 @@ class ThemeSpec {
   const ThemeSpec({
     required this.id,
     required this.displayName,
+    this.description,
     required this.colors,
     required this.borders,
     this.semantic = ThemeSemanticTokens.defaults,
@@ -432,9 +438,14 @@ class ThemeSpec {
     final font = (fontRaw is String && fontRaw.trim().isNotEmpty)
         ? fontRaw.trim()
         : null;
+    final descRaw = json['description'];
+    final description = (descRaw is String && descRaw.trim().isNotEmpty)
+        ? descRaw.trim()
+        : null;
     return ThemeSpec(
       id: id,
       displayName: displayName,
+      description: description,
       colors: ThemeColorTokens.fromJson(colorsJson.cast<String, dynamic>()),
       borders: ThemeBorderTokens.fromJson(bordersJson.cast<String, dynamic>()),
       semantic: semanticJson is Map
@@ -455,6 +466,7 @@ class ThemeSpec {
         'schemaVersion': currentSchemaVersion,
         'id': id,
         'displayName': displayName,
+        if (description != null) 'description': description,
         if (fontFamily != null) 'fontFamily': fontFamily,
         if (textGlow.isNotEmpty)
           'textGlow': textGlow.map(_encodeTextShadow).toList(),

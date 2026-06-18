@@ -105,7 +105,7 @@ class _AppearanceThemeScreenState extends State<AppearanceThemeScreen> {
       ThemeRegistry.moonfinId => l10n.themeMoonfinSubtitle,
       ThemeRegistry.neonPulseId => l10n.themeNeonPulseSubtitle,
       ThemeRegistry.glassId => l10n.themeGlassSubtitle,
-      _ => null,
+      _ => spec.description,
     };
   }
 
