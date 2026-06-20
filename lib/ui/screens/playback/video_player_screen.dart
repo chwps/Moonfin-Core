@@ -3316,9 +3316,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
                 : PlatformDetection.useMobileUi && !_isOsdLocked
                 ? _onVerticalDragCancel
                 : null,
-            onPanDown: PlatformDetection.useDesktopUi
+            /* onPanDown: PlatformDetection.useDesktopUi
                 ? (_) => _showControls()
-                : null,
+                : null, */ // Disabled because it inteferes with onTap on desktop, controls overlay would show on mouse down and instantly hide on mouse up.
             behavior: HitTestBehavior.opaque,
             child: Listener(
               onPointerSignal: PlatformDetection.useDesktopUi
@@ -3341,6 +3341,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen>
                   fit: StackFit.expand,
                   children: [
                     _buildVideoSurface(),
+                    if (PlatformDetection.isWeb)
+                      const Positioned.fill(
+                        child: ColoredBox(color: Colors.transparent),
+                      ), // Workaround for a Flutter web issue where the video surface can block pointer events.
                     _buildBringupOverlay(context),
                     if (_isRestoringPosition)
                       const Positioned.fill(
