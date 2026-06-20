@@ -166,11 +166,11 @@ class AppLocalizationsTr extends AppLocalizations {
       'Macenta parıltılı, camgöbeği metinli ve daha güçlü krom kontrastlı Synthwave stili';
 
   @override
-  String get themeGlass => 'Cam';
+  String get themeGlass => 'Glass';
 
   @override
   String get themeGlassSubtitle =>
-      'Akan gradyan arka plan, buzlu yüzeyler ve Apple mavisi vurgulu sıvı-cam tasarımı';
+      'Liquid-glass styling with a drifting gradient backdrop, frosted surfaces, and Apple-blue accent';
 
   @override
   String get embyConnectSignInSubtitle =>
@@ -1071,10 +1071,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get director => 'YÖNETMEN';
 
   @override
-  String get directors => 'YÖNETMENLER';
+  String get directors => 'DIRECTORS';
 
   @override
-  String get writer => 'YAZAR';
+  String get writer => 'WRITER';
 
   @override
   String get writers => 'YAZARLAR';
@@ -1332,7 +1332,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get playbackInformation => 'Oynatma Bilgileri';
 
   @override
-  String get playback => 'Oynatma';
+  String get playback => 'Playback';
 
   @override
   String get playMethod => 'Oynatma Yöntemi';
@@ -1991,7 +1991,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get focusExpansionAnimation => 'Odak Genişletme Animasyonu';
 
   @override
-  String get desktopUiScale => 'Arayüz Ölçeklendirme';
+  String get desktopUiScale => 'Masaüstü Kullanıcı Arayüzü Ölçeği';
 
   @override
   String get scaleFocusedCards =>
@@ -2236,24 +2236,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsAudioOutputModeDescription =>
-      'Ses çözme yöntemini seçin. AVR Doğrudan Geçiş (Passthrough), ham Dolby/DTS akışlarını alıcınıza gönderir; Otomatik veya Downmix ise sesi cihazınızda çözer.';
+      'Choose how audio is decoded. AVR Passthrough sends raw Dolby/DTS streams to your receiver; Auto or Downmix decodes locally.';
 
   @override
-  String get settingsAudioOutputModeAvrPassthrough =>
-      'AVR Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioOutputModeAvrPassthrough => 'AVR Passthrough';
 
   @override
-  String get settingsAudioFallbackCodec => 'Yedek Ses Kodeki';
+  String get settingsAudioFallbackCodec => 'Audio Fallback Codec';
 
   @override
   String get settingsAudioFallbackCodecDescription =>
-      'Kaynak akış doğrudan oynatılamadığında veya doğrudan geçiş (passthrough) yapılamadığında, çok kanallı sesin dönüştürüleceği hedef formatı seçin.';
+      'Select the target format to transcode multi-channel audio when the source stream cannot be direct-played or passed through.';
 
   @override
-  String get settingsAudioFallbackCodecAuto => 'Otomatik Algıla\n(Önerilen)';
+  String get settingsAudioFallbackCodecAuto => 'Auto Detect\n(Recommended)';
 
   @override
-  String get settingsAudioFallbackCodecAac => 'AAC\n(Varsayılan)';
+  String get settingsAudioFallbackCodecAac => 'AAC\n(Default)';
 
   @override
   String get settingsAudioFallbackCodecAc3 => 'AC3\n(Dolby Digital)';
@@ -2262,27 +2261,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsAudioFallbackCodecEac3 => 'EAC3\n(Dolby Digital Plus)';
 
   @override
-  String get settingsAudioFallbackCodecTrueHd => 'TrueHD\n(Kayıpsız)';
+  String get settingsAudioFallbackCodecTrueHd => 'TrueHD\n(Lossless)';
 
   @override
-  String get settingsAudioFallbackCodecMp3 => 'MP3\n(Sadece Stereo)';
+  String get settingsAudioFallbackCodecMp3 => 'MP3\n(Stereo Only)';
 
   @override
-  String get settingsAudioFallbackCodecOpus => 'Opus\n(Verimli)';
+  String get settingsAudioFallbackCodecOpus => 'Opus\n(Efficient)';
 
   @override
-  String get settingsAudioFallbackCodecFlac => 'FLAC\n(Kayıpsız)';
+  String get settingsAudioFallbackCodecFlac => 'FLAC\n(Lossless)';
 
   @override
-  String get settingsMaxAudioChannels => 'Maksimum Kanal Sayısı';
+  String get settingsMaxAudioChannels => 'Max Audio Channels';
 
   @override
   String get settingsMaxAudioChannelsDescription =>
-      'Ses sisteminizin maksimum kanal sayısını yapılandırın. Bu sınırı aşan çok kanallı akışlar downmix yapılacak (azaltılacak) veya dönüştürülecektir.';
+      'Configure the maximum channels of your audio setup. Multichannel streams exceeding this limit will downmix or transcode.';
 
   @override
-  String get settingsMaxAudioChannelsAuto =>
-      'Otomatik Algıla\n(Donanım Varsayılanı)';
+  String get settingsMaxAudioChannelsAuto => 'Auto Detect\n(Hardware Default)';
 
   @override
   String get settingsMaxAudioChannelsMono => '1.0 Mono';
@@ -2294,7 +2292,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsMaxAudioChannels3_0 => '3.0 / 2.1 Surround';
 
   @override
-  String get settingsMaxAudioChannels4_0 => '4.0 / 3.1 Kuadrafonik';
+  String get settingsMaxAudioChannels4_0 => '4.0 / 3.1 Quadraphonic';
 
   @override
   String get settingsMaxAudioChannels5_0 => '5.0 / 4.1 Surround';
@@ -2309,75 +2307,67 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsMaxAudioChannels7_1 => '7.1 Surround';
 
   @override
-  String get settingsAudioPassthroughAdvanced =>
-      'Doğrudan Geçiş(Passthrough) (Gelişmiş)';
+  String get settingsAudioPassthroughAdvanced => 'Passthrough (Advanced)';
 
   @override
-  String get settingsAudioCodecPassthrough =>
-      'Kodek Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioCodecPassthrough => 'Codec Passthrough';
 
   @override
   String get settingsAudioCodecPassthroughDescription =>
-      'Yalnızca AVR veya HDMI alıcınızın desteklediği formatları etkinleştirin.';
+      'Enable only formats your AVR or HDMI sink supports.';
 
   @override
-  String get settingsAudioEac3Passthrough =>
-      'EAC3 Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioEac3Passthrough => 'EAC3 Passthrough';
 
   @override
-  String get settingsAudioEac3JocPassthrough =>
-      'EAC3 JOC (Atmos) Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioEac3JocPassthrough => 'EAC3 JOC (Atmos) Passthrough';
 
   @override
-  String get settingsAudioDtsCorePassthrough =>
-      'DTS Core Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioDtsCorePassthrough => 'DTS Core Passthrough';
 
   @override
-  String get settingsAudioDtsHdPassthrough =>
-      'DTS-HD MA Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioDtsHdPassthrough => 'DTS-HD MA Passthrough';
 
   @override
-  String get settingsAudioTrueHdPassthrough =>
-      'TrueHD Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioTrueHdPassthrough => 'TrueHD Passthrough';
 
   @override
-  String get settingsAudioTrueHdAtmosPassthrough =>
-      'TrueHD Atmos Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioTrueHdAtmosPassthrough => 'TrueHD Atmos Passthrough';
 
   @override
   String get settingsAudioBitstreamEac3ToExternalDecoder =>
-      'Dolby Digital Plus (EAC3) ses akışını harici dekodere ilet.';
+      'Bitstream Dolby Digital Plus (EAC3) to external decoder.';
 
   @override
   String get settingsAudioBitstreamEac3JocToExternalDecoder =>
-      'EAC3 (JOC) üzerinden Dolby Atmos ses akışını harici dekodere ilet.';
+      'Bitstream Dolby Atmos over EAC3 (JOC) to external decoder.';
 
   @override
   String get settingsAudioBitstreamDtsHdToExternalDecoder =>
-      'DTS çekirdeğini içeren DTS-HD MA ses akışını harici dekodere ilet.';
+      'Bitstream DTS-HD MA (includes DTS core) to external decoder.';
 
   @override
   String get settingsAudioBitstreamTrueHdAtmosToExternalDecoder =>
-      'Atmos meta verileri içeren Dolby TrueHD ses akışını harici dekodere ilet.';
+      'Bitstream Dolby TrueHD with Atmos metadata to external decoder.';
 
   @override
-  String get settingsDetectedAudioCapabilities => 'Algılanan Ses Özellikleri';
+  String get settingsDetectedAudioCapabilities => 'Detected Audio Capabilities';
 
   @override
   String get settingsDetectedAudioCapabilitiesUnavailable =>
-      'Henüz çalışma zamanı yetenek profili mevcut değil.';
+      'No runtime capability snapshot available yet.';
 
   @override
-  String get settingsAudioRouteLabel => 'Ses Çıkışı';
+  String get settingsAudioRouteLabel => 'Route';
 
   @override
-  String get settingsAudioDecodeLabel => 'Kod Çözme';
+  String get settingsAudioDecodeLabel => 'Decode';
 
   @override
-  String get settingsAudioPassthroughLabel => 'Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioPassthroughLabel => 'Passthrough';
 
   @override
-  String get settingsAudioHdRoute => 'HD Ses Çıkısı';
+  String get settingsAudioHdRoute => 'HD audio route';
 
   @override
   String get settingsAudioRouteHdmi => 'HDMI';
@@ -2392,47 +2382,47 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsAudioRouteBluetooth => 'Bluetooth';
 
   @override
-  String get settingsAudioRouteSpeaker => 'Hoparlör';
+  String get settingsAudioRouteSpeaker => 'Speaker';
 
   @override
   String settingsAudioPcmChannels(int count) {
-    return '$count kanal PCM';
+    return '${count}ch PCM';
   }
 
   @override
-  String get settingsAudioDiagnostics => 'Tanılama';
+  String get settingsAudioDiagnostics => 'Diagnostics';
 
   @override
-  String get settingsAudioDiagnosticsVideoLevel => 'Video Seviyesi';
+  String get settingsAudioDiagnosticsVideoLevel => 'Video Level';
 
   @override
-  String get settingsAudioDiagnosticsVideoRange => 'Video Aralığı';
+  String get settingsAudioDiagnosticsVideoRange => 'Video Range';
 
   @override
-  String get settingsAudioDiagnosticsSubtitleCodec => 'Altyazı Kodeki';
+  String get settingsAudioDiagnosticsSubtitleCodec => 'Subtitle Codec';
 
   @override
   String get settingsAudioDiagnosticsAllowedAudioCodecs =>
-      'İzin Verilen Ses Kodekleri';
+      'Allowed Audio Codecs';
 
   @override
   String get settingsAudioDiagnosticsHlsMpegTsAudioCodecs =>
-      'HLS MPEG-TS Ses Kodekleri';
+      'HLS MPEG-TS Audio Codecs';
 
   @override
   String get settingsAudioDiagnosticsHlsFmp4AudioCodecs =>
-      'HLS fMP4 Ses Kodekleri';
+      'HLS fMP4 Audio Codecs';
 
   @override
   String get settingsAudioDiagnosticsAudioSpdifPassthrough =>
-      'audio-spdif doğrudan geçiş (passthrough)';
+      'audio-spdif passthrough';
 
   @override
-  String get settingsAudioDiagnosticsActiveAudioRoute => 'Aktif Ses Çıkışı';
+  String get settingsAudioDiagnosticsActiveAudioRoute => 'Active Audio Route';
 
   @override
   String get settingsAudioDiagnosticsRouteHdAudioSupport =>
-      'HD Ses Çıkışı Desteği';
+      'Route HD Audio Support';
 
   @override
   String get nightMode => 'Gece Modu';
@@ -2497,7 +2487,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String afterEpisodesAndHours(int episodes, double hours) {
-    return '$episodes bölüm / $hours saat sonra';
+    return 'After $episodes episodes / ${hours}h';
   }
 
   @override
@@ -2630,17 +2620,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String loadedProfileSettings(String profile) {
-    return '$profile profil ayarları yüklendi.';
+    return 'Loaded $profile profile settings.';
   }
 
   @override
   String failedToLoadProfileSettings(String profile) {
-    return '$profile profil ayarları yüklenemedi.';
+    return 'Failed to load $profile profile settings.';
   }
 
   @override
   String syncedSettingsToProfile(String profile) {
-    return 'Yerel ayarlar $profile profiliyle senkronize edildi.';
+    return 'Synced local settings to $profile profile.';
   }
 
   @override
@@ -2657,7 +2647,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get syncing => 'Senkronize ediliyor...';
 
   @override
-  String get syncToProfile => 'Profili Senkronize Et';
+  String get syncToProfile => 'Profile Senkronizasyon';
 
   @override
   String get profileSyncHidden => 'Profil Senkronizasyonu Gizli';
@@ -2769,7 +2759,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get showLibrariesInToolbar => 'Kitaplıkları Araç Çubuğunda Göster';
 
   @override
-  String get showSeerrButton => 'Seerr Butonunu Göster';
+  String get showSeerrButton => 'Show Seerr Button';
 
   @override
   String get navbarOpacity => 'Gezinti Çubuğunun Opaklığı';
@@ -2870,7 +2860,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String itemsSelected(int count) {
-    return '$count öge seçildi';
+    return '$count selected';
   }
 
   @override
@@ -2893,11 +2883,11 @@ class AppLocalizationsTr extends AppLocalizations {
       'Fragmanı, medyayı ve ses önizlemelerini yapılandırın.';
 
   @override
-  String get mediaBarMode => 'Medya Çubuğu Stili';
+  String get mediaBarMode => 'Medya Cubugu Stili';
 
   @override
   String get mediaBarModeDescription =>
-      'Çeşitli medya çubuğu stilleri arasından seçim yapın veya medya çubuğunu kapatın';
+      'Moonfin, MakD arasindan secin veya medya cubugunu kapatin';
 
   @override
   String get mediaBarModeMoonfin => 'Moonfin';
@@ -3004,7 +2994,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get liveTV => 'Canlı TV';
 
   @override
-  String get homeSections => 'Ana Sayfa Bölümleri';
+  String get homeSections => 'Ana Sayfa Bölümler';
 
   @override
   String get resetToDefaults => 'Varsayılanlara sıfırla';
@@ -3021,18 +3011,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get mergeContinueWatchingAndNextUp =>
-      'İzlemeye Devam Et ve Sıradaki Bölümleri Birleştir';
+      'Birleştir İzlemeye Devam Et ve Sıradaki';
 
   @override
   String get combineBothRows =>
       'Her iki satırı tek bir ana bölümde birleştirin';
 
   @override
-  String get fullScreenRows => 'Genişletilmiş Ana Sayfa Satırları';
+  String get fullScreenRows => 'Expanded Home Rows';
 
   @override
-  String get fullScreenRowsDescription =>
-      'Ana sayfa satırlarını ekran başına 1 satırla sınırla';
+  String get fullScreenRowsDescription => 'Limit home rows to 1 row per screen';
 
   @override
   String get perRowImageType => 'Satır Başına Görüntü Türü';
@@ -3047,7 +3036,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lastUser => 'Son Kullanıcı';
 
   @override
-  String get currentUser => 'Mevcut Kullanıcı';
+  String get currentUser => 'Current User';
 
   @override
   String get alwaysAuthenticate => 'Daima Kimlik Doğrula';
@@ -3154,10 +3143,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ekran koruyucu sırasında saati göster';
 
   @override
-  String get clockModeStatic => 'Statik';
+  String get clockModeStatic => 'Static';
 
   @override
-  String get clockModeBouncing => 'Zıplayan';
+  String get clockModeBouncing => 'Bouncing';
 
   @override
   String get rottenTomatoesCritics => 'Çürük Domates (Eleştirmenler)';
@@ -3231,7 +3220,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Uygulama genelinde gösterilen derecelendirme kaynaklarını etkinleştirin ve yeniden sıralayın';
 
   @override
-  String get pluginLabel => 'Moonbase Eklentisi';
+  String get pluginLabel => 'Eklenti';
 
   @override
   String get pluginDetected => 'Eklenti Algılandı';
@@ -3303,7 +3292,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get networks => 'Ağlar';
 
   @override
-  String get seerrDiscoveryRows => 'Seerr Keşfet Satırları';
+  String get seerrDiscoveryRows => 'Seerr Discovery Rows';
 
   @override
   String get resetRowsToDefaults => 'Satırları varsayılanlara sıfırla';
@@ -3328,7 +3317,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String loggedInAs(String username) {
-    return '$username olarak oturum açıldı';
+    return 'Logged in as: $username';
   }
 
   @override
@@ -3404,7 +3393,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String updateAvailableVersion(String version) {
-    return 'Güncelleme mevcut: v$version';
+    return 'Update available: v$version';
   }
 
   @override
@@ -3416,7 +3405,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String updateAvailableTitle(String version) {
-    return 'v$version Mevcut';
+    return 'v$version Available';
   }
 
   @override
@@ -3503,7 +3492,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String requestedByName(String name) {
-    return '$name tarafından istendi';
+    return 'Requested by $name';
   }
 
   @override
@@ -3520,12 +3509,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String cancelRequestForTitle(String title) {
-    return '\"$title\" isteği iptal edilsin mi?';
+    return 'Cancel request for \"$title\"?';
   }
 
   @override
   String cancelCountRequestsForTitle(int count, String title) {
-    return '\"$title\" için yapılan $count istek iptal edilsin mi?';
+    return 'Cancel $count requests for \"$title\"?';
   }
 
   @override
@@ -3539,12 +3528,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String budgetAmount(String amount) {
-    return 'Bütçe: $amount \$';
+    return 'Budget: \$$amount';
   }
 
   @override
   String revenueAmount(String amount) {
-    return 'Hasılat: $amount \$';
+    return 'Revenue: \$$amount';
   }
 
   @override
@@ -3554,7 +3543,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String requestSeriesOrMovie(String type) {
-    return 'İste $type';
+    return 'Request $type';
   }
 
   @override
@@ -3590,7 +3579,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String ageValue(int age) {
-    return 'yaş $age';
+    return 'age $age';
   }
 
   @override
@@ -3881,22 +3870,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginUpdatesAvailable(int count) {
-    return '$count eklenti güncellemesi mevcut';
+    return 'Plugin updates available: $count';
   }
 
   @override
   String adminPluginsRequiringRestart(int count) {
-    return 'Yeniden başlatılması gereken $count eklenti var';
+    return 'Plugins requiring restart: $count';
   }
 
   @override
   String adminFailedScheduledTasks(int count) {
-    return '$count zamanlanmış görev başarısız oldu';
+    return 'Failed scheduled tasks: $count';
   }
 
   @override
   String adminRecentAlertEntries(int count) {
-    return 'Son uyarı/hata kayıtları:$count';
+    return 'Recent warning/error entries: $count';
   }
 
   @override
@@ -3983,7 +3972,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminCommandFailed(String error) {
-    return 'Komut başarısız oldu:$error';
+    return 'Command failed: $error';
   }
 
   @override
@@ -4044,11 +4033,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get adminDisconnect => 'Bağlantıyı kes';
 
   @override
-  String get adminClearDates => 'Tarihleri temizle';
+  String get adminClearDates => 'Tarihleri ​​temizle';
 
   @override
   String adminActivityLoadFailed(String error) {
-    return 'Etkinlik günlüğü yüklenemedi:$error';
+    return 'Failed to load activity log: $error';
   }
 
   @override
@@ -4065,7 +4054,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminDeviceUpdateFailed(String error) {
-    return 'Cihaz güncellenemedi:$error';
+    return 'Failed to update device: $error';
   }
 
   @override
@@ -4076,7 +4065,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminDeviceDeleteFailed(String error) {
-    return 'Cihaz silinemedi: $error';
+    return 'Failed to delete device: $error';
   }
 
   @override
@@ -4105,7 +4094,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminScanFailed(String error) {
-    return 'Tarama başlatılamadı: $error';
+    return 'Failed to start scan: $error';
   }
 
   @override
@@ -4116,12 +4105,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminLibraryRenamed(String name) {
-    return 'Kitaplık adı \"$name\" olarak değiştirildi';
+    return 'Library renamed to \"$name\"';
   }
 
   @override
   String adminRenameFailed(String error) {
-    return 'Yeniden adlandırılamadı: $error';
+    return 'Failed to rename: $error';
   }
 
   @override
@@ -4129,17 +4118,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminLibraryDeleted(String name) {
-    return '\"$name\" kitaplığı silindi';
+    return 'Library \"$name\" deleted';
   }
 
   @override
   String adminLibraryDeleteFailed(String error) {
-    return 'Kitaplık silinemedi: $error';
+    return 'Failed to delete library: $error';
   }
 
   @override
   String adminAddPathFailed(String error) {
-    return 'Yol eklenemedi: $error';
+    return 'Failed to add path: $error';
   }
 
   @override
@@ -4147,12 +4136,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRemovePathConfirm(String path) {
-    return '\"$path\" yolu bu kitaplıktan kaldırılsın mı?';
+    return 'Remove \"$path\" from this library?';
   }
 
   @override
   String adminRemovePathFailed(String error) {
-    return 'Yol kaldırılamadı: $error';
+    return 'Failed to remove path: $error';
   }
 
   @override
@@ -4160,7 +4149,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminLibraryOptionsSaveFailed(String error) {
-    return 'Seçenekler kaydedilemedi: $error';
+    return 'Failed to save options: $error';
   }
 
   @override
@@ -4195,7 +4184,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminLibraryCreateFailed(String error) {
-    return 'Kitaplık oluşturulamadı: $error';
+    return 'Failed to create library: $error';
   }
 
   @override
@@ -4221,27 +4210,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminDisableUserConfirm(String name) {
-    return '\"$name\" kullanıcısı devre dışı bırakılsın mı? Giriş yapamayacaklar.';
+    return 'Disable $name? They will not be able to sign in.';
   }
 
   @override
   String adminEnableUserConfirm(String name) {
-    return '\"$name\" kullanıcısı etkinleştirilsin mı? Tekrar giriş yapabilecekler.';
+    return 'Enable $name? They will be able to sign in again.';
   }
 
   @override
   String adminUserDisabled(String name) {
-    return '\"$name\" kullanıcısı devre dışı bırakıldı';
+    return 'User \"$name\" disabled';
   }
 
   @override
   String adminUserEnabled(String name) {
-    return '\"$name\" kullanıcısı etkinleştirildi';
+    return 'User \"$name\" enabled';
   }
 
   @override
   String adminUserPolicyUpdateFailed(String error) {
-    return 'Kullanıcı politikası güncellenemedi: $error';
+    return 'Failed to update user policy: $error';
   }
 
   @override
@@ -4258,7 +4247,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminUserCreateFailed(String error) {
-    return 'Kullanıcı oluşturulamadı: $error';
+    return 'Failed to create user: $error';
   }
 
   @override
@@ -4278,7 +4267,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminSaveFailed(String error) {
-    return 'Kaydedilemedi: $error';
+    return 'Failed to save: $error';
   }
 
   @override
@@ -4289,7 +4278,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminFailed(String error) {
-    return 'Başarısız oldu: $error';
+    return 'Failed: $error';
   }
 
   @override
@@ -4429,22 +4418,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminServerReturnedHttp(int status) {
-    return 'Sunucu yanıtı: HTTP $status';
+    return 'Server returned HTTP $status';
   }
 
   @override
   String adminDeleteUserConfirm(String name) {
-    return '$name öğesini silmek istediğinizden emin misiniz?';
+    return 'Are you sure you want to delete $name?';
   }
 
   @override
   String adminUserDeleted(String name) {
-    return '\"$name\" kullanıcısı silindi';
+    return 'User \"$name\" deleted';
   }
 
   @override
   String adminUserDeleteFailed(String error) {
-    return 'Kullanıcı silinemedi: $error';
+    return 'Failed to delete user: $error';
   }
 
   @override
@@ -4465,7 +4454,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminApiKeyCreateFailed(String error) {
-    return 'Anahtar oluşturulamadı: $error';
+    return 'Failed to create key: $error';
   }
 
   @override
@@ -4476,7 +4465,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRevokeKeyConfirm(String name) {
-    return '$name için anahtar iptal edilsin mi?';
+    return 'Revoke key for $name?';
   }
 
   @override
@@ -4484,7 +4473,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminApiKeyRevokeFailed(String error) {
-    return 'Anahtar iptal edilemedi: $error';
+    return 'Failed to revoke key: $error';
   }
 
   @override
@@ -4504,7 +4493,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminApiKeyTokenCreated(String token, String created) {
-    return 'Jeton: $token\\nOluşturulma tarihi: $created';
+    return 'Token: $token\\nCreated: $created';
   }
 
   @override
@@ -4515,7 +4504,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminBackupCreateFailed(String error) {
-    return 'Yedek oluşturulamadı: $error';
+    return 'Failed to create backup: $error';
   }
 
   @override
@@ -4528,7 +4517,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminManifestLoadFailed(String error) {
-    return 'Manifest yüklenemedi: $error';
+    return 'Failed to load manifest: $error';
   }
 
   @override
@@ -4539,7 +4528,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRestoreFailed(String error) {
-    return 'Yedek geri yüklenemedi: $error';
+    return 'Failed to restore backup: $error';
   }
 
   @override
@@ -4571,17 +4560,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminSavedTo(String path) {
-    return '$path konumuna kaydedildi';
+    return 'Saved to $path';
   }
 
   @override
   String adminFileSaveFailed(String error) {
-    return 'Dosya kaydedilemedi: $error';
+    return 'Failed to save file: $error';
   }
 
   @override
   String adminLogFileLoadFailed(String fileName) {
-    return 'Dosya yüklenemedi: $fileName';
+    return 'Failed to load $fileName';
   }
 
   @override
@@ -4592,7 +4581,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTasksLoadFailed(String error) {
-    return 'Görevler yüklenemedi: $error';
+    return 'Failed to load tasks: $error';
   }
 
   @override
@@ -4603,17 +4592,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTaskStartFailed(String error) {
-    return 'Görev başlatılamadı: $error';
+    return 'Failed to start task: $error';
   }
 
   @override
   String adminTaskStopFailed(String error) {
-    return 'Görev durdurulamadı: $error';
+    return 'Failed to stop task: $error';
   }
 
   @override
   String adminTaskLoadFailed(String error) {
-    return 'Görev yüklenemedi: $error';
+    return 'Failed to load task: $error';
   }
 
   @override
@@ -4621,12 +4610,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTriggerRemoveFailed(String error) {
-    return 'Tetikleyici kaldırılamadı: $error';
+    return 'Failed to remove trigger: $error';
   }
 
   @override
   String adminTriggerAddFailed(String error) {
-    return 'Tetikleyici eklenemedi: $error';
+    return 'Failed to add trigger: $error';
   }
 
   @override
@@ -4652,7 +4641,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminHours(String hours) {
-    return '$hours saat';
+    return '$hours hour(s)';
   }
 
   @override
@@ -4663,7 +4652,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginToggleFailed(String error) {
-    return 'Eklenti durumu değiştirilemedi: $error';
+    return 'Failed to toggle plugin: $error';
   }
 
   @override
@@ -4671,27 +4660,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminUninstallPluginConfirm(String name) {
-    return '\"$name\" eklentisini kaldırmak istediğinize emin misiniz?';
+    return 'Are you sure you want to uninstall \"$name\"?';
   }
 
   @override
   String adminPluginUninstallFailed(String error) {
-    return 'Eklenti kaldırılamadı: $error';
+    return 'Failed to uninstall plugin: $error';
   }
 
   @override
   String adminPackageInstallFailed(String error) {
-    return 'Paket yüklenemedi: $error';
+    return 'Failed to install package: $error';
   }
 
   @override
   String adminPluginUpdateFailed(String error) {
-    return 'Güncelleme yüklenemedi: $error';
+    return 'Failed to install update: $error';
   }
 
   @override
   String adminPluginsLoadFailed(String error) {
-    return 'Eklentiler yüklenemedi: $error';
+    return 'Failed to load plugins: $error';
   }
 
   @override
@@ -4707,7 +4696,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminCatalogLoadFailed(String error) {
-    return 'Katalog yüklenemedi: $error';
+    return 'Failed to load catalog: $error';
   }
 
   @override
@@ -4728,17 +4717,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginRemoveAfterRestart(String name) {
-    return '\"$name\" sunucu yeniden başlatıldıktan sonra kaldırılacak';
+    return '\"$name\" will be removed after server restart';
   }
 
   @override
   String adminUninstallFailed(String error) {
-    return 'Kaldırılamadı: $error';
+    return 'Failed to uninstall: $error';
   }
 
   @override
   String adminPluginUpdating(String name, String version) {
-    return '\"$name\", v$version sürümüne güncelleniyor...';
+    return 'Updating \"$name\" to v$version...';
   }
 
   @override
@@ -4747,7 +4736,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginLoadFailed(String error) {
-    return 'Eklenti yüklenemedi: $error';
+    return 'Failed to load plugin: $error';
   }
 
   @override
@@ -4775,17 +4764,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRemoveRepositoryConfirm(String name) {
-    return '\"$name\" ögesini kaldırmak istediğinize emin misiniz?';
+    return 'Are you sure you want to remove \"$name\"?';
   }
 
   @override
   String adminRepositoriesSaveFailed(String error) {
-    return 'Depolar kaydedilemedi: $error';
+    return 'Failed to save repositories: $error';
   }
 
   @override
   String adminRepositoriesLoadFailed(String error) {
-    return 'Depolar yüklenemedi: $error';
+    return 'Failed to load repositories: $error';
   }
 
   @override
@@ -4802,12 +4791,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginSettingsLoadFailed(String error) {
-    return 'Eklenti ayarları yüklenemedi: $error';
+    return 'Unable to load plugin settings: $error';
   }
 
   @override
   String adminCouldNotOpenUrl(String uri) {
-    return '$uri açılamadı';
+    return 'Could not open $uri';
   }
 
   @override
@@ -5084,12 +5073,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataLoadFailed(String error) {
-    return 'Meta veriler yüklenemedi: $error';
+    return 'Failed to load metadata: $error';
   }
 
   @override
   String adminMetadataSaveFailed(String error) {
-    return 'Meta veriler kaydedilemedi: $error';
+    return 'Failed to save metadata: $error';
   }
 
   @override
@@ -5109,7 +5098,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataRefreshFailed(String error) {
-    return 'Meta veriler yenilenemedi: $error';
+    return 'Failed to refresh metadata: $error';
   }
 
   @override
@@ -5126,7 +5115,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRemoteSearchFailed(String error) {
-    return 'Uzaktan arama başarısız oldu: $error';
+    return 'Remote search failed: $error';
   }
 
   @override
@@ -5140,7 +5129,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminContentTypeUpdateFailed(String error) {
-    return 'İçerik türü güncellenemedi: $error';
+    return 'Failed to update content type: $error';
   }
 
   @override
@@ -5155,12 +5144,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminImageUpdated(String imageType) {
-    return '$imageType görseli güncellendi';
+    return '$imageType image updated';
   }
 
   @override
   String adminImageDownloadFailed(String error) {
-    return 'Görsel indirilemedi: $error';
+    return 'Failed to download image: $error';
   }
 
   @override
@@ -5171,12 +5160,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminImageUploaded(String imageType) {
-    return '$imageType görseli yüklendi';
+    return '$imageType image uploaded';
   }
 
   @override
   String adminImageUploadFailed(String error) {
-    return 'Görsel yüklenemedi: $error';
+    return 'Failed to upload image: $error';
   }
 
   @override
@@ -5186,12 +5175,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminImageDeleted(String imageType) {
-    return '$imageType görseli silindi';
+    return '$imageType image deleted';
   }
 
   @override
   String adminImageDeleteFailed(String error) {
-    return 'Görsel silinemedi: $error';
+    return 'Failed to delete image: $error';
   }
 
   @override
@@ -5202,14 +5191,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTunerDiscoveryFailed(String error) {
-    return 'Tuner taraması başarısız oldu: $error';
+    return 'Tuner discovery failed: $error';
   }
 
   @override
-  String get adminAddTuner => 'Tuner Ekle';
+  String get adminAddTuner => 'Ayarlayıcı Ekle';
 
   @override
-  String get adminTunerType => 'Tuner Türü';
+  String get adminTunerType => 'Ayarlayıcı Türü';
 
   @override
   String get adminTunerTypeHint => 'HDHomeRun, M3U, Diğer';
@@ -5225,7 +5214,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTunerAddFailed(String error) {
-    return 'Tuner eklenemedi: $error';
+    return 'Failed to add tuner: $error';
   }
 
   @override
@@ -5248,12 +5237,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminProviderAddFailed(String error) {
-    return 'Sağlayıcı eklenemedi: $error';
+    return 'Failed to add provider: $error';
   }
 
   @override
   String adminTunerRemoveFailed(String error) {
-    return 'Tuner kaldırılamadı: $error';
+    return 'Failed to remove tuner: $error';
   }
 
   @override
@@ -5261,12 +5250,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTunerResetFailed(String error) {
-    return 'Tuner sıfırlanamadı: $error';
+    return 'Failed to reset tuner: $error';
   }
 
   @override
   String adminProviderRemoveFailed(String error) {
-    return 'Sağlayıcı kaldırılamadı: $error';
+    return 'Failed to remove provider: $error';
   }
 
   @override
@@ -5289,7 +5278,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminSettingsSaveFailed(String error) {
-    return 'Ayarlar kaydedilemedi: $error';
+    return 'Failed to save settings: $error';
   }
 
   @override
@@ -5306,7 +5295,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMappingsUpdateFailed(String error) {
-    return 'Eşleştirmeler güncellenemedi: $error';
+    return 'Failed to update mappings: $error';
   }
 
   @override
@@ -5331,22 +5320,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRecordingPathDisplay(String path) {
-    return 'Kayıt yolu: $path';
+    return 'Recording path: $path';
   }
 
   @override
   String adminSeriesPathDisplay(String path) {
-    return 'Dizi yolu: $path';
+    return 'Series path: $path';
   }
 
   @override
   String adminPrePaddingDisplay(int minutes) {
-    return 'Kayıt öncesi süre: $minutes dk';
+    return 'Pre-padding: $minutes min';
   }
 
   @override
   String adminPostPaddingDisplay(int minutes) {
-    return 'Kayıt sonrası süre: $minutes dk';
+    return 'Post-padding: $minutes min';
   }
 
   @override
@@ -5379,7 +5368,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminRestoreConfirmMessage(String name) {
-    return '$name yedeği şimdi geri yüklensin mi?';
+    return 'Restore backup $name now?';
   }
 
   @override
@@ -5425,27 +5414,27 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminLogsMinutesAgo(int minutes) {
-    return '$minutes dk önce';
+    return '${minutes}m ago';
   }
 
   @override
   String adminLogsHoursAgo(int hours) {
-    return '$hours sa önce';
+    return '${hours}h ago';
   }
 
   @override
   String adminLogsDaysAgo(int days) {
-    return '${days}g önce';
+    return '${days}d ago';
   }
 
   @override
   String adminLogViewerLoadFailed(String fileName) {
-    return '$fileName yüklenemedi';
+    return 'Failed to load $fileName';
   }
 
   @override
   String adminLogViewerMatches(int count) {
-    return '$count eşleşme';
+    return '$count matches';
   }
 
   @override
@@ -5556,22 +5545,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataImageUpdated(String imageType) {
-    return '$imageType görseli güncellendi';
+    return '$imageType image updated';
   }
 
   @override
   String adminMetadataImageUploaded(String imageType) {
-    return '$imageType görseli yüklendi';
+    return '$imageType image uploaded';
   }
 
   @override
   String adminMetadataImageDeleted(String imageType) {
-    return '$imageType görseli silindi';
+    return '$imageType image deleted';
   }
 
   @override
   String adminMetadataImageDownloadFailed(String error) {
-    return 'Görsel indirilemedi: $error';
+    return 'Failed to download image: $error';
   }
 
   @override
@@ -5579,7 +5568,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataImageUploadFailed(String error) {
-    return 'Görsel yüklenemedi: $error';
+    return 'Failed to upload image: $error';
   }
 
   @override
@@ -5593,12 +5582,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataImageDeleteFailed(String error) {
-    return 'Görsel silinemedi: $error';
+    return 'Failed to delete image: $error';
   }
 
   @override
   String adminMetadataChooseImage(String imageType) {
-    return '$imageType görseli seçin';
+    return 'Choose $imageType image';
   }
 
   @override
@@ -5630,7 +5619,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginsUpdateAvailable(String version) {
-    return 'Güncelleme mevcut: v$version';
+    return 'Update available: v$version';
   }
 
   @override
@@ -5667,7 +5656,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginsInstalling(String name) {
-    return '\"$name\" yükleniyor...';
+    return '\"$name\" is being installed...';
   }
 
   @override
@@ -5687,7 +5676,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminPluginDetailSettingsTitle(String name) {
-    return '$name Ayarları';
+    return '$name Settings';
   }
 
   @override
@@ -5727,7 +5716,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminReposLoadFailed(String error) {
-    return 'Depolar yüklenemedi: $error';
+    return 'Failed to load repositories: $error';
   }
 
   @override
@@ -5735,7 +5724,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminReposRemoveConfirm(String name) {
-    return '\"$name\" ögesini kaldırmak istediğinize emin misiniz?';
+    return 'Are you sure you want to remove \"$name\"?';
   }
 
   @override
@@ -5743,7 +5732,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminReposSaveFailed(String error) {
-    return 'Depolar kaydedilemedi: $error';
+    return 'Failed to save repositories: $error';
   }
 
   @override
@@ -6020,17 +6009,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminTaskTriggerDaily(String time) {
-    return 'Her gün $time';
+    return 'Daily at $time';
   }
 
   @override
   String adminTaskTriggerWeekly(String day, String time) {
-    return 'Her $day saat $time';
+    return 'Every $day at $time';
   }
 
   @override
   String adminTaskTriggerInterval(String duration) {
-    return 'Her $duration';
+    return 'Every $duration';
   }
 
   @override
@@ -6068,8 +6057,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count saat',
-      one: '1 saat',
+      other: '$count hours',
+      one: '1 hour',
     );
     return '$_temp0';
   }
@@ -6097,17 +6086,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminActivityDaysAgo(int days) {
-    return '$days g önce';
+    return '${days}d ago';
   }
 
   @override
   String adminActivityHoursAgo(int hours) {
-    return '$hours sa önce';
+    return '${hours}h ago';
   }
 
   @override
   String adminActivityMinutesAgo(int minutes) {
-    return '$minutes dk önce';
+    return '${minutes}m ago';
   }
 
   @override
@@ -6223,7 +6212,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminMetadataContentTypeFailed(String error) {
-    return 'İçerik türü güncellenemedi: $error';
+    return 'Failed to update content type: $error';
   }
 
   @override
@@ -6246,12 +6235,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String adminChannelMappingsUpdateFailed(String error) {
-    return 'Eşleştirmeler güncellenemedi: $error';
+    return 'Failed to update mappings: $error';
   }
 
   @override
   String adminTimeLimitDuration(String duration) {
-    return 'Süre sınırı: $duration';
+    return 'Time limit: $duration';
   }
 
   @override
@@ -6288,8 +6277,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# katılımcı',
-      one: '# katılımcı',
+      other: '# participants',
+      one: '# participant',
     );
     return '$_temp0';
   }
@@ -6382,12 +6371,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String syncPlayUserJoinedGroup(String userName) {
-    return '$userName SyncPlay grubuna katıldı';
+    return '$userName joined SyncPlay group';
   }
 
   @override
   String syncPlayUserLeftGroup(String userName) {
-    return '$userName SyncPlay grubundan ayrıldı';
+    return '$userName left SyncPlay group';
   }
 
   @override
@@ -6399,7 +6388,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String syncPlaySyncingPlaybackToGroup(String groupName) {
-    return 'Oynatma durumu $groupName ile eşitleniyor';
+    return 'Syncing playback to $groupName';
   }
 
   @override
@@ -6441,6 +6430,14 @@ class AppLocalizationsTr extends AppLocalizations {
       'Henüz eklentiyi bildiren Jellyfin sunucusu yok.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Ranaldsgift\'in \"KefinTweaks\" eklentisi aracılığıyla yapılandırılan satırları tespit edin. Yakın zamanda piyasaya sürülen, tekrar izlenen, sezonluk ve kitaplığa yakın zamanda eklenen özel bölümler, her Jellyfin sunucusundaki KefinTweaks yapılandırmasından yansıtılır.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Henüz KefinTweaks\'i bildiren Jellyfin sunucusu yok.';
+
+  @override
   String get integrationOpenHomeSections => 'Ana Sayfa Bölümlerini Aç';
 
   @override
@@ -6459,8 +6456,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# bölüm',
-      one: '# bölüm',
+      other: '# sections',
+      one: '# section',
     );
     return '$_temp0';
   }
@@ -6470,14 +6467,14 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# satır keşfedildi',
-      one: '# satır keşfedildi',
+      other: '# rows discovered',
+      one: '# row discovered',
     );
     return '$_temp0';
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Tümünü Gör';
@@ -6528,12 +6525,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String castControlFailed(String error) {
-    return 'Yansıtma kontrolü başarısız oldu: $error';
+    return 'Cast control failed: $error';
   }
 
   @override
   String castKindControls(String kind) {
-    return '$kind Kontrolleri';
+    return '$kind Controls';
   }
 
   @override
@@ -6567,12 +6564,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String pinEnterNDigit(int length) {
-    return '$length haneli bir PIN girin';
+    return 'Enter a $length-digit PIN';
   }
 
   @override
   String pinEnterYourNDigit(int length) {
-    return '$length haneli PIN\'inizi girin';
+    return 'Enter your $length-digit PIN';
   }
 
   @override
@@ -6585,7 +6582,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pinForgot => 'PIN\'inizi mi unuttunuz?';
 
   @override
-  String get pinClear => 'Temizle';
+  String get pinClear => 'Temizlemek';
 
   @override
   String get pinBackspace => 'Geri tuşu';
@@ -6619,7 +6616,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String quickConnectFailedWithMessage(String message) {
-    return 'Hızlı Bağlantı başarısız oldu: $message';
+    return 'Quick Connect failed: $message';
   }
 
   @override
@@ -6630,7 +6627,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String remoteCommandFailed(String error) {
-    return 'Komut başarısız oldu: $error';
+    return 'Command failed: $error';
   }
 
   @override
@@ -6659,7 +6656,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String castingFailed(String error) {
-    return 'Yansıtma başlatılamadı: $error';
+    return 'Failed to start casting: $error';
   }
 
   @override
@@ -6704,7 +6701,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String trackActionDownloading(String name) {
-    return '$name indiriliyor...';
+    return 'Downloading $name...';
   }
 
   @override
@@ -6791,7 +6788,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String skipSegment(String segment) {
-    return '$segment geç';
+    return 'Skip $segment';
   }
 
   @override
@@ -6802,12 +6799,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String downloadingBatchProgress(int current, int total, String fileName) {
-    return 'İndiriliyor: $current/$total — $fileName';
+    return 'Downloading $current/$total — $fileName';
   }
 
   @override
   String downloadingFile(String fileName) {
-    return '$fileName indiriliyor';
+    return 'Downloading $fileName';
   }
 
   @override
@@ -6911,7 +6908,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsAuthenticationSection => 'DOĞRULAMA';
 
   @override
-  String get settingsSortServersBy => 'Sunucuları Şuna Göre Sırala';
+  String get settingsSortServersBy => 'Sunucuları Şuna Göre Sırala:';
 
   @override
   String get settingsLastUsed => 'Son Kullanılan';
@@ -6952,7 +6949,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsShowShuffleButtonInNavigation =>
-      'Gezinme çubuğunda karıştır düğmesini göster';
+      'Gezinme çubuğunda karışık düğmesini göster';
 
   @override
   String get settingsShowGenresButtonInNavigation =>
@@ -6968,7 +6965,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsShowSeerrButtonInNavigation =>
-      'Gezinti çubuğunda Seerr butonunu göster';
+      'Show the Seerr button in the navigation bar';
 
   @override
   String get settingsLibraryVisibilitySubtitle =>
@@ -7037,7 +7034,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsSupportMoonfinSubtitle =>
-      'Geliştiriciye bir kahve ısmarla';
+      'Donate a coffee to the developer';
 
   @override
   String get settingsLegal => 'YASAL';
@@ -7054,7 +7051,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsPrivacyPolicySubtitle =>
-      'Moonfin verilerinizi nasıl işler';
+      'Moonfin verilerinizi nasıl işler?';
 
   @override
   String get settingsCheckForUpdates => 'Güncellemeleri Kontrol Et';
@@ -7071,8 +7068,8 @@ class AppLocalizationsTr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# lisans bildirimi',
-      one: '# lisans bildirimi',
+      other: '# license notices',
+      one: '# license notice',
     );
     return '$_temp0';
   }
@@ -7121,16 +7118,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsSkipIntrosAndOutros => 'Giriş ve Çıkışlar atlansın mı?';
 
   @override
-  String get settingsMediaSegmentCountdown => 'Medya Bölümü Geri Sayımı';
+  String get settingsMediaSegmentCountdown => 'Media Segment Countdown';
 
   @override
-  String get settingsProgressBar => 'İlerleme Çubuğu';
+  String get settingsProgressBar => 'Progress Bar';
 
   @override
-  String get settingsTimer => 'Zamanlayıcı';
+  String get settingsTimer => 'Timer';
 
   @override
-  String get settingsNone => 'Hiçbiri';
+  String get settingsNone => 'None';
 
   @override
   String get settingsPromptUser => 'Kullanıcıya Sor';
@@ -7164,13 +7161,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsPlaybackEngineMedia3Recommended => 'Media3 (önerilir)';
 
   @override
-  String get settingsPlaybackEngineMedia3Legacy => 'Media3 (eski nesil)';
+  String get settingsPlaybackEngineMedia3Legacy => 'Media3 (legacy)';
 
   @override
   String get settingsPlaybackEngineMpvLegacy => 'mpv (eski)';
 
   @override
-  String get settingsPlaybackEngineMpvRecommended => 'mpv (önerilen)';
+  String get settingsPlaybackEngineMpvRecommended => 'mpv (recommended)';
 
   @override
   String get settingsDolbyVisionFallback => 'Dolby Vision Geri dönüş';
@@ -7354,410 +7351,360 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String latestLibraryName(String libraryName) {
-    return 'Son Eklenen $libraryName';
+    return 'Latest $libraryName';
   }
 
   @override
-  String get autoplayNextEpisode => 'Sonraki Bölümü Otomatik Oynat';
+  String get autoplayNextEpisode => 'Autoplay Next Episode';
 
   @override
   String get autoplayNextEpisodeSubtitle =>
-      'Mevcut olduğunda sonraki bölümü otomatik oynat.';
+      'Automatically play the next episode when available.';
 
   @override
-  String get skipSilenceTitle => 'Sessizce Atla';
+  String get skipSilenceTitle => 'Skip silence';
 
   @override
   String get skipSilenceSubtitle =>
-      'Akış desteklediğinde, sessiz ses bölümlerini otomatik olarak atla.';
+      'Automatically skip silent audio segments when supported by the stream.';
 
   @override
-  String get allowExternalAudioEffectsTitle =>
-      'Harici ses efektlerine izin ver';
+  String get allowExternalAudioEffectsTitle => 'Allow external audio effects';
 
   @override
   String get allowExternalAudioEffectsSubtitle =>
-      'Ekolayzer ve efekt uygulamalarının (örn. Wavelet) Media3 oynatma oturumlarına bağlanmasına izin ver.';
+      'Allow equalizer and effects apps (e.g. Wavelet) to attach to Media3 playback sessions.';
 
   @override
-  String get disableTunnelingTitle => 'Tünellemeyi devre dışı bırak';
+  String get disableTunnelingTitle => 'Disable tunneling';
 
   @override
   String get disableTunnelingSubtitle =>
-      'Tünelsiz oynatmaya zorla. Tünelleme kaynaklı ses/video kopmaları yaşanan cihazlarda yararlıdır.';
+      'Force non-tunneled playback. Useful on devices with tunneling audio/video discontinuities.';
 
   @override
-  String get enableTunnelingTitle => 'Tünellemeyi etkinleştir';
+  String get enableTunnelingTitle => 'Enable tunneling';
 
   @override
   String get enableTunnelingSubtitle =>
-      'Gelişmiş. Sesi ve videoyu birbirine bağlı bir donanım yolu üzerinden iletir. Bazı cihazlarda ses/video kesintilerine neden olabileceği için varsayılan olarak kapalıdır.';
+      'Advanced. Routes audio and video through a coupled hardware path. Off by default because it causes audio/video dropouts on some devices.';
 
   @override
-  String get mapDolbyVisionP7Title =>
-      'Dolby Vision profil 7\'yi HEVC ile eşleştir';
+  String get mapDolbyVisionP7Title => 'Map Dolby Vision profile 7 to HEVC';
 
   @override
   String get mapDolbyVisionP7Subtitle =>
-      'Dolby Vision profil 7 akışlarını, DV desteklemeyen cihazlarda HDR10 uyumlu HEVC olarak oynat.';
+      'Play Dolby Vision profile 7 streams as HDR10-compatible HEVC on non-DV devices.';
 
   @override
-  String get subtitlesUseEmbeddedStyles => 'Gömülü altyazı stillerini kullan';
+  String get subtitlesUseEmbeddedStyles => 'Use embedded subtitle styles';
 
   @override
   String get subtitlesUseEmbeddedStylesSubtitle =>
-      'Altyazı parçasında gömülü olan renk, yazı tipi ve konumlandırmayı uygula. Kendi altyazı stili tercihlerinizi kullanmak için devre dışı bırakın.';
+      'Apply colours, fonts, and positioning embedded in the subtitle track. Disable to use your caption style preferences instead.';
 
   @override
   String get subtitlesUseEmbeddedFontSizes =>
-      'Gömülü altyazı boyutlarını kullan';
+      'Use embedded subtitle font sizes';
 
   @override
   String get subtitlesUseEmbeddedFontSizesSubtitle =>
-      'Altyazı parçasında gömülü olan yazı tipi boyutu ipuçlarını uygula. Kendi stili tercihlerinizdeki altyazı boyutunu kullanmak için devre dışı bırakın.';
+      'Apply font-size hints embedded in the subtitle track. Disable to use the subtitle size from your style preferences.';
 
   @override
-  String get showMediaDetailsOnLibraryPage => 'Medya Ayrıntılarını Göster';
+  String get showMediaDetailsOnLibraryPage => 'Show Media Details';
 
   @override
   String get showMediaDetailsOnLibraryPageDescription =>
-      'Kütüphane sayfalarında, seçilen ögenin detaylarını üst kısımda göster.';
+      'Show details of the selected item at the top of Library pages.';
 
   @override
-  String get useDetailedSubHeadings => 'Detaylı alt başlıklar kullan';
+  String get useDetailedSubHeadings => 'Use Detailed Sub-Headings';
 
   @override
   String get useDetailedSubHeadingsDescription =>
-      'Kütüphane sayfalarında detaylı veya sade bir alt satır göster.';
+      'Show detailed or minimal subrow on Library pages.';
 
   @override
-  String get savedThemesDeleteDialogTitle => 'Kaydedilen tema silinsin mi?';
+  String get savedThemesDeleteDialogTitle => 'Delete saved theme?';
 
   @override
   String savedThemesDeleteDialogMessage(String themeName) {
-    return '\"$themeName\" bu cihazın önbelleğinden kaldırılsın mı?';
-  }
-
-  @override
-  String get themeStore => 'Theme Store';
-
-  @override
-  String get themeStoreSubtitle => 'Browse and save community themes';
-
-  @override
-  String get themeStoreDescription =>
-      'Save a theme to use it like your other saved themes.';
-
-  @override
-  String get themeStoreEmpty => 'No themes are available right now.';
-
-  @override
-  String get themeStoreLoadFailed =>
-      'Couldn\'t load the Theme Store. Check your connection and try again.';
-
-  @override
-  String get themeStoreSave => 'Save';
-
-  @override
-  String get themeStoreSaveAndApply => 'Save & apply';
-
-  @override
-  String get themeStoreSaved => 'Saved';
-
-  @override
-  String get themeStoreInvalidMessage => 'This theme couldn\'t be loaded.';
-
-  @override
-  String themeStoreSavedMessage(String themeName) {
-    return 'Saved \"$themeName\".';
+    return 'Remove \"$themeName\" from this device cache?';
   }
 
   @override
   String savedThemesDeletedMessage(String themeName) {
-    return '\"$themeName\" bu cihazdan silindi.';
+    return 'Deleted \"$themeName\" from this device.';
   }
 
   @override
   String savedThemesDeleteFailedMessage(String themeName) {
-    return '\"$themeName\" silinemedi.';
+    return 'Could not delete \"$themeName\".';
   }
 
   @override
-  String get savedThemesTitle => 'Kayıtlı temalar';
+  String get savedThemesTitle => 'Saved themes';
 
   @override
   String get savedThemesDescription =>
-      'Bunlar, mevcut sunucu için Moonfin eklentisinden indirilen temalardır. Silme işlemi yalnızca bu yerel kopyayı kaldırır.';
+      'These are themes downloaded from the Moonfin plugin for the current server. Deleting removes only this local copy.';
 
   @override
-  String get savedThemesEmpty => 'Bu sunucu için kayıtlı tema bulunamadı.';
+  String get savedThemesEmpty => 'No saved themes were found for this server.';
 
   @override
   String savedThemesCurrentThemeId(String themeId) {
-    return '$themeId • Şu an aktif';
+    return '$themeId • Currently active';
   }
 
   @override
-  String get savedThemesDeleteTooltip => 'Kayıtlı temayı sil';
+  String get savedThemesDeleteTooltip => 'Delete saved theme';
 
   @override
   String get savedThemesManageSubtitle =>
-      'Bu cihazdaki indirilen eklenti temalarını yönetin';
+      'Manage downloaded plugin themes on this device';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Home Screen Sections';
 
   @override
-  String get themeEditor => 'Tema Editörü';
+  String get themeEditor => 'Theme Editor';
 
   @override
-  String get themeEditorSubtitle => 'Moonfin Tema Editörünü tarayıcınızda açın';
+  String get themeEditorSubtitle =>
+      'Open the Moonfin Theme Editor in your browser';
 
   @override
-  String get homeScreen => 'Ana Sayfa';
+  String get homeScreen => 'Home Screen';
 
   @override
-  String get bottomBar => 'Alt Bar';
+  String get bottomBar => 'Bottom Bar';
 
   @override
-  String get homeRowsStyleClassic => 'Klasik';
+  String get homeRowsStyleClassic => 'Classic';
 
   @override
   String get homeRowsStyleModern => 'Modern';
 
   @override
-  String get homeRowsSection => 'Ana Sayfa Satırları';
+  String get homeRowsSection => 'Home Rows';
 
   @override
-  String get homeRowDisplay => 'Ana Sayfa Satır Gösterimi';
+  String get homeRowDisplay => 'Home Row Display';
 
   @override
-  String get homeRowSections => 'Ana Sayfa Satır Bölümleri';
+  String get homeRowSections => 'Home Row Sections';
 
   @override
-  String get homeRowToggles => 'Ana Sayfa Satır Aç/Kapat Ayarları';
+  String get homeRowToggles => 'Home Row Toggles';
 
   @override
   String get homeRowTogglesSubtitle =>
-      'Farklı ana sayfa satır kategorilerini etkinleştirin veya devre dışı bırakın';
+      'Enable or disable different home row categories';
 
   @override
   String get homeRowTogglesDescription =>
-      'Satırları Ana Sayfa Bölümleri\'nde göstermek için aşağıdaki anahtarları etkinleştirin.';
+      'Enable the following toggles to display the rows in Home Sections.';
 
   @override
-  String get rowsType => 'Satır Tipi';
+  String get rowsType => 'Rows Type';
 
   @override
   String get rowsTypeDescription =>
-      'Klasik mod, satır başına görsel türünü ve bilgi katmanını korur. Modern mod ise dikey görsellerden yatay arka planlara uzanan satırlar kullanır.';
+      'Classic keeps per-row image type and info overlay. Modern uses portrait-to-backdrop rows.';
 
   @override
-  String get displayFavoritesRows => 'Favoriler Satırlarını Görüntüle';
+  String get displayFavoritesRows => 'Display Favorites Rows';
 
   @override
   String get displayFavoritesRowsSubtitle =>
-      'Favori Filmleri, Dizileri ve diğer favori satırlarını Ana Sayfa Bölümlerinde göster.';
+      'Show Favorite Movies, Series, and other favorite rows in Home Sections.';
 
   @override
-  String get favoritesRowSorting => 'Favoriler Satırı Sıralaması';
+  String get favoritesRowSorting => 'Favorites Row Sorting';
 
   @override
   String get favoritesRowSortingDescription =>
-      'Favori satırlarını eklenme tarihine, çıkış tarihine, alfabetik sıraya ve daha fazlasına göre sıralayın.';
+      'Sort Favorites rows by date added, release date, alphabetically, and more.';
 
   @override
-  String get displayCollectionsRows => 'Koleksiyon Satırlarını Göster';
+  String get displayCollectionsRows => 'Display Collections Rows';
 
   @override
   String get displayCollectionsRowsSubtitle =>
-      'Koleksiyon satırlarını Ana Sayfa Bölümlerinde göster.';
+      'Show Collections rows in Home Sections.';
 
   @override
-  String get collectionsRowSorting => 'Koleksiyon Satırı Sıralaması';
+  String get collectionsRowSorting => 'Collections Row Sorting';
 
   @override
   String get collectionsRowSortingDescription =>
-      'Koleksiyonlar satırlarını ekleme tarihine, çıkış tarihine, alfabetik sıraya ve daha fazlasına göre sıralayın.';
+      'Sort Collections rows by date added, release date, alphabetically, and more.';
 
   @override
-  String get displayGenresRows => 'Tür Satırlarını Göster';
+  String get displayGenresRows => 'Display Genres Rows';
 
   @override
-  String get displayGenresRowsSubtitle =>
-      'Ana Sayfa Bölümlerinde Türler satırlarını göster.';
+  String get displayGenresRowsSubtitle => 'Show Genres rows in Home Sections.';
 
   @override
-  String get genresRowSorting => 'Türler Satırı Sıralaması';
+  String get genresRowSorting => 'Genres Row Sorting';
 
   @override
   String get genresRowSortingDescription =>
-      'Türler satırlarını ekleme tarihine, çıkış tarihine, alfabetik sıraya ve daha fazlasına göre sıralayın.';
+      'Sort Genres rows by date added, release date, alphabetically, and more.';
 
   @override
-  String get genresRowItems => 'Türler Satırı Ögeleri';
+  String get genresRowItems => 'Genres Row Items';
 
   @override
   String get genresRowItemsDescription =>
-      'Türler satırlarında Filmleri, Dizileri veya her ikisini birden göster.';
+      'Show Movies, Series, or both in Genres rows.';
 
   @override
-  String get displayPlaylistsRows => 'Oynatma Listesi Satırlarını Göster';
+  String get displayPlaylistsRows => 'Display Playlist Rows';
 
   @override
   String get displayPlaylistsRowsSubtitle =>
-      'Oynatma listesi satırlarını Ana Sayfa Bölümleri\'nde göster.';
+      'Show Playlist rows in Home Sections.';
 
   @override
-  String get playlistsRowSorting => 'Oynatma Listesi Satır Sıralaması';
+  String get playlistsRowSorting => 'Playlist Row Sorting';
 
   @override
   String get playlistsRowSortingDescription =>
-      'Oynatma listesi satırlarını ekleme tarihi, yayınlanma tarihi, alfabetik ve daha fazlasına göre sıralayın.';
+      'Sort Playlist rows by date added, release date, alphabetically, and more.';
 
   @override
-  String get displayAudioRows => 'Display Audio Rows';
-
-  @override
-  String get displayAudioRowsSubtitle => 'Show Audio rows in Home Sections.';
-
-  @override
-  String get audioRowsSorting => 'Audio Rows sorting';
-
-  @override
-  String get audioRowsSortingDescription =>
-      'Sort Audio rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get audioPlaylists => 'Audio Playlists';
-
-  @override
-  String get displaySeerrRows => 'Seerr Keşif Satırlarını Göster';
+  String get displaySeerrRows => 'Display Seerr Discovery Rows';
 
   @override
   String get displaySeerrRowsSubtitle =>
-      'Seerr keşif satırlarını Ana Sayfa Bölümleri\'nde göster.';
+      'Show Seerr discovery rows in Home Sections.';
 
   @override
-  String get appearance => 'Görünüm';
+  String get appearance => 'Appearance';
 
   @override
-  String get cardSize => 'Ana Sayfa Satırı Kart Gösterim Boyutu';
+  String get cardSize => 'Card Size';
 
   @override
-  String get externalPlayerApp => 'Harici oynatıcı';
+  String get externalPlayerApp => 'External player app';
 
   @override
   String get externalPlayerAppDescription =>
-      'Üzerine uzun basarak oynatma seçeneğini etkinleştirmek için harici oynatıcıyı ayarlayın';
+      'Set external player to enable long-press play option';
 
   @override
   String get externalPlayerAskEachTimeSubtitle =>
-      'Oynatma başladığında uygulama seçiciyi göster.';
+      'Show app chooser when playback starts.';
 
   @override
-  String get loadingInstalledPlayers => 'Yüklü oynatıcılar yükleniyor...';
+  String get loadingInstalledPlayers => 'Loading installed players...';
 
   @override
-  String get connection => 'Bağlantı';
+  String get connection => 'Connection';
 
   @override
-  String get audioTranscodeTarget => 'Ses Yeniden Kodlama Hedefi';
+  String get audioTranscodeTarget => 'Audio Transcode Target';
 
   @override
-  String get passthrough => 'Doğrudan Geçiş (Passthrough)';
+  String get passthrough => 'Passthrough';
 
   @override
-  String get supportedOnThisDevice => 'Bu cihazda destekleniyor';
+  String get supportedOnThisDevice => 'Supported on this device';
 
   @override
-  String get notSupportedOnThisDevice => 'Bu cihazda desteklenmiyor';
+  String get notSupportedOnThisDevice => 'Not Supported on this device';
 
   @override
-  String get settingsAudioDtsXPassthrough =>
-      'DTS:X (DTS UHD) Doğrudan Geçiş (Passthrough)';
+  String get settingsAudioDtsXPassthrough => 'DTS:X (DTS UHD) Passthrough';
 
   @override
   String get settingsAudioBitstreamDtsXToExternalDecoder =>
-      'DTS:X (DTS UHD) sesini harici kod çözücüye bitstream olarak aktar.';
+      'Bitstream DTS:X (DTS UHD) to external decoder.';
 
   @override
   String get settingsAudioTrueHdJocPassthrough =>
-      'TrueHD with Atmos (JOC) Doğrudan Geçiş (Passthrough)';
+      'TrueHD with Atmos (JOC) Passthrough';
 
   @override
-  String get mediaPlayerBehavior => 'Medya Oynatıcı Davranışı';
+  String get mediaPlayerBehavior => 'Media Player Behavior';
 
   @override
-  String get playbackEnhancements => 'Oynatma İyileştirmeleri';
+  String get playbackEnhancements => 'Playback Enhancements';
 
   @override
-  String get alwaysOn => 'Her zaman açık.';
+  String get alwaysOn => 'Always on.';
 
   @override
   String get replaceSkipOutroWithNextUpDisplay =>
-      '\"Jeneriği Atla\" yerine \"Sıradaki Bölüm Ekranını\" yerleştir';
+      'Replace Skip Outro with Next Up Display';
 
   @override
   String get replaceSkipOutroWithNextUpDisplaySubtitle =>
-      '\"Jeneriği Atla\" butonu yerine \"Sıradaki Bölüm\" ekranını göster.';
+      'Show the Next Up overlay instead of the Skip Outro button.';
 
   @override
-  String get playerRouting => 'Oynatıcı Yönlendirme';
+  String get playerRouting => 'Player Routing';
 
   @override
-  String get preferSoftwareDecoders => 'Yazılımsal kod çözücüleri tercih et';
+  String get preferSoftwareDecoders => 'Prefer software decoders';
 
   @override
   String get preferSoftwareDecodersSubtitle =>
-      'Donanımsal kod çözücülerden önce FFmpeg (ses) ve libgav1 (AV1) kullan. HDMI ses doğrudan geçişi (passthrough) bozulursa devre dışı bırak.';
+      'Use FFmpeg (audio) and libgav1 (AV1) before hardware decoders. Disable if HDMI audio passthrough breaks.';
 
   @override
-  String get useExternalPlayer => 'Her zaman harici oynatıcı kullan';
+  String get useExternalPlayer => 'Use external player';
 
   @override
   String get useExternalPlayerSubtitle =>
-      'Android TV\'de video oynatmayı seçtiğiniz harici uygulamada açın.';
+      'Open video playback in your selected external app on Android TV.';
 
   @override
-  String get automaticQueuing => 'Otomatik Sıraya Ekleme';
+  String get automaticQueuing => 'Automatic Queuing';
 
   @override
-  String get preferSdhSubtitles => 'SDH altyazıları tercih et';
+  String get preferSdhSubtitles => 'Prefer SDH subtitles';
 
   @override
   String get preferSdhSubtitlesSubtitle =>
-      'Otomatik seçim yaparken SDH/CC altyazı parçalarına öncelik ver.';
+      'Prioritize SDH/CC subtitle tracks when auto-selecting.';
 
   @override
-  String get webDiagnostics => 'Web Tanılama';
+  String get webDiagnostics => 'Web diagnostics';
 
   @override
-  String get webDiagnosticsTitle => 'Moonfin Web Tanılama';
+  String get webDiagnosticsTitle => 'Moonfin Web Diagnostics';
 
   @override
   String get webDiagnosticsIntro =>
-      'Tarayıcı bağlantı sorunlarını (CORS, karma içerik ve keşif ayarları) tanılamak için bu sayfayı kullanın.';
+      'Use this page to diagnose browser connectivity issues (CORS, mixed content, and discovery settings).';
 
   @override
   String get webDiagnosticsDetectedMixedContentFailure =>
-      'Karma İçerik Hatası Tespit Edildi';
+      'Detected Mixed-Content Failure';
 
   @override
   String get webDiagnosticsDetectedCorsPreflightFailure =>
-      'CORS/Ön Kontrol Hatası Tespit Edildi';
+      'Detected CORS/Preflight Failure';
 
   @override
   String get webDiagnosticsMixedContentFailureBody =>
-      'Moonfin, bir HTTPS sayfasının HTTP sunucu URL\'sini çağırmaya çalıştığını tespit etti. Tarayıcılar, bu isteği henüz sunucunuza ulaşmadan engeller.';
+      'Moonfin detected an HTTPS page trying to call an HTTP server URL. Browsers block this request before it reaches your server.';
 
   @override
   String get webDiagnosticsCorsFailureBody =>
-      'Moonfin, genellikle medya sunucusundaki eksik CORS veya ön kontrol (preflight) üst bilgilerinden kaynaklanan, tarayıcı düzeyinde bir istek hatası tespit etti.';
+      'Moonfin detected a browser-level request failure that is commonly caused by missing CORS or preflight headers on the media server.';
 
   @override
   String webDiagnosticsTargetUrl(String url) {
-    return 'Hedef URL: $url';
+    return 'Target URL: $url';
   }
 
   @override
@@ -7766,333 +7713,329 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get webDiagnosticsCurrentRuntimeContext =>
-      'Mevcut Çalışma Zamanı Bağlamı';
+  String get webDiagnosticsCurrentRuntimeContext => 'Current Runtime Context';
 
   @override
-  String get webDiagnosticsOrigin => 'Kaynak';
+  String get webDiagnosticsOrigin => 'Origin';
 
   @override
-  String get webDiagnosticsScheme => 'Protokol';
+  String get webDiagnosticsScheme => 'Scheme';
 
   @override
-  String get webDiagnosticsPluginMode => 'Eklenti Modu';
+  String get webDiagnosticsPluginMode => 'Plugin Mode';
 
   @override
-  String get webDiagnosticsWebRtcScan => 'WebRTC Taraması';
+  String get webDiagnosticsWebRtcScan => 'WebRTC Scan';
 
   @override
-  String get webDiagnosticsForcedServerUrl => 'Zorunlu Sunucu URL\'si';
+  String get webDiagnosticsForcedServerUrl => 'Forced Server URL';
 
   @override
-  String get webDiagnosticsDefaultServerUrl => 'Varsayılan Sunucu URL\'si';
+  String get webDiagnosticsDefaultServerUrl => 'Default Server URL';
 
   @override
-  String get webDiagnosticsDiscoveryProxyUrl => 'Keşif Vekil Sunucu URL\'si';
+  String get webDiagnosticsDiscoveryProxyUrl => 'Discovery Proxy URL';
 
   @override
-  String get notConfigured => 'Yapılandırılmadı';
+  String get notConfigured => 'not configured';
 
   @override
-  String get webDiagnosticsMixedContent => 'Karma İçerik';
+  String get webDiagnosticsMixedContent => 'Mixed Content';
 
   @override
   String get webDiagnosticsMixedContentDetected =>
-      'Bu sayfa HTTPS üzerinden yüklendi, ancak yapılandırılan URL\'lerden biri veya daha fazlası HTTP. Tarayıcılar, HTTPS sayfalarının HTTP API\'lerini çağırmasını engeller.';
+      'This page is loaded over HTTPS, but one or more configured URLs are HTTP. Browsers block HTTPS pages from calling HTTP APIs.';
 
   @override
   String get webDiagnosticsMixedContentFix =>
-      'Çözüm: Medya sunucunuzu veya vekil sunucu (proxy) uç noktanızı HTTPS üzerinden sunun ya da Moonfin\'i yalnızca güvenilir yerel ağlarda HTTP üzerinden yükleyin.';
+      'Fix: serve your media server or proxy endpoint via HTTPS, or load Moonfin over HTTP on trusted local networks only.';
 
   @override
   String get webDiagnosticsNoMixedContentDetected =>
-      'Mevcut çalışma zamanı ayarlarında bariz bir karma içerik yapılandırması tespit edilmedi.';
+      'No obvious mixed-content configuration detected from current runtime settings.';
 
   @override
-  String get webDiagnosticsCorsChecklist => 'CORS Kontrol Listesi';
+  String get webDiagnosticsCorsChecklist => 'CORS Checklist';
 
   @override
   String get webDiagnosticsCorsChecklistItem1 =>
-      '• Access-Control-Allow-Origin üst bilgisinde tarayıcı kaynağına izin verin.';
+      '• Allow the browser origin in Access-Control-Allow-Origin.';
 
   @override
   String get webDiagnosticsCorsChecklistItem2 =>
-      '• Access-Control-Allow-Headers üst bilgisine Authorization, X-Emby-Authorization ve X-Emby-Token değerlerini dahil edin.';
+      '• Include Authorization, X-Emby-Authorization, and X-Emby-Token in Access-Control-Allow-Headers.';
 
   @override
   String get webDiagnosticsCorsChecklistItem3 =>
-      '• Akış ve sarma işlevleri için Content-Range ve Accept-Ranges üst bilgilerini dışa aktarın (expose).';
+      '• Expose Content-Range and Accept-Ranges for streaming and seek behavior.';
 
   @override
   String get webDiagnosticsCorsChecklistItem4 =>
-      '• OPTIONS ön kontrol (preflight) isteklerine 204 yanıtı döndürün.';
+      '• Return 204 to OPTIONS preflight requests.';
 
   @override
   String get webDiagnosticsHeaderSnippetTitle =>
-      'Örnek Üst Bilgi Parçacığı (nginx tarzı)';
+      'Example Header Snippet (nginx-style)';
 
   @override
-  String get note => 'Not';
+  String get note => 'Note';
 
   @override
   String get webDiagnosticsNonWebNote =>
-      'Bu tanılama rotası web sürümleri için tasarlanmıştır. Eğer bunu başka bir platformda görüyorsanız, yapılan kontroller sizin için geçerli olmayabilir.';
+      'This diagnostics route is intended for web builds. If you are seeing this on another platform, these checks may not apply.';
 
   @override
-  String get backToServerSelect => 'Sunucu Seçimine Dön';
+  String get backToServerSelect => 'Back To Server Select';
 
   @override
-  String get signOutAllUsers => 'Tüm Kullanıcıların Oturumunu Kapat';
+  String get signOutAllUsers => 'Sign Out All Users';
 
   @override
   String get voiceSearchPermissionPermanentlyDenied =>
-      'Mikrofon izni kalıcı olarak reddedildi. Sistem ayarlarından izni etkinleştirin.';
+      'Microphone permission is permanently denied. Enable it in system settings.';
 
   @override
   String get voiceSearchPermissionRequired =>
-      'Sesli arama için mikrofon izni gereklidir.';
+      'Microphone permission is required for voice search.';
 
   @override
-  String get voiceSearchNoMatch => 'Anlaşılamadı. Tekrar deneyin.';
+  String get voiceSearchNoMatch => 'Did not catch that. Try again.';
 
   @override
-  String get voiceSearchNoSpeechDetected => 'Konuşma algılanmadı.';
+  String get voiceSearchNoSpeechDetected => 'No speech detected.';
 
   @override
-  String get voiceSearchMicrophoneError => 'Mikrofon hatası.';
+  String get voiceSearchMicrophoneError => 'Microphone error.';
 
   @override
-  String get voiceSearchNeedsInternet =>
-      'Sesli arama için internet bağlantısı gereklidir.';
+  String get voiceSearchNeedsInternet => 'Voice search needs internet.';
 
   @override
-  String get voiceSearchServiceBusy =>
-      'Sesli arama servisi meşgul. Tekrar deneyin.';
+  String get voiceSearchServiceBusy => 'Voice service is busy. Try again.';
 
   @override
   String get microphonePermissionPermanentlyDenied =>
-      'Mikrofon izni kalıcı olarak reddedildi.';
+      'Microphone permission is permanently denied.';
 
   @override
-  String get microphonePermissionDenied => 'Mikrofon izni reddedildi.';
+  String get microphonePermissionDenied => 'Microphone permission is denied.';
 
   @override
   String get speechRecognitionUnavailable =>
-      'Ses tanıma özelliği bu cihazda kullanılamıyor.';
+      'Speech recognition is unavailable on this device.';
 
   @override
-  String get openIosRoutePicker => 'iOS Ses/Video Aktarımını Aç';
+  String get openIosRoutePicker => 'Open iOS route picker';
 
   @override
   String get airPlayRoutePickerUnavailable =>
-      'AirPlay özelliği bu cihazda kullanılamıyor.';
+      'AirPlay route picker is unavailable on this device.';
 
   @override
-  String get videos => 'Videolar';
+  String get videos => 'Videos';
 
   @override
-  String get trailers => 'Fragmanlar';
+  String get trailers => 'Trailers';
 
   @override
-  String get programs => 'Programlar';
+  String get programs => 'Programs';
 
   @override
-  String get songs => 'Şarkılar';
+  String get songs => 'Songs';
 
   @override
-  String get photoAlbums => 'Fotoğraf Albümleri';
+  String get photoAlbums => 'Photo Albums';
 
   @override
-  String get photos => 'Fotoğraflar';
+  String get photos => 'Photos';
 
   @override
-  String get people => 'Kişiler';
+  String get people => 'People';
 
   @override
-  String get recentlyReleasedEpisodes => 'Son Yayınlanan Bölümler';
+  String get recentlyReleasedEpisodes => 'Recently Released Episodes';
 
   @override
-  String get watchAgain => 'Yeniden İzle';
+  String get watchAgain => 'Watch Again';
 
   @override
-  String get guestAppearances => 'Konuk Olduğu Bölümler';
+  String get guestAppearances => 'Guest Appearances';
 
   @override
-  String get appearancesSeerr => 'Rol Aldığı Yapımlar (Seerr)';
+  String get appearancesSeerr => 'Appearances (Seerr)';
 
   @override
-  String get watchWithGroup => 'Grupça İzle';
+  String get watchWithGroup => 'Watch with group';
 
   @override
-  String get errors => 'Hatalar';
+  String get errors => 'Errors';
 
   @override
-  String get warnings => 'Uyarılar';
+  String get warnings => 'Warnings';
 
   @override
   String get disk => 'Disk';
 
   @override
-  String get openInBrowser => 'Tarayıcıda Aç';
+  String get openInBrowser => 'Open in Browser';
 
   @override
   String get embeddedBrowserNotAvailable =>
-      'Gömülü tarayıcı bu platformda kullanılamıyor.';
+      'Embedded browser is not available on this platform.';
 
   @override
   String get adminRestartServerConfirmation =>
-      'Sunucuyu yeniden başlatmak istediğinize emin misiniz?';
+      'Are you sure you want to restart the server?';
 
   @override
   String get adminShutdownServerConfirmation =>
-      'Sunucuyu kapatmak istediğinize emin misiniz? Sunucuyu daha sonra manuel olarak yeniden başlatmanız gerekecektir.';
+      'Are you sure you want to shut down the server? You will need to restart it manually.';
 
   @override
-  String get internal => 'Dahili';
+  String get internal => 'Internal';
 
   @override
-  String get idle => 'Boşta';
+  String get idle => 'Idle';
 
   @override
-  String get os => 'İşletim Sistemi';
+  String get os => 'OS';
 
   @override
-  String get adminNoUsersFound => 'Kullanıcı Bulunamadı';
+  String get adminNoUsersFound => 'No users found';
 
   @override
-  String get adminNoUsersMatchSearch =>
-      'Aramanızla eşleşen kullanıcı bulunamadı';
+  String get adminNoUsersMatchSearch => 'No users match your search';
 
   @override
-  String get adminNoDevicesFound => 'Cihaz bulunamadı';
+  String get adminNoDevicesFound => 'No devices found';
 
   @override
   String get adminNoDevicesMatchCurrentFilters =>
-      'Mevcut filtrelere uygun cihaz bulunamadı';
+      'No devices match the current filters';
 
   @override
-  String get passwordSet => 'Şifre belirlendi';
+  String get passwordSet => 'Password set';
 
   @override
-  String get noPasswordConfigured => 'Şifre belirlenmedi';
+  String get noPasswordConfigured => 'No password configured';
 
   @override
-  String get remoteAccess => 'Uzaktan Erişim';
+  String get remoteAccess => 'Remote Access';
 
   @override
-  String get localOnly => 'Sadece Yerel Ağ';
+  String get localOnly => 'Local Only';
 
   @override
-  String get adminMediaAnalyticsLoadFailed => 'Medya analizleri yüklenemedi';
+  String get adminMediaAnalyticsLoadFailed => 'Failed to load media analytics';
 
   @override
   String get analyticsCombinedAcrossLibraries =>
-      'Tüm medya kütüphanelerinin ortak istatistikleri.';
+      'Combined analytics across all media libraries.';
 
   @override
-  String get analyticsTopArtists => 'En Çok Dinlenen Sanatçılar';
+  String get analyticsTopArtists => 'Top Artists';
 
   @override
-  String get analyticsTopAuthors => 'En Çok Okunan Yazarlar';
+  String get analyticsTopAuthors => 'Top Authors';
 
   @override
-  String get analyticsTopContributors => 'En Çok Katkıda Bulunanlar';
+  String get analyticsTopContributors => 'Top Contributors';
 
   @override
   String analyticsLibrariesCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count Kütüphane',
-      one: '1 Kütüphane',
+      other: '$count Libraries',
+      one: '1 Library',
     );
     return '$_temp0';
   }
 
   @override
   String get analyticsNoIndexedMediaTotals =>
-      'Bu seçim için henüz dizine eklenmiş medya toplamı bulunmuyor.';
+      'No indexed media totals are available for this selection yet.';
 
   @override
-  String get analyticsLibraryDetails => 'Kütüphane Detayları';
+  String get analyticsLibraryDetails => 'Library Details';
 
   @override
-  String get analyticsLibraryBreakdown => 'Kütüphane Dağılımı';
+  String get analyticsLibraryBreakdown => 'Library Breakdown';
 
   @override
-  String get analyticsNoLibrariesAvailable => 'Kullanılabilir kütüphane yok.';
+  String get analyticsNoLibrariesAvailable => 'No libraries are available.';
 
   @override
-  String get adminServerAdministrationTitle => 'Sunucu Yönetimi';
+  String get adminServerAdministrationTitle => 'Server Administration';
 
   @override
-  String get adminServerPathData => 'Veri';
+  String get adminServerPathData => 'Data';
 
   @override
-  String get adminServerPathImageCache => 'Görsel Önbelleği';
+  String get adminServerPathImageCache => 'Image Cache';
 
   @override
-  String get adminServerPathCache => 'Önbellek';
+  String get adminServerPathCache => 'Cache';
 
   @override
-  String get adminServerPathLogs => 'Günlükler';
+  String get adminServerPathLogs => 'Logs';
 
   @override
   String get adminServerPathMetadata => 'Metadata';
 
   @override
-  String get adminServerPathTranscode => 'Dönüştür';
+  String get adminServerPathTranscode => 'Transcode';
 
   @override
   String get adminServerPathWeb => 'Web';
 
   @override
   String get adminNoServerPathsReturned =>
-      'Bu sunucu tarafından hiçbir sunucu yolu döndürülmedi.';
+      'No server paths returned by this server.';
 
   @override
   String adminPercentUsed(int percent) {
-    return '%$percent kullanıldı';
+    return '$percent% used';
   }
 
   @override
-  String get userActivity => 'Kullanıcı Hareketleri';
+  String get userActivity => 'User Activity';
 
   @override
-  String get systemEvents => 'Sistem Olayları';
+  String get systemEvents => 'System Events';
 
   @override
-  String get needsAttention => 'İşlem Gerekiyor';
+  String get needsAttention => 'Needs Attention';
 
   @override
-  String get adminDrawerSectionServer => 'Sunucu';
+  String get adminDrawerSectionServer => 'Server';
 
   @override
-  String get adminDrawerSectionPlayback => 'Oynatma';
+  String get adminDrawerSectionPlayback => 'Playback';
 
   @override
-  String get adminDrawerSectionDevices => 'Cihazlar';
+  String get adminDrawerSectionDevices => 'Devices';
 
   @override
-  String get adminDrawerSectionAdvanced => 'Gelişmiş';
+  String get adminDrawerSectionAdvanced => 'Advanced';
 
   @override
   String get adminDrawerSectionPlugins => 'Plugins';
 
   @override
-  String get adminDrawerSectionLiveTv => 'Canlı TV';
+  String get adminDrawerSectionLiveTv => 'Live TV';
 
   @override
-  String get homeVideos => 'Kişisel Videolar';
+  String get homeVideos => 'Home Videos';
 
   @override
-  String get mixedContent => 'Karma İçerik';
+  String get mixedContent => 'Mixed Content';
 
   @override
-  String get homeVideosAndPhotos => 'Kişisel Videolar & Fotoğraflar';
+  String get homeVideosAndPhotos => 'Home Videos & Photos';
 
   @override
-  String get mixedMoviesAndShows => 'Karışık Film & Diziler';
+  String get mixedMoviesAndShows => 'Mixed Movies & Shows';
 
   @override
   String get intelQuickSync => 'Intel Quick Sync';
@@ -8104,223 +8047,223 @@ class AppLocalizationsTr extends AppLocalizations {
   String get dolbyVision => 'Dolby Vision';
 
   @override
-  String get noRecordingsFound => 'Kayıt bulunamadı';
+  String get noRecordingsFound => 'No recordings found';
 
   @override
   String noImagePagesFoundInArchive(String extension) {
-    return '.$extension arşivi içinde hiç resim sayfası bulunamadı.';
+    return 'No image pages found inside .$extension archive.';
   }
 
   @override
   String embeddedRendererFailed(int code, String description) {
-    return 'Gömülü oynatıcı hatası ($code): $description';
+    return 'Embedded renderer failed ($code): $description';
   }
 
   @override
   String epubRendererFailed(int code, String description) {
-    return 'EPUB okuyucu hatası ($code): $description';
+    return 'EPUB renderer failed ($code): $description';
   }
 
   @override
   String missingLocalFileForReader(String uri) {
-    return 'Okuyucu için yerel dosya bulunamadı: $uri';
+    return 'Missing local file for reader: $uri';
   }
 
   @override
   String httpStatusWhileOpeningBookData(int status, String uri) {
-    return '$uri adresinden kitap verileri açılırken HTTP $status hatası alındı';
+    return 'HTTP $status while opening book data from $uri';
   }
 
   @override
   String get noReadableBookEndpointAvailable =>
-      'Okunabilir bir kitap bağlantı noktası bulunamadı';
+      'No readable book endpoint available';
 
   @override
   String unsupportedComicArchiveFormat(String extension) {
-    return 'Desteklenmeyen çizgi roman arşiv formatı: .$extension';
+    return 'Unsupported comic archive format: .$extension';
   }
 
   @override
   String get cbrExtractionPluginUnavailable =>
-      'CBR çıkarma eklentisi bu platformda mevcut değil.';
+      'CBR extraction plugin is not available on this platform.';
 
   @override
-  String get failedToExtractCbrArchive => '.cbr arşivi çıkarılamadı.';
+  String get failedToExtractCbrArchive => 'Failed to extract .cbr archive.';
 
   @override
   String get cb7ExtractionUnavailable =>
-      'CB7 çıkarma işlemi bu platformda mevcut değil.';
+      'CB7 extraction is not available on this platform.';
 
   @override
   String get cb7ExtractionPluginUnavailable =>
-      'CB7 çıkarma eklentisi bu platformda mevcut değil.';
+      'CB7 extraction plugin is not available on this platform.';
 
   @override
-  String get closeGenrePanel => 'Tür panelini kapat';
+  String get closeGenrePanel => 'Close genre panel';
 
   @override
-  String get loadingShuffle => 'Karışık liste yükleniyor...';
+  String get loadingShuffle => 'Loading shuffle...';
 
   @override
-  String get libraryShuffleLabel => 'KÜTÜPHANEYİ KARIŞTIR';
+  String get libraryShuffleLabel => 'LIBRARY SHUFFLE';
 
   @override
-  String get randomShuffleLabel => 'RASTGELE KARIŞTIR';
+  String get randomShuffleLabel => 'RANDOM SHUFFLE';
 
   @override
-  String get genresShuffleLabel => 'TÜRLERİ KARIŞTIR';
+  String get genresShuffleLabel => 'GENRES SHUFFLE';
 
   @override
-  String get autoHdrSwitching => 'Otomatik HDR Geçişi';
+  String get autoHdrSwitching => 'Auto HDR Switching';
 
   @override
   String get autoHdrSwitchingDescription =>
-      'HDR video oynatılırken HDR\'ı otomatik olarak etkinleştirir ve çıkışta ekran modunu eski haline getirir.';
+      'Automatically enable HDR for HDR video playback and restore display mode on exit.';
 
   @override
-  String get whenFullscreen => 'Tam ekrandayken';
+  String get whenFullscreen => 'When fullscreen';
 
   @override
-  String get changeArtwork => 'Görseli Değiştir';
+  String get changeArtwork => 'Change Artwork';
 
   @override
-  String get missing => 'Kayıp';
+  String get missing => 'Missing';
 
   @override
-  String get transcodingLimits => 'Dönüştürme Sınırları';
+  String get transcodingLimits => 'Transcoding Limits';
 
   @override
-  String get clearAllArtworkButton => 'Tüm görseller silinsin mi?';
+  String get clearAllArtworkButton => 'Clear all artwork?';
 
   @override
   String get clearAllArtworkWarning =>
-      'İndirilen tüm görselleri temizlemek istediğinize emin misiniz?';
+      'Are you sure you want to clear all downloaded artwork?';
 
   @override
-  String get confirmClear => 'Silmeyi Onayla';
+  String get confirmClear => 'Confirm Clear';
 
   @override
   String confirmClearMessage(String itemType) {
-    return 'Bu nesneyi ($itemType) temizlemek istediğinize emin misiniz?';
+    return 'Are you sure you would like to clear this $itemType?';
   }
 
   @override
-  String get uploadButton => 'Yükle?';
+  String get uploadButton => 'Upload?';
 
   @override
-  String get resolutionLabel => 'Çözünürlük: ';
+  String get resolutionLabel => 'Resolution: ';
 
   @override
   String get onlyShowInterfaceLanguage =>
-      'Görselleri yalnızca arayüz dilinde göster';
+      'Only show artwork in interface language';
 
   @override
-  String get confirmClearAll => 'Tümünü Temizlemeyi Onayla';
+  String get confirmClearAll => 'Confirm Clear All';
 
   @override
-  String get imageUploadSuccess => 'Görsel başarıyla yüklendi!';
+  String get imageUploadSuccess => 'Image uploaded successfully!';
 
   @override
   String imageUploadFailed(String error) {
-    return 'Görsel yüklenemedi: $error';
+    return 'Failed to upload image: $error';
   }
 
   @override
   String imageDownloadFailed(String error) {
-    return 'Görsel ayarlanamadı: $error';
+    return 'Failed to set image: $error';
   }
 
   @override
   String imageDeleteFailed(String error) {
-    return 'Görsel silinemedi: $error';
+    return 'Failed to delete image: $error';
   }
 
   @override
   String clearAllArtworkFailed(String error) {
-    return 'Tüm görseller temizlenemedi: $error';
+    return 'Failed to clear all artwork: $error';
   }
 
   @override
-  String get yes => 'Evet';
+  String get yes => 'Yes';
 
   @override
   String get posterCategory => 'Poster';
 
   @override
-  String get backdropsCategory => 'Arka Planlar';
+  String get backdropsCategory => 'Backdrops';
 
   @override
-  String get bannerCategory => 'Afiş';
+  String get bannerCategory => 'Banner';
 
   @override
   String get logoCategory => 'Logo';
 
   @override
-  String get thumbnailCategory => 'Küçük Resim';
+  String get thumbnailCategory => 'Thumbnail';
 
   @override
-  String get artCategory => 'Görsel';
+  String get artCategory => 'Art';
 
   @override
-  String get discArtCategory => 'Disk Görseli';
+  String get discArtCategory => 'Disc Art';
 
   @override
-  String get screenshotCategory => 'Ekran Görüntüsü';
+  String get screenshotCategory => 'Screenshot';
 
   @override
-  String get boxCoverCategory => 'Kutu Kapağı';
+  String get boxCoverCategory => 'Box Cover';
 
   @override
-  String get boxRearCoverCategory => 'Kutu Arka Kapağı';
+  String get boxRearCoverCategory => 'Box Rear Cover';
 
   @override
-  String get menuArtCategory => 'Menü Görseli';
+  String get menuArtCategory => 'Menu Art';
 
   @override
   String get confirmItemPoster => 'poster';
 
   @override
-  String get confirmItemBackdrop => 'arka plan';
+  String get confirmItemBackdrop => 'backdrop';
 
   @override
-  String get confirmItemBanner => 'afiş';
+  String get confirmItemBanner => 'banner';
 
   @override
   String get confirmItemLogo => 'logo';
 
   @override
-  String get confirmItemThumbnail => 'küçük resim';
+  String get confirmItemThumbnail => 'thumbnail';
 
   @override
-  String get confirmItemArt => 'görsel';
+  String get confirmItemArt => 'art';
 
   @override
-  String get confirmItemDiscArt => 'disk görseli';
+  String get confirmItemDiscArt => 'disc art';
 
   @override
-  String get confirmItemScreenshot => 'ekran görüntüsü';
+  String get confirmItemScreenshot => 'screenshot';
 
   @override
-  String get confirmItemBoxCover => 'kutu kapağı';
+  String get confirmItemBoxCover => 'box cover';
 
   @override
-  String get confirmItemBoxRearCover => 'kutu arka kapağı';
+  String get confirmItemBoxRearCover => 'box rear cover';
 
   @override
-  String get confirmItemMenuArt => 'menü görseli';
+  String get confirmItemMenuArt => 'menu art';
 
   @override
-  String get resolutionAll => 'Tümü';
+  String get resolutionAll => 'All';
 
   @override
-  String get resolutionHigh => 'Yüksek (1080p+)';
+  String get resolutionHigh => 'High (1080p+)';
 
   @override
-  String get resolutionMedium => 'Orta (720p)';
+  String get resolutionMedium => 'Medium (720p)';
 
   @override
-  String get resolutionLow => 'Düşük (<720p)';
+  String get resolutionLow => 'Low (<720p)';
 
   @override
-  String get sources => 'Kaynaklar';
+  String get sources => 'Sources';
 }

@@ -1718,7 +1718,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de cuenta vidente';
@@ -6487,6 +6487,14 @@ class AppLocalizationsEs extends AppLocalizations {
       'Aún no hay servidores Jellyfin que informen sobre el complemento.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecta filas configuradas mediante el complemento \"KefinTweaks\" de ranaldsgift. Las secciones personalizadas, publicadas recientemente, ver de nuevo, de temporada y agregadas recientemente en la biblioteca se reflejan desde la configuración de KefinTweaks en cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ningún servidor Jellyfin informa sobre KefinTweaks todavía.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secciones de inicio';
 
   @override
@@ -6522,7 +6530,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver todo';
@@ -7496,40 +7504,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get themeStore => 'Theme Store';
-
-  @override
-  String get themeStoreSubtitle => 'Browse and save community themes';
-
-  @override
-  String get themeStoreDescription =>
-      'Save a theme to use it like your other saved themes.';
-
-  @override
-  String get themeStoreEmpty => 'No themes are available right now.';
-
-  @override
-  String get themeStoreLoadFailed =>
-      'Couldn\'t load the Theme Store. Check your connection and try again.';
-
-  @override
-  String get themeStoreSave => 'Save';
-
-  @override
-  String get themeStoreSaveAndApply => 'Save & apply';
-
-  @override
-  String get themeStoreSaved => 'Saved';
-
-  @override
-  String get themeStoreInvalidMessage => 'This theme couldn\'t be loaded.';
-
-  @override
-  String themeStoreSavedMessage(String themeName) {
-    return 'Saved \"$themeName\".';
-  }
-
-  @override
   String savedThemesDeletedMessage(String themeName) {
     return 'Se eliminó \"$themeName\" de este dispositivo.';
   }
@@ -7561,6 +7535,9 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get savedThemesManageSubtitle =>
       'Administrar temas de complementos descargados en este dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secciones de la pantalla de inicio';
@@ -7673,22 +7650,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get playlistsRowSortingDescription =>
       'Sort Playlist rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get displayAudioRows => 'Display Audio Rows';
-
-  @override
-  String get displayAudioRowsSubtitle => 'Show Audio rows in Home Sections.';
-
-  @override
-  String get audioRowsSorting => 'Audio Rows sorting';
-
-  @override
-  String get audioRowsSortingDescription =>
-      'Sort Audio rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get audioPlaylists => 'Audio Playlists';
 
   @override
   String get displaySeerrRows => 'Display Seerr Discovery Rows';
@@ -10076,7 +10037,7 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de cuenta vidente';
@@ -14759,6 +14720,14 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
       'Aún no hay servidores Jellyfin que informen sobre el complemento.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecta filas configuradas mediante el complemento \"KefinTweaks\" de ranaldsgift. Las secciones personalizadas, publicadas recientemente, ver de nuevo, de temporada y agregadas recientemente en la biblioteca se reflejan desde la configuración de KefinTweaks en cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ningún servidor Jellyfin informa sobre KefinTweaks todavía.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secciones de inicio';
 
   @override
@@ -14794,7 +14763,7 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver todo';
@@ -15771,6 +15740,9 @@ class AppLocalizationsEs419 extends AppLocalizationsEs {
   @override
   String get savedThemesManageSubtitle =>
       'Administrar temas de complementos descargados en este dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secciones de la pantalla de inicio';
@@ -18087,7 +18059,7 @@ class AppLocalizationsEsAr extends AppLocalizationsEs {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de cuenta vidente';
@@ -22770,6 +22742,14 @@ class AppLocalizationsEsAr extends AppLocalizationsEs {
       'Aún no hay servidores Jellyfin que informen sobre el complemento.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecta filas configuradas mediante el complemento \"KefinTweaks\" de ranaldsgift. Las secciones personalizadas, publicadas recientemente, ver de nuevo, de temporada y agregadas recientemente en la biblioteca se reflejan desde la configuración de KefinTweaks en cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ningún servidor Jellyfin informa sobre KefinTweaks todavía.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secciones de inicio';
 
   @override
@@ -22805,7 +22785,7 @@ class AppLocalizationsEsAr extends AppLocalizationsEs {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver todo';
@@ -23782,6 +23762,9 @@ class AppLocalizationsEsAr extends AppLocalizationsEs {
   @override
   String get savedThemesManageSubtitle =>
       'Administrar temas de complementos descargados en este dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secciones de la pantalla de inicio';
@@ -26098,7 +26081,7 @@ class AppLocalizationsEsDo extends AppLocalizationsEs {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de cuenta vidente';
@@ -30781,6 +30764,14 @@ class AppLocalizationsEsDo extends AppLocalizationsEs {
       'Aún no hay servidores Jellyfin que informen sobre el complemento.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecta filas configuradas mediante el complemento \"KefinTweaks\" de ranaldsgift. Las secciones personalizadas, publicadas recientemente, ver de nuevo, de temporada y agregadas recientemente en la biblioteca se reflejan desde la configuración de KefinTweaks en cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ningún servidor Jellyfin informa sobre KefinTweaks todavía.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secciones de inicio';
 
   @override
@@ -30816,7 +30807,7 @@ class AppLocalizationsEsDo extends AppLocalizationsEs {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver todo';
@@ -31793,6 +31784,9 @@ class AppLocalizationsEsDo extends AppLocalizationsEs {
   @override
   String get savedThemesManageSubtitle =>
       'Administrar temas de complementos descargados en este dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secciones de la pantalla de inicio';
@@ -34109,7 +34103,7 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de cuenta vidente';
@@ -38792,6 +38786,14 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
       'Aún no hay servidores Jellyfin que informen sobre el complemento.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecta filas configuradas mediante el complemento \"KefinTweaks\" de ranaldsgift. Las secciones personalizadas, publicadas recientemente, ver de nuevo, de temporada y agregadas recientemente en la biblioteca se reflejan desde la configuración de KefinTweaks en cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ningún servidor Jellyfin informa sobre KefinTweaks todavía.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secciones de inicio';
 
   @override
@@ -38827,7 +38829,7 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver todo';
@@ -39804,6 +39806,9 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   @override
   String get savedThemesManageSubtitle =>
       'Administrar temas de complementos descargados en este dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secciones de la pantalla de inicio';

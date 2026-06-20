@@ -1711,7 +1711,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get seerr => 'Seerr';
+  String get seerr => 'Vidente';
 
   @override
   String get seerrAccountType => 'Tipo de conta Seerr';
@@ -6472,6 +6472,14 @@ class AppLocalizationsPt extends AppLocalizations {
       'Nenhum servidor Jellyfin reportando o plugin ainda.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecte linhas configuradas por meio do plugin \"KefinTweaks\" do ranaldsgift. Seções personalizadas, lançadas recentemente, assistidas novamente, sazonais e adicionadas recentemente na biblioteca são espelhadas da configuração KefinTweaks em cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Nenhum servidor Jellyfin reportando KefinTweaks ainda.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir seções iniciais';
 
   @override
@@ -6507,7 +6515,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver Tudo';
@@ -7477,40 +7485,6 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get themeStore => 'Theme Store';
-
-  @override
-  String get themeStoreSubtitle => 'Browse and save community themes';
-
-  @override
-  String get themeStoreDescription =>
-      'Save a theme to use it like your other saved themes.';
-
-  @override
-  String get themeStoreEmpty => 'No themes are available right now.';
-
-  @override
-  String get themeStoreLoadFailed =>
-      'Couldn\'t load the Theme Store. Check your connection and try again.';
-
-  @override
-  String get themeStoreSave => 'Save';
-
-  @override
-  String get themeStoreSaveAndApply => 'Save & apply';
-
-  @override
-  String get themeStoreSaved => 'Saved';
-
-  @override
-  String get themeStoreInvalidMessage => 'This theme couldn\'t be loaded.';
-
-  @override
-  String themeStoreSavedMessage(String themeName) {
-    return 'Saved \"$themeName\".';
-  }
-
-  @override
   String savedThemesDeletedMessage(String themeName) {
     return 'Excluído \"$themeName\" deste dispositivo.';
   }
@@ -7542,6 +7516,9 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get savedThemesManageSubtitle =>
       'Gerenciar temas de plug-ins baixados neste dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Seções da tela inicial';
@@ -7654,22 +7631,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get playlistsRowSortingDescription =>
       'Sort Playlist rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get displayAudioRows => 'Display Audio Rows';
-
-  @override
-  String get displayAudioRowsSubtitle => 'Show Audio rows in Home Sections.';
-
-  @override
-  String get audioRowsSorting => 'Audio Rows sorting';
-
-  @override
-  String get audioRowsSortingDescription =>
-      'Sort Audio rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get audioPlaylists => 'Audio Playlists';
 
   @override
   String get displaySeerrRows => 'Display Seerr Discovery Rows';
@@ -14702,6 +14663,14 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Nenhum servidor Jellyfin reportando o plugin ainda.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecte linhas configuradas por meio do plugin \"KefinTweaks\" do ranaldsgift. Seções personalizadas, lançadas recentemente, assistidas novamente, sazonais e adicionadas recentemente na biblioteca são espelhadas da configuração KefinTweaks em cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Nenhum servidor Jellyfin reportando KefinTweaks ainda.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir seções iniciais';
 
   @override
@@ -14737,7 +14706,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver tudo';
@@ -15704,6 +15673,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   @override
   String get savedThemesManageSubtitle =>
       'Manage downloaded plugin themes on this device';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Home Screen Sections';
@@ -19269,7 +19241,7 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
 
   @override
   String get mergeContinueWatchingAndNextUp =>
-      'Combinar «Continuar a Ver» e «Próximo»';
+      'Mesclar Continuar a Ver e Próximo';
 
   @override
   String get combineBothRows =>
@@ -22711,6 +22683,14 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
       'Nenhum servidor Jellyfin a reportar o plugin ainda.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Deteta linhas configuradas através do plugin \"KefinTweaks\" do ranaldsgift. Secções personalizadas, lançadas recentemente, vistas novamente, sazonais e adicionadas recentemente na biblioteca são espelhadas da configuração KefinTweaks em cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Nenhum servidor Jellyfin a reportar KefinTweaks ainda.';
+
+  @override
   String get integrationOpenHomeSections => 'Abrir secções iniciais';
 
   @override
@@ -22746,7 +22726,7 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Ver tudo';
@@ -23742,6 +23722,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   @override
   String get savedThemesManageSubtitle =>
       'Gerir temas de plugins baixados neste dispositivo';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Secções do ecrã inicial';

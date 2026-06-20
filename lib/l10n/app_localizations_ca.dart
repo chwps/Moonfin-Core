@@ -6518,6 +6518,14 @@ class AppLocalizationsCa extends AppLocalizations {
       'Encara no hi ha cap servidor Jellyfin que informi del connector.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Detecteu les files configurades mitjançant el connector \"KefinTweaks\" de ranaldsgift. Les seccions personalitzades, llançades recentment, tornar a veure, estacionals i afegides recentment a la biblioteca es reflecteixen des de la configuració de KefinTweaks a cada servidor Jellyfin.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Encara no hi ha cap servidor Jellyfin que informi de KefinTweaks.';
+
+  @override
   String get integrationOpenHomeSections => 'Obriu les seccions d\'inici';
 
   @override
@@ -6553,7 +6561,7 @@ class AppLocalizationsCa extends AppLocalizations {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Veure-ho tot';
@@ -7532,40 +7540,6 @@ class AppLocalizationsCa extends AppLocalizations {
   }
 
   @override
-  String get themeStore => 'Theme Store';
-
-  @override
-  String get themeStoreSubtitle => 'Browse and save community themes';
-
-  @override
-  String get themeStoreDescription =>
-      'Save a theme to use it like your other saved themes.';
-
-  @override
-  String get themeStoreEmpty => 'No themes are available right now.';
-
-  @override
-  String get themeStoreLoadFailed =>
-      'Couldn\'t load the Theme Store. Check your connection and try again.';
-
-  @override
-  String get themeStoreSave => 'Save';
-
-  @override
-  String get themeStoreSaveAndApply => 'Save & apply';
-
-  @override
-  String get themeStoreSaved => 'Saved';
-
-  @override
-  String get themeStoreInvalidMessage => 'This theme couldn\'t be loaded.';
-
-  @override
-  String themeStoreSavedMessage(String themeName) {
-    return 'Saved \"$themeName\".';
-  }
-
-  @override
   String savedThemesDeletedMessage(String themeName) {
     return 'S\'ha suprimit \"$themeName\" d\'aquest dispositiu.';
   }
@@ -7597,6 +7571,9 @@ class AppLocalizationsCa extends AppLocalizations {
   @override
   String get savedThemesManageSubtitle =>
       'Gestiona els temes de connectors baixats en aquest dispositiu';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Seccions de la pantalla d\'inici';
@@ -7709,22 +7686,6 @@ class AppLocalizationsCa extends AppLocalizations {
   @override
   String get playlistsRowSortingDescription =>
       'Sort Playlist rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get displayAudioRows => 'Display Audio Rows';
-
-  @override
-  String get displayAudioRowsSubtitle => 'Show Audio rows in Home Sections.';
-
-  @override
-  String get audioRowsSorting => 'Audio Rows sorting';
-
-  @override
-  String get audioRowsSortingDescription =>
-      'Sort Audio rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get audioPlaylists => 'Audio Playlists';
 
   @override
   String get displaySeerrRows => 'Display Seerr Discovery Rows';

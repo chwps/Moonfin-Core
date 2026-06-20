@@ -225,23 +225,23 @@ class AppLocalizationsDa extends AppLocalizations {
   }
 
   @override
-  String get exitApp => 'Afslut Moonfin?';
+  String get exitApp => 'Forlade Moonfin?';
 
   @override
   String get exitAppConfirmation => 'Er du sikker på, at du vil afslutte?';
 
   @override
-  String get exit => 'Afslut';
+  String get exit => 'Udgang';
 
   @override
-  String get noHomeRowsLoaded => 'Ingen Hjem-rækker kunne indlæses';
+  String get noHomeRowsLoaded => 'Ingen hjemmerækker kunne indlæses';
 
   @override
   String get noHomeRowsHint =>
-      'Prøv at opdatere eller reducere aktive Hjem-sektioner.';
+      'Prøv at opdatere eller reducere aktive hjemmesektioner.';
 
   @override
-  String get retryHomeRows => 'Genindlæs Hjem-rækkerne';
+  String get retryHomeRows => 'Prøv Hjem-rækkerne igen';
 
   @override
   String get guide => 'Guide';
@@ -250,13 +250,13 @@ class AppLocalizationsDa extends AppLocalizations {
   String get recordings => 'Optagelser';
 
   @override
-  String get schedule => 'Planlægning';
+  String get schedule => 'Skema';
 
   @override
-  String get series => 'Serier';
+  String get series => 'Serie';
 
   @override
-  String get noItemsFound => 'Ingen elementer fundet';
+  String get noItemsFound => 'Ingen varer fundet';
 
   @override
   String get home => 'Hjem';
@@ -268,19 +268,19 @@ class AppLocalizationsDa extends AppLocalizations {
   String get genres => 'Genrer';
 
   @override
-  String get collectionPlaceholder => 'Samlingselementer vises her';
+  String get collectionPlaceholder => 'Samlingsgenstande vises her';
 
   @override
   String get browseByLetter => 'Gennemse efter bogstav';
 
   @override
-  String get alphabeticalBrowsePlaceholder => 'Alfabetisk oversigt vises her';
+  String get alphabeticalBrowsePlaceholder => 'Alfabetisk browse vises her';
 
   @override
   String get suggestions => 'Forslag';
 
   @override
-  String get suggestionsPlaceholder => 'Foreslåede elementer vises her';
+  String get suggestionsPlaceholder => 'Foreslåede varer vises her';
 
   @override
   String get failedToLoadLibraries => 'Kunne ikke indlæse biblioteker';
@@ -327,7 +327,7 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String totalCountItems(int count) {
-    return '$count elementer';
+    return '$count Elementer';
   }
 
   @override
@@ -337,7 +337,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get ended => 'Afsluttet';
 
   @override
-  String get sortAndFilter => 'Sortér og filtrér';
+  String get sortAndFilter => 'Sorter og filtrer';
 
   @override
   String get type => 'Type';
@@ -826,7 +826,7 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String endsAt(String time) {
-    return 'Slutter kl. $time';
+    return 'Slutter ved $time';
   }
 
   @override
@@ -876,7 +876,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get cast => 'Cast';
 
   @override
-  String get trailer => 'Trailer';
+  String get trailer => 'Anhænger';
 
   @override
   String get finished => 'Færdig';
@@ -1206,10 +1206,10 @@ class AppLocalizationsDa extends AppLocalizations {
   String get stillWatching => 'Ser du stadig?';
 
   @override
-  String get unableToLoadTrailerStream => 'Kan ikke indlæse trailer.';
+  String get unableToLoadTrailerStream => 'Kan ikke indlæse trailerstream.';
 
   @override
-  String get trailerTimedOut => 'Traileren fik timeout under indlæsning.';
+  String get trailerTimedOut => 'Traileren fik timeout under lastning.';
 
   @override
   String get playbackFailedForTrailer =>
@@ -6424,6 +6424,14 @@ class AppLocalizationsDa extends AppLocalizations {
       'Ingen Jellyfin-servere rapporterer pluginnet endnu.';
 
   @override
+  String get kefinTweaksIntegrationDescription =>
+      'Registrer rækker konfigureret via ranaldsgifts \"KefinTweaks\" plugin. Brugerdefinerede sektioner, for nylig udgivet, se igen, sæsonbestemt og for nylig tilføjet i biblioteket, spejles fra KefinTweaks-konfigurationen på hver Jellyfin-server.';
+
+  @override
+  String get kefinTweaksIntegrationNoServers =>
+      'Ingen Jellyfin-servere rapporterer KefinTweaks endnu.';
+
+  @override
   String get integrationOpenHomeSections => 'Åbn Home Sektioner';
 
   @override
@@ -6459,7 +6467,7 @@ class AppLocalizationsDa extends AppLocalizations {
   }
 
   @override
-  String get jellyseerr => 'Seerr';
+  String get jellyseerr => 'Jellyseerr';
 
   @override
   String get seeAll => 'Se alle';
@@ -7225,7 +7233,8 @@ class AppLocalizationsDa extends AppLocalizations {
   String get settingsCinemaMode => 'Biograftilstand';
 
   @override
-  String get settingsCinemaModeSubtitle => 'Spil trailere før en hovedfunktion';
+  String get settingsCinemaModeSubtitle =>
+      'Spil trailere/prerolls før en hovedfunktion';
 
   @override
   String get settingsNextUpDisplayDescription =>
@@ -7420,40 +7429,6 @@ class AppLocalizationsDa extends AppLocalizations {
   }
 
   @override
-  String get themeStore => 'Theme Store';
-
-  @override
-  String get themeStoreSubtitle => 'Browse and save community themes';
-
-  @override
-  String get themeStoreDescription =>
-      'Save a theme to use it like your other saved themes.';
-
-  @override
-  String get themeStoreEmpty => 'No themes are available right now.';
-
-  @override
-  String get themeStoreLoadFailed =>
-      'Couldn\'t load the Theme Store. Check your connection and try again.';
-
-  @override
-  String get themeStoreSave => 'Save';
-
-  @override
-  String get themeStoreSaveAndApply => 'Save & apply';
-
-  @override
-  String get themeStoreSaved => 'Saved';
-
-  @override
-  String get themeStoreInvalidMessage => 'This theme couldn\'t be loaded.';
-
-  @override
-  String themeStoreSavedMessage(String themeName) {
-    return 'Saved \"$themeName\".';
-  }
-
-  @override
   String savedThemesDeletedMessage(String themeName) {
     return 'Slettet \"$themeName\" fra denne enhed.';
   }
@@ -7485,6 +7460,9 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get savedThemesManageSubtitle =>
       'Administrer downloadede plugin-temaer på denne enhed';
+
+  @override
+  String get kefinTweaksTitle => 'KefinTweaks';
 
   @override
   String get homeScreenSectionsTitle => 'Sektioner på startskærmen';
@@ -7595,22 +7573,6 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get playlistsRowSortingDescription =>
       'Sort Playlist rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get displayAudioRows => 'Display Audio Rows';
-
-  @override
-  String get displayAudioRowsSubtitle => 'Show Audio rows in Home Sections.';
-
-  @override
-  String get audioRowsSorting => 'Audio Rows sorting';
-
-  @override
-  String get audioRowsSortingDescription =>
-      'Sort Audio rows by date added, release date, alphabetically, and more.';
-
-  @override
-  String get audioPlaylists => 'Audio Playlists';
 
   @override
   String get displaySeerrRows => 'Display Seerr Discovery Rows';
