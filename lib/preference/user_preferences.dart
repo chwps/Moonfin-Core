@@ -656,7 +656,9 @@ class UserPreferences extends ChangeNotifier {
 
   static final visualTheme = EnumPreference(
     key: 'app_theme_id',
-    defaultValue: VisualThemeId.moonfin,
+    defaultValue: PlatformDetection.isApple || PlatformDetection.isAppleTV
+        ? VisualThemeId.glass
+        : VisualThemeId.moonfin,
     values: VisualThemeId.values,
   );
 
