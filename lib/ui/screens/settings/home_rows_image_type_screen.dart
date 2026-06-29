@@ -113,6 +113,12 @@ class _HomeRowsImageTypeScreenState extends State<HomeRowsImageTypeScreen> {
         HomeSectionType.tmdbTrendingTvDaily => 'Trending TV (Daily)',
         HomeSectionType.tmdbTrendingTvWeekly => 'Trending TV (Weekly)',
         HomeSectionType.tmdbTrendingAllWeekly => 'Trending All (Weekly)',
+        HomeSectionType.sinceYouWatched1 => 'Since You Watched Row 1',
+        HomeSectionType.sinceYouWatched2 => 'Since You Watched Row 2',
+        HomeSectionType.sinceYouWatched3 => 'Since You Watched Row 3',
+        HomeSectionType.sinceYouWatched4 => 'Since You Watched Row 4',
+        HomeSectionType.sinceYouWatched5 => 'Since You Watched Row 5',
+        HomeSectionType.rewatch => 'Rewatch',
         HomeSectionType.none => l10n.none,
       };
 
