@@ -845,6 +845,13 @@ class UserPreferences extends ChangeNotifier {
     values: DetailScreenStyle.values,
   );
 
+  /// Default mobile view for the Live TV guide (Now/Next list vs compact grid).
+  static final epgMobileView = EnumPreference(
+    key: 'pref_epg_mobile_view',
+    defaultValue: EpgMobileView.list,
+    values: EpgMobileView.values,
+  );
+
   /// Optional id of a plugin-supplied custom theme. When non-empty and the id
   /// resolves to a registered custom theme, it overrides [visualTheme].
   /// Empty string means "use the built-in [visualTheme] selection".

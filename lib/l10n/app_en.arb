@@ -2308,6 +2308,48 @@
   "@liveBadge": {
     "description": "Badge label shown on currently airing programs"
   },
+  "guideNextProgram": "Next: {time}  {title}",
+  "@guideNextProgram": {
+    "description": "Guide card line for the upcoming program, e.g. 'Next: 9:00 PM  The News'",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "guideMinutesLeft": "{minutes}m left",
+  "@guideMinutesLeft": {
+    "description": "Remaining time of the current program, under an hour",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "guideHoursLeft": "{hours}h left",
+  "@guideHoursLeft": {
+    "description": "Remaining time of the current program, whole hours",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "guideHoursMinutesLeft": "{hours}h {minutes}m left",
+  "@guideHoursMinutesLeft": {
+    "description": "Remaining time of the current program, hours and minutes",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "movie": "Movie",
   "@movie": {
     "description": "Movie category chip label"

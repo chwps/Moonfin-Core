@@ -2986,6 +2986,30 @@ abstract class AppLocalizations {
   /// **'LIVE'**
   String get liveBadge;
 
+  /// Guide card line for the upcoming program, e.g. 'Next: 9:00 PM  The News'
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {time}  {title}'**
+  String guideNextProgram(String time, String title);
+
+  /// Remaining time of the current program, under an hour
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m left'**
+  String guideMinutesLeft(int minutes);
+
+  /// Remaining time of the current program, whole hours
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h left'**
+  String guideHoursLeft(int hours);
+
+  /// Remaining time of the current program, hours and minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m left'**
+  String guideHoursMinutesLeft(int hours, int minutes);
+
   /// Movie category chip label
   ///
   /// In en, this message translates to:

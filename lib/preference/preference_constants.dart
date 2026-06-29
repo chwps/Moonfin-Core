@@ -198,6 +198,13 @@ enum DetailScreenStyle {
   modern,
 }
 
+/// Default mobile (portrait phone) view for the Live TV guide: a Now/Next
+/// channel card list or the compact time grid.
+enum EpgMobileView {
+  list,
+  grid,
+}
+
 enum RatingType {
   tomatoes,
   rtAudience,

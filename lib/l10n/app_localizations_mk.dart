@@ -1635,6 +1635,26 @@ class AppLocalizationsMk extends AppLocalizations {
   String get liveBadge => 'ВО ЖИВО';
 
   @override
+  String guideNextProgram(String time, String title) {
+    return 'Next: $time  $title';
+  }
+
+  @override
+  String guideMinutesLeft(int minutes) {
+    return '${minutes}m left';
+  }
+
+  @override
+  String guideHoursLeft(int hours) {
+    return '${hours}h left';
+  }
+
+  @override
+  String guideHoursMinutesLeft(int hours, int minutes) {
+    return '${hours}h ${minutes}m left';
+  }
+
+  @override
   String get movie => 'Филм';
 
   @override
