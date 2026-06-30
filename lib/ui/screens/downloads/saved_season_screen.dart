@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,9 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:moonfin_design/moonfin_design.dart';
 
 import '../../../data/database/offline_database.dart';
+import '../../../data/models/aggregated_item.dart';
 import '../../../data/providers/offline_providers.dart';
-import '../../../data/repositories/offline_repository.dart';
-import '../../../data/services/storage_path_service.dart';
+import '../../../data/services/download_service.dart';
 import '../../../util/platform_detection.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../playback/offline_playback_launcher.dart';
@@ -129,16 +128,9 @@ class SavedSeasonScreen extends ConsumerWidget {
     );
     if (confirmed != true) return;
 
-    final repo = GetIt.instance<OfflineRepository>();
-    if (episode.localFilePath != null) {
-      final file = File(episode.localFilePath!);
-      if (await file.exists()) await file.delete();
-    }
-    final imageDir = await GetIt.instance<StoragePathService>().getImageCacheDir();
-    final itemImageDir = Directory('${imageDir.path}/${episode.itemId}');
-    if (await itemImageDir.exists()) await itemImageDir.delete(recursive: true);
-
-    await repo.deleteItem(episode.itemId);
+    final downloadService = GetIt.instance<DownloadService>();
+    final item = AggregatedItem.fromOffline(episode);
+    await downloadService.deleteDownloadedFiles(item);
   }
 }
 

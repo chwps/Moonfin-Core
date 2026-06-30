@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,9 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:moonfin_design/moonfin_design.dart';
 
 import '../../../data/database/offline_database.dart';
+import '../../../data/models/aggregated_item.dart';
 import '../../../data/providers/offline_providers.dart';
-import '../../../data/repositories/offline_repository.dart';
-import '../../../data/services/storage_path_service.dart';
+import '../../../data/services/download_service.dart';
 import '../../../di/providers.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../util/platform_detection.dart';
@@ -434,27 +433,9 @@ class _SavedMediaScreenState extends ConsumerState<SavedMediaScreen> {
   }
 
   Future<void> _deleteItem(DownloadedItem item) async {
-    final repo = GetIt.instance<OfflineRepository>();
-    final imageDir = await GetIt.instance<StoragePathService>()
-        .getImageCacheDir();
-
-    if (item.localFilePath != null) {
-      final file = File(item.localFilePath!);
-      if (await file.exists()) await file.delete();
-    }
-
-    final itemImageDir = Directory('${imageDir.path}/${item.itemId}');
-    if (await itemImageDir.exists()) {
-      await itemImageDir.delete(recursive: true);
-    }
-
-    if (item.type == 'Series') {
-      await repo.deleteSeriesItems(item.itemId);
-    } else if (item.type == 'Season') {
-      await repo.deleteSeasonItems(item.itemId);
-    } else {
-      await repo.deleteItem(item.itemId);
-    }
+    final downloadService = GetIt.instance<DownloadService>();
+    final aggregatedItem = AggregatedItem.fromOffline(item);
+    await downloadService.deleteDownloadedFiles(aggregatedItem);
   }
 
   String _filterLabel(_Filter f) => switch (f) {
