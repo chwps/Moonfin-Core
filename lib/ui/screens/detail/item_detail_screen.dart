@@ -1727,6 +1727,7 @@ class _DetailContentState extends State<_DetailContent> {
     final hasSeasons = viewModel.seasons.isNotEmpty;
     final hasCast = viewModel.actors.isNotEmpty;
     final hasSimilar = viewModel.similar.isNotEmpty;
+    final hasFeatures = viewModel.features.isNotEmpty;
     final hasNextUp = viewModel.nextUp != null;
     final seriesNextUpFocusNode = hasNextUp ? _seriesNextUpFocusNode : null;
     final seasonsFocusNode = hasSeasons
@@ -1910,12 +1911,24 @@ class _DetailContentState extends State<_DetailContent> {
                   seriesNextUpFocusNode ??
                   metadataFocusNode ??
                   actionButtonsFocusNode,
+              downTarget: hasFeatures ? _firstFeatureFocusNode : null,
               itemCount: viewModel.similar.length,
-              consumeDownWhenNoTarget: true,
+              consumeDownWhenNoTarget: !hasFeatures,
             ),
           ),
         ),
       ],
+      ..._buildChapterAndFeatureSections(
+        context,
+        item,
+        selectedMediaSourceId: selectedMediaSourceId,
+        prevSectionFocusNode: similarFocusNode ??
+            castFocusNode ??
+            seasonsFocusNode ??
+            seriesNextUpFocusNode ??
+            metadataFocusNode ??
+            actionButtonsFocusNode,
+      ),
       const SizedBox(height: 48),
     ];
   }
@@ -1949,6 +1962,11 @@ class _DetailContentState extends State<_DetailContent> {
           ),
         ),
       ],
+      ..._buildChapterAndFeatureSections(
+        context,
+        item,
+        selectedMediaSourceId: selectedMediaSourceId,
+      ),
       const SizedBox(height: 48),
     ];
   }
